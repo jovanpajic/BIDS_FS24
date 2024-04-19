@@ -9,6 +9,12 @@ editor: visual
 
 ## 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
 
+Forschungsfrage: Welche Merkmale einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Person zu erzielen?
+
+Columns
+
+neigbourhood_group_cleansed, propert_type, room_type, acco
+
 ## 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
 
 ## 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
@@ -20,7 +26,6 @@ editor: visual
 ## 7. Schlussfolgerung (Beantwortung der Frage)
 
 ## 8. Referenzen
-
 
 ```{r}
 1 + 1
