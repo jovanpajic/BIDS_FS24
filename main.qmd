@@ -5,21 +5,22 @@ format:
 editor: visual
 ---
 
-## 1. Abstract
+## 1. Abstrakt
 
-## 2. Introduction (with research (i.e. business) question at the end)
+## 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
 
-## 3. Data source (covering the source, quality and cleaning steps of data)
+## 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
 
-## 4. Data quality (analysis with respect to data quality aspects)
+## 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
 
-## 5. Data analysis (information to data structure, organization and methodologies used for analysis)
+## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
 
-## 6. Findings (statistical results, figures, graphs)
+## 6. Ergebnisse (statistische Ergebnisse, Zahlen, Diagramme)
 
-## 7. Conclusion (answering question)
+## 7. Schlussfolgerung (Beantwortung der Frage)
 
-## 8. References
+## 8. Referenzen
+
 
 ```{r}
 1 + 1
