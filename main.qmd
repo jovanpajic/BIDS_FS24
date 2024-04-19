@@ -1,23 +1,29 @@
 ---
-title: "main"
+title: "Project reporting"
 format:
   ieee-pdf: default
 editor: visual
 ---
 
-## Quarto
+## 1. Abstract
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+## 2. Introduction (with research (i.e. business) question at the end)
 
-## Running Code
+## 3. Data source (covering the source, quality and cleaning steps of data)
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+## 4. Data quality (analysis with respect to data quality aspects)
+
+## 5. Data analysis (information to data structure, organization and methodologies used for analysis)
+
+## 6. Findings (statistical results, figures, graphs)
+
+## 7. Conclusion (answering question)
+
+## 8. References
 
 ```{r}
 1 + 1
 ```
-
-You can add options to executable code like this
 
 ```{r}
 #| echo: false
