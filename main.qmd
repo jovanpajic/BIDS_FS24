@@ -1,6 +1,7 @@
 ---
 title: "main"
-format: html
+format:
+  ieee-pdf: default
 editor: visual
 ---
 
