@@ -17,6 +17,22 @@ neigbourhood_group_cleansed, propert_type, room_type, acco
 
 ## 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
 
+Die Daten für die Analyse wurden von der offiziellen Quelle von Airbnb bezogen, speziell von Inside Airbnb (<https://insideairbnb.com/get-the-data/>). Die Datensätze wurden für drei bedeutende Regionen in der Schweiz extrahiert: Zürich (27. Dezember 2023), Genf (27. Dezember 2023) und Vaud (10. März 2024).
+
+Die Daten umfassen verschiedene Dateiformate für jede Stadt, wobei für die Analyse hauptsächlich das "listings_long.csv"-File verwendet wird, da es für die Geschäftsfragen relevant ist. Die Qualität der Daten in diesem File ist insgesamt sehr hoch, mit wenigen leeren Feldern und einer konsistenten Struktur innerhalb der Spalten.
+
+Einige Spalten, wie "description", "neighborhood_overview", "host_neighborhood", "neighborhood", und die Beschreibung der Liegenschaft, wie "bathrooms" und "bedrooms", weisen eine beträchtliche Anzahl leerer Felder auf. Es wird vermutet, dass diese Felder optional für die Gastgeber sind und daher nicht immer ausgefüllt werden. Ebenso fehlt bei einigen Einträgen der Preis, was eine Analyse erfordert, um mögliche Korrelationen mit anderen Feldern, wie dem ersten Review, zu identifizieren.
+
+Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch, und die Beschreibung der Datenfelder wird durch das Data Dictionary (<https://docs.google.com/spreadsheets/d/1iWCNJcSutYqpULSQHlNyGInUvHg2BoUGoNRIGa6Szc4/edit#gid=1322284596>) gut unterstützt.
+
+**Bereinigungsschritte:**
+
+1.  Entfernung aller irrelevanten oder leeren Spalten.
+
+2.  Überprüfung der Einheitlichkeit der Werte in den verbleibenden Spalten und der Konsistenz der "N/A"-Kennzeichnungen.
+
+3.  Erste Analyse, ob Einträge ohne Preisangabe entfernt werden sollten und Identifizierung möglicher Korrelationen mit anderen Feldern zur Preisermittlung.
+
 ## 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
 
 ## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
