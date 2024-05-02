@@ -17,23 +17,52 @@ neigbourhood_group_cleansed, propert_type, room_type, acco
 
 ## 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
 
-Die Daten für die Analyse wurden von der offiziellen Quelle von Airbnb bezogen, speziell von Inside Airbnb (<https://insideairbnb.com/get-the-data/>). Die Datensätze wurden für drei bedeutende Regionen in der Schweiz extrahiert: Zürich (27. Dezember 2023), Genf (27. Dezember 2023) und Vaud (10. März 2024).
+Die Daten für diese Analyse stammen von der Inside Airbnb Organisation (<https://insideairbnb.com/get-the-data/>), die sich dafür einsetzt, ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen auf der Airbnb-Website stammen. Diese Datensätze würden wir als Vertrauenswürdig einstufen.
 
-Die Daten umfassen verschiedene Dateiformate für jede Stadt, wobei für die Analyse hauptsächlich das "listings_long.csv"-File verwendet wird, da es für die Geschäftsfragen relevant ist. Die Qualität der Daten in diesem File ist insgesamt sehr hoch, mit wenigen leeren Feldern und einer konsistenten Struktur innerhalb der Spalten.
+Die extrahierten Datensätze umfassen Informationen aus drei bedeutenden Regionen in der Schweiz: Zürich (27. Dezember 2023), Genf (27. Dezember 2023) und Vaud (10. März 2024).
+
+Die Daten umfassen verschiedene Dateien für jede Stadt, wobei für die Analyse hauptsächlich das "listings_long.csv"-File verwendet wird, da es für die Geschäftsfragen relevant ist. Die Qualität der Daten in diesem File ist insgesamt sehr hoch, mit wenigen leeren Feldern und einer konsistenten Struktur innerhalb der Spalten.
 
 Einige Spalten, wie "description", "neighborhood_overview", "host_neighborhood", "neighborhood", und die Beschreibung der Liegenschaft, wie "bathrooms" und "bedrooms", weisen eine beträchtliche Anzahl leerer Felder auf. Es wird vermutet, dass diese Felder optional für die Gastgeber sind und daher nicht immer ausgefüllt werden. Ebenso fehlt bei einigen Einträgen der Preis, was eine Analyse erfordert, um mögliche Korrelationen mit anderen Feldern, wie dem ersten Review, zu identifizieren.
 
 Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch, und die Beschreibung der Datenfelder wird durch das Data Dictionary (<https://docs.google.com/spreadsheets/d/1iWCNJcSutYqpULSQHlNyGInUvHg2BoUGoNRIGa6Szc4/edit#gid=1322284596>) gut unterstützt.
 
-**Bereinigungsschritte:**
+**Datenbereinigungsschritte:**
 
-1.  Entfernung aller irrelevanten oder leeren Spalten.
+1.  **Entfernung irrelevanter oder leerer Spalten:** Vor der Analyse wurden alle Spalten entfernt, die für die Fragestellungen nicht relevant sind oder leere Felder enthalten.
 
-2.  Überprüfung der Einheitlichkeit der Werte in den verbleibenden Spalten und der Konsistenz der "N/A"-Kennzeichnungen.
+2.  **Überprüfung der Einheitlichkeit und Konsistenz der Werte:** Die verbleibenden Spalten wurden auf Einheitlichkeit der Werte und Konsistenz der "N/A"-Kennzeichnungen überprüft, um sicherzustellen, dass die Daten konsistent und interpretierbar sind.
 
-3.  Erste Analyse, ob Einträge ohne Preisangabe entfernt werden sollten und Identifizierung möglicher Korrelationen mit anderen Feldern zur Preisermittlung.
+3.  **Analyse von Einträgen ohne Preisangabe:** Einige Einträge weisen keine Preisangabe auf, was eine Analyse erfordert, um mögliche Korrelationen mit anderen Feldern, wie dem ersten Review, zu identifizieren. Je nach Ergebnis dieser Analyse könnten Einträge ohne Preisangabe entfernt oder anderweitig behandelt werden, um die Datenintegrität zu gewährleisten.
 
 ## 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
+
+```{r setup}
+# load packages
+library(readr)
+```
+
+```{r import}
+df_zuerich <- read_csv(here::here("dataSource/Zurich/listings_long.csv/listings.csv"), show_col_types = FALSE)
+```
+
+```{r}
+head(df_zuerich)
+```
+
+```{r}
+summary(df_zuerich)
+```
+
+```{r}
+#host_response_rate von chr zu int (% entfernen) -> host_response_rate_in_%
+#host_acceptance_rate von chr zu int (% entfernen) -> host_response_rate_in_%
+#price von chr zu double ($ entfernen) -> price_in_$
+#Delete Columns: description, neighborhood_overview, host_location, host_about, host_neighbourhood, host_verifications, neighbourhood, neighbourhood_cleansed, bathrooms, bedrooms, amenities
+#Analyse von NA Value oder leeren feldern -> Ersetzen
+
+
+```
 
 ## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
 
