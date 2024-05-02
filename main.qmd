@@ -54,14 +54,21 @@ head(df_zuerich)
 summary(df_zuerich)
 ```
 
-```{r}
-#host_response_rate von chr zu int (% entfernen) -> host_response_rate_in_%
-#host_acceptance_rate von chr zu int (% entfernen) -> host_response_rate_in_%
+```{r data cleaning}
+#host_response_rate von chr zu 	integer (% entfernen) -> host_response_rate_in_%
+#host_acceptance_rate von chr zu 	integer (% entfernen) -> host_response_rate_in_%
 #price von chr zu double ($ entfernen) -> price_in_$
 #Delete Columns: description, neighborhood_overview, host_location, host_about, host_neighbourhood, host_verifications, neighbourhood, neighbourhood_cleansed, bathrooms, bedrooms, amenities
 #Analyse von NA Value oder leeren feldern -> Ersetzen
 
-
+df_zuerich_cleanead <- df_zuerich %>% 
+  mutate(
+    
+  ) %>% 
+  rename(
+  
+  )
+  
 ```
 
 ## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
