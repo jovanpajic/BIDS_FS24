@@ -40,6 +40,8 @@ Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch,
 ```{r setup}
 # load packages
 library(readr)
+library(dplyr)
+library(ggplot2)
 ```
 
 ```{r import}
@@ -47,28 +49,90 @@ df_zuerich <- read_csv(here::here("dataSource/Zurich/listings_long.csv/listings.
 ```
 
 ```{r}
-head(df_zuerich)
+View(df_zuerich)
 ```
 
 ```{r}
-summary(df_zuerich)
+
+```
+
+```{r}
+
 ```
 
 ```{r data cleaning}
-#host_response_rate von chr zu 	integer (% entfernen) -> host_response_rate_in_%
-#host_acceptance_rate von chr zu 	integer (% entfernen) -> host_response_rate_in_%
-#price von chr zu double ($ entfernen) -> price_in_$
+#host_response_rate von chr zu integer (if "N/A" set to NA) -> % entfernen -> rename to host_response_rate_in_%
+#host_acceptance_rate von chr zu integer (if "N/A" set to NA)-> % entfernen -> rename to host_acceptance_rate_in_%
+#price von chr zu double -> $ entfernen -> rename to price_in_$
 #Delete Columns: description, neighborhood_overview, host_location, host_about, host_neighbourhood, host_verifications, neighbourhood, neighbourhood_cleansed, bathrooms, bedrooms, amenities
 #Analyse von NA Value oder leeren feldern -> Ersetzen
 
-df_zuerich_cleanead <- df_zuerich %>% 
-  mutate(
-    
-  ) %>% 
-  rename(
+df_zuerich_cleanead <- df_zuerich %>%
+  mutate(host_response_rate_in_percent = as.integer(gsub("%", "", na_if(host_response_rate, "N/A"))),
+         host_acceptance_rate_in_percent = as.integer(gsub("%", "", na_if(host_acceptance_rate, "N/A"))),
+         price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), NA))
+         ) %>%
+  filter(!is.na(price_in_usd)) %>%
+  select(-description, 
+         -neighborhood_overview, 
+         -host_location, 
+         -host_about, 
+         -host_neighbourhood, 
+         -host_verifications, 
+         -neighbourhood, 
+         -neighbourhood_cleansed, 
+         -bathrooms, 
+         -bedrooms, 
+         -amenities,
+         -host_acceptance_rate,
+         -host_response_rate,
+         -calendar_updated,
+         -price)
   
+```
+
+```{r}
+colnames(df_zuerich_cleanead)
+```
+
+```{r eda}
+df_zuerich_eda <- df_zuerich_cleanead
+
+# Check for duplicates by id
+duplicated_ids <- df_zuerich_cleanead %>% 
+  group_by(id) %>% 
+  filter(n() > 1)
+
+# Summarize the data for each column
+summary_stats <- df_zuerich_cleanead %>%
+  summarize(
+    price_in_usd = mean(price_in_usd, na.rm = TRUE),
+    review_scores_rating = mean(review_scores_rating, na.rm = TRUE),
+    reviews_per_month = mean(reviews_per_month, na.rm = TRUE)
   )
-  
+
+# Visualize the distributions
+ggplot(df_zuerich_cleanead, aes(x = price_in_usd)) +
+  geom_histogram(binwidth = 50, fill = "skyblue", color = "black") +
+  labs(title = "Distribution of Price in USD")
+
+ggplot(df_zuerich_cleanead, aes(x = review_scores_rating)) +
+  geom_histogram(binwidth = 5, fill = "lightgreen", color = "black") +
+  labs(title = "Distribution of Review Scores Rating")
+
+ggplot(df_zuerich_cleanead, aes(x = reviews_per_month)) +
+  geom_histogram(binwidth = 0.5, fill = "orange", color = "black") +
+  labs(title = "Distribution of Reviews per Month")
+
+# Analyze relationships
+correlation_matrix <- cor(df_zuerich_cleanead[c("price_in_usd", "review_scores_rating", "reviews_per_month")], use = "complete.obs")
+
+# Output the correlation matrix
+print(correlation_matrix)
+```
+
+```{r}
+
 ```
 
 ## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
