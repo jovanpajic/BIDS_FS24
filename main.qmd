@@ -43,9 +43,25 @@ Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch,
 
 ## 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
 
+<<<<<<< HEAD
 ```{r}
 
 ```
+=======
+*ETL \[3pt\]*
+
+-   How qualitative (detailed) is the ETL/EDA process done? \[1pt\]
+
+-   What are the findings and how are they discussed? \[1pt\]
+
+-   Was the data set cleaned with reasonable approaches? \[1pt\]
+
+Data analysis \[2pt\]
+
+-   Are data attributes clear and obvious discussed? \[1pt\]
+
+-   Are adequate EDA methodologies used for data analysis? \[1pt\]
+>>>>>>> 913e62e9000ecdfc8da966cef7bbd9d85c9da2ab
 
 ```{r setup}
 # load packages
@@ -149,6 +165,12 @@ print(correlation_matrix)
 ```
 
 ## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
+
+Was kommt hier rein?
+
+```{r}
+
+```
 
 ## 6. Ergebnisse (statistische Ergebnisse, Zahlen, Diagramme)
 
