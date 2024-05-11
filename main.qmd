@@ -30,23 +30,24 @@ Questions \[2.5pt\] Cedric
 
 -   Is there a reasonable complexity of the questions (i.e. the BI problems)? \[1pt\]
 
-Hypothesis [1pt]
-Are (is) there (a) global hypothesis and motivation(s) to prove? [1pt]
+Hypothesis \[1pt\] Are (is) there (a) global hypothesis and motivation(s) to prove? \[1pt\]
 
-In der heutigen schnelllebigen Welt des Online-Tourismus spielen Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von Unterkünften an, von einfachen Zimmern bis hin zu luxuriösen Villen. So vielfältig wie das Angebot sind auch die Vorlieben und Erwartungen der Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage: ***Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Person zu erzielen?***
+\
+In der heutigen, schnelllebigen Welt des Online-Tourismus spielen Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von Unterkünften an, von einfachen Zimmern bis hin zu luxuriösen Villen. So vielfältig wie das Angebot sind auch die Vorlieben und Erwartungen der Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage: ***Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Apparment zu erzielen?***
 
-Die Bedeutung dieser Frage ergibt sich aus dem zunehmenden Wettbewerb unter den Gastgebern, die bestrebt sind, ihre Unterkünfte attraktiv zu gestalten und gleichzeitig optimale Preise zu erzielen. Durch die Analyse von Daten aus den Regionen Zürich, Genf und Waadt versucht diese Arbeit, die Schlüsselelemente zu identifizieren, welche die Attraktivität und die Preisgestaltung beeinflussen. Zu den analysierten Merkmalen gehören die geografische Lage, die Art der Unterkunft, die Anzahl der Zimmer und Bäder, die Verfügbarkeit von Annehmlichkeiten und die durchschnittliche Bewertung der Unterkünfte. Darüber hinaus wird untersucht, wie die Erfahrung und das Profil des Gastgebers - etwa die Dauer der Mitgliedschaft bei Airbnb und die Verifizierung des Profils - die Entscheidung des Gastes beeinflussen.
+Die Bedeutung dieser Frage ergibt sich aus dem zunehmenden Wettbewerb unter den Gastgebern, die bestrebt sind, ihre Unterkünfte attraktiv zu gestalten und gleichzeitig optimale Preise zu erzielen. Durch die Analyse von Daten aus den Regionen Zürich, Genénve und Vaud versucht diese Arbeit, die Schlüsselelemente zu identifizieren, die die Attraktivität und die Preisgestaltung beeinflussen. Neben der geografischen Lage, der Art der Unterkunft, der Anzahl der Zimmer und Bäder sowie der Verfügbarkeit von Annehmlichkeiten werden auch Faktoren wie die Erfahrung und das Profil des Gastgebers analysiert. Diese Untersuchung zielt darauf ab, die prädiktiven Merkmale einer Unterkunft zu bestimmen, die als Indikatoren für höhere Preise fungieren, und präskriptive Empfehlungen für Gastgeber zu entwickeln, um die Attraktivität ihrer Unterkünfte zu steigern.
 
-Ziel der Arbeit ist es, ein tieferes Verständnis dafür zu entwickeln, wie verschiedene Faktoren zusammenwirken, um den wahrgenommenen Wert einer Unterkunft aus Sicht des Gastes zu steigern. Die Ergebnisse können nicht nur Gastgebern wertvolle Einblicke bieten, wie sie ihre Angebote verbessern können, sondern auch Airbnb selbst, um seine Plattform weiter zu optimieren.
-
-
+Durch die Kombination beschreibender, prädiktiver und präskriptiver Analysen wird die Studie ein tiefgreifendes Verständnis dafür vermitteln, wie verschiedene Faktoren zusammenwirken, um den wahrgenommenen Wert einer Unterkunft aus Sicht des Gastes zu erhöhen. Die Hypothese, dass Unterkünfte mit modernen Annehmlichkeiten, hervorragender Lage und hohen Bewertungen signifikant höhere Preise erzielen, wird überprüft, um Gastgebern und Airbnb wertvolle Einblicke für die Optimierung von Angeboten und Plattform zu bieten.
 
 ## 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
 
-Data set [2.5pt] Jovan
-Comprises the data set a resonable amount of observations to answer the BI questions? [1pt]
-Bring the additional data set new information to the basic data set? [1pt]
-Are all data set accessible linked in documentation? [0.5pt]
+Data set \[2.5pt\] Jovan
+
+Comprises the data set a resonable amount of observations to answer the BI questions? \[1pt\]
+
+Bring the additional data set new information to the basic data set? \[1pt\]
+
+Are all data set accessible linked in documentation? \[0.5pt\]
 
 Die Daten für diese Analyse stammen von der Inside Airbnb Organisation (<https://insideairbnb.com/get-the-data/>), die sich dafür einsetzt, ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen auf der Airbnb-Website stammen. Diese Datensätze würden wir als Vertrauenswürdig einstufen.
 
@@ -68,16 +69,14 @@ Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch,
 
 ## 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
 
-ETL [3pt] Jovan
-How qualitative (detailed) is the ETL/EDA process done? [1pt]
-What are the findings and how are they discussed? [1pt]
-Was the data set cleaned with reasonable approaches? [1pt]
+ETL \[3pt\] Jovan How qualitative (detailed) is the ETL/EDA process done? \[1pt\] What are the findings and how are they discussed? \[1pt\] Was the data set cleaned with reasonable approaches? \[1pt\]
 
 ```{r setup}
 # load packages
 library(readr)
 library(dplyr)
 library(ggplot2)
+library(tidyr)
 ```
 
 ```{r import}
@@ -103,10 +102,10 @@ View(df_zuerich)
 #Delete Columns: description, neighborhood_overview, host_location, host_about, host_neighbourhood, host_verifications, neighbourhood, neighbourhood_cleansed, bathrooms, bedrooms, amenities
 #Analyse von NA Value oder leeren feldern -> Ersetzen
 
+
+
 df_zuerich_cleanead <- df_zuerich %>%
-  mutate(host_response_rate_in_percent = as.integer(gsub("%", "", na_if(host_response_rate, "N/A"))),
-         host_acceptance_rate_in_percent = as.integer(gsub("%", "", na_if(host_acceptance_rate, "N/A"))),
-         price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), NA))
+  mutate(price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), NA))
          ) %>%
   filter(!is.na(price_in_usd)) %>%
   select(-description, 
@@ -114,19 +113,23 @@ df_zuerich_cleanead <- df_zuerich %>%
          -host_location, 
          -host_about, 
          -host_neighbourhood, 
-         -host_verifications, 
+         -host_verifications,
+         -host_acceptance_rate,
+         -host_response_rate,
          -neighbourhood, 
          -neighbourhood_cleansed, 
          -bathrooms, 
          -bedrooms, 
          -amenities,
-         -host_acceptance_rate,
-         -host_response_rate,
+         -price,
          -calendar_updated,
-         -price
          -license)
 
-#Felder: NA füllen
+
+#Umwandeln der verschiedenen NA Werte in korrekte N/A Werte von R:
+na_formats <- c("N/A", "n/a", "na", "NA")  # Alle möglichen NA-Formate
+df_zuerich_cleanead <- df_zuerich_cleanead %>%
+  mutate(across(everything(), ~ifelse(. %in% na_formats, NA, .)))
   
 ```
 
@@ -171,16 +174,103 @@ print(correlation_matrix)
 ```
 
 ```{r}
+# Exportieren des DataFrames df_zuerich_cleanead in eine CSV-Datei
+write.csv(df_zuerich_cleanead, "df_zuerich_cleanead.csv", row.names = FALSE)
 
 ```
 
 ## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
 
-Data analysis [2pt] Cedric / Jovan
-Are data attributes clear and obvious discussed? [1pt]
-Are adequate EDA methodologies used for data analysis? [1pt]
+Data analysis \[2pt\] Cedric / Jovan Are data attributes clear and obvious discussed? \[1pt\] Are adequate EDA methodologies used for data analysis? \[1pt\]
 
-Descriptive analysis \[7pt\] 
+Die bereinigten Datensets der verschiedenen Orten sind alle gleich aufgebaut. Da wir den Preis der einzelnen Airbnb Apparment anschauen möchten ist dies unser wichtigster Wert:
+
+```{r}
+summary(df_zuerich_cleanead$price_in_usd)
+```
+
+```{r}
+# Boxplot mit verbesserten Einstellungen für Achsen und Breite anzeigen
+ggplot(df_zuerich_cleanead, aes(y = price_in_usd, x = 1)) + 
+  geom_boxplot(fill = "blue", color = "black", alpha = 0.7, width = 0.2) +
+  labs(title = "Verteilung der Preise in USD", y = "Preis (USD)") +
+  theme_minimal() +
+  scale_x_continuous(expand = expansion(mult = c(0.5, 0.5))) 
+  theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank())
+
+ggplot(df_zuerich_cleanead, aes(x = price_in_usd)) +
+  geom_histogram(bins = 30, fill = "blue", color = "black", alpha = 0.7) +
+  labs(title = "Verteilung der Preise in USD", x = "Preis (USD)", y = "Anzahl der Einträge") +
+  theme_minimal()
+```
+
+Nun ist stellt sich die Frage welche anderen Eigenschaften die grösste Auswirkung auf den Preis haben. Dazu gilt es herauszufinden wie die Korrelationen zwischen dem Preis pro USD und den anderen Attributen sind:
+
+```{r}
+# Korrelation wird mit numerischen Werten berechnet:
+numeric_df <- df_zuerich_cleanead %>% select(where(is.numeric))
+
+# Berechnen der Matrix 
+correlation_matrix <- cor(numeric_df, use = "complete.obs")
+
+print(correlation_matrix[ , "price_in_usd"])
+
+```
+
+Die Korrelationen der verschiedenen Variablen mit dem Preis (**`price_in_usd`**) im Datensatz können wichtige Einsichten bieten, welche Faktoren den Preis beeinflussen. Hier ist eine Analyse der signifikanten positiven und negativen Korrelationen:
+
+### **Positive Korrelationen:**
+
+1.  **accommodates** (0.449): Es besteht eine moderate positive Korrelation zwischen der Anzahl der Gäste, die eine Unterkunft aufnehmen kann, und dem Preis. Dies deutet darauf hin, dass grössere Unterkünfte, die mehr Gäste beherbergen können, in der Regel teurer sind.
+
+2.  **beds** (0.329): Eine ähnliche positive Korrelation gibt es zwischen der Anzahl der Betten und dem Preis, was darauf hindeutet, dass mehr Betten oft höhere Preise bedeuten, was auch mit der Grösse der Unterkunft zusammenhängen kann.
+
+3.  **availability_365** (0.157): Längere Verfügbarkeit im Laufe eines Jahres korreliert leicht positiv mit höheren Preisen. Dies könnte bedeuten, dass Unterkünfte, die seltener verfügbar sind, zu höheren Preisen angeboten werden.
+
+4.  **last_scraped** (0.308), **calendar_last_scraped** (0.308): Diese Korrelationen deuten darauf hin, dass die Zeitpunkte der Datenerfassung mit den Preisänder
+
+### **Negative Korrelationen:**
+
+1.  **latitude** (-0.097): Es gibt eine leichte negative Korrelation zwischen der geographischen Breite und dem Preis. Je weiter nördlich die Unterkunft liegt, desto geringer könnte der Preis sein, was auf regionale Preisunterschiede in der Stadt oder der Umgebung hinweisen könnte.
+
+2.  **minimum_nights** (-0.053), **first_review** (-0.053): Längere Mindestaufenthalte und frühere erste Bewertungen korrelieren leicht negativ mit dem Preis. Dies könnte darauf hinweisen, dass preisgünstigere Unterkünfte möglicherweise längere Aufenthalte erfordern oder schon länger auf dem Markt sind.
+
+3.  **calculated_host_listings_count_private_rooms** (-0.103): Eine höhere Anzahl von Inseraten, die private Zimmer betreffen, korreliert leicht negativ mit dem Preis, was darauf hinweisen könnte, dass Gastgeber mit mehreren Einträgen möglicherweise günstigere Preise anbieten, um wettbewerbsfähig zu bleiben.
+
+### **Interpretation**
+
+-   **Hohe positive Korrelationen** zeigen an, dass mit zunehmender Kapazität und Verfügbarkeit der Unterkünfte der Preis steigt. Dies reflektiert die Marktlogik, dass grössere und häufiger verfügbare Unterkünfte als wertvoller angesehen werden.
+
+-   **Negative Korrelationen** deuten darauf hin, dass bestimmte Faktoren wie die geografische Lage (nördlicher) oder die Politik längerer Mindestaufenthalte die Preise senken können. Dies könnte für Gäste attraktiv sein, die längerfristige Aufenthalte suchen oder flexibel in der Wahl der Region sind.
+
+Diese Korrelationen sollten jedoch vorsichtig interpretiert werden, da Korrelation nicht gleich Kausalität ist. Andere verborgene Variablen könnten ebenfalls eine Rolle spielen, und die Effekte könnten durch spezifische Marktbedingungen oder andere nicht berücksichtigte Faktoren beeinflusst werden.
+
+Um diese Korrelationen auch noch grafisch aufzuzeigen mit einer linearen Regression.
+
+```{r}
+ggplot(df_zuerich_cleanead, aes(x = beds, y = price_in_usd)) +
+  geom_point(aes(color = accommodates), alpha = 0.5) +
+  labs(x = "Anzahl der Betten", y = "Preis (USD)", color = "Beherbergt", title = "Beziehung zwischen Bettenanzahl und Preis") +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  theme_minimal()
+
+
+ggplot(df_zuerich_cleanead, aes(x = accommodates, y = price_in_usd)) +
+  geom_point(aes(color = beds), alpha = 0.5) +
+  labs(x = "Anzahl der Gäste", y = "Preis (USD)", color = "Betten", title = "Beziehung zwischen Gästeanzahl und Preis") +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  theme_minimal()
+
+ggplot(df_zuerich_cleanead, aes(x = accommodates, y = price_in_usd)) +
+  geom_point(aes(color = host_is_superhost), alpha = 0.5) +
+  labs(x = "Anzahl der Gäste", y = "Preis (USD)", color = "Host ist Superhost", title = "Beziehung zwischen Gästeanzahl und Preis") +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  theme_minimal()
+```
+
+Descriptive analysis \[7pt\]
+
+1.  **Beschreibend (Descriptive)**: Deine Forschungsarbeit scheint beschreibende Analysen abzudecken, indem sie Merkmale von Airbnb-Unterkünften untersucht, die einen höheren Preis erzielen. Dies umfasst die Analyse der geografischen Lage, der Art der Unterkunft, der Anzahl der Zimmer und Bäder sowie der Verfügbarkeit von Annehmlichkeiten.
 
 -   Was reasonable statistics used for data inspection and which attributes have been checked? \[2pt\]
 
@@ -190,6 +280,8 @@ Descriptive analysis \[7pt\]
 
 Predictive analysis \[7pt\]
 
+1.  **Prädiktiv (Predictive)**: Um prädiktive Analysen einzubeziehen, könnte deine Fragestellung erweitert werden, um Vorhersagemodelle zu entwickeln, die den erzielbaren Preis basierend auf bestimmten Merkmalen der Unterkünfte prognostizieren. Dies könnte beispielsweise die Frage beinhalten: "Welche Merkmale einer Airbnb-Unterkunft sind prädiktive Indikatoren für einen höheren Preis?"
+
 -   Are the applied methods goal orientated? \[2pt\]
 
 -   Were the applied methods qualitatively performed? \[3pt\]
@@ -197,6 +289,8 @@ Predictive analysis \[7pt\]
 -   What are the conclusions of the findings? \[2pt\]
 
 Prescriptive analysis \[7pt\]
+
+1.  **Präskriptiv (Prescriptive)**: Um präskriptive Analysen abzudecken, könnte die Forschung Empfehlungen entwickeln, wie Gastgeber ihre Unterkünfte modifizieren könnten, um die Attraktivität und den Preis zu maximieren. Die Frage könnte lauten: "Welche Änderungen könnten Gastgeber vornehmen, um den Preis ihrer Airbnb-Unterkünfte zu maximieren?"
 
 -   Is the applied method reasonable for the given problem? \[2pt\]
 
