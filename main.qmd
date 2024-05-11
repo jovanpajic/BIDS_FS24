@@ -5,6 +5,12 @@ format:
 editor: visual
 ---
 
+0.  Offene Punkte
+1.  Alle 3 Regionen importieren
+2.  Kategorie 4 abschliessen
+3.  Bei allen 3 regionen correlation matrix der Variablen vergleichen -\> Die mit einer Correlation filtern
+4.  Fragen wie die Datenquelle angegeben werden soll
+
 ## 1. Abstrakt
 
 Document Abstract \[1pt\]
@@ -15,7 +21,7 @@ Document Abstract \[1pt\]
 
 ## 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
 
-In der heutigen schnelllebigen Welt des Online-Tourismus spielen Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von Unterkünften an, von einfachen Zimmern bis hin zu luxuriösen Villen. So vielfältig wie das Angebot sind auch die Vorlieben und Erwartungen der Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage: *Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Person zu erzielen?*
+In der heutigen schnelllebigen Welt des Online-Tourismus spielen Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von Unterkünften an, von einfachen Zimmern bis hin zu luxuriösen Villen. So vielfältig wie das Angebot sind auch die Vorlieben und Erwartungen der Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage: ***Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Person zu erzielen?***
 
 Die Bedeutung dieser Frage ergibt sich aus dem zunehmenden Wettbewerb unter den Gastgebern, die bestrebt sind, ihre Unterkünfte attraktiv zu gestalten und gleichzeitig optimale Preise zu erzielen. Durch die Analyse von Daten aus den Regionen Zürich, Genf und Waadt versucht diese Arbeit, die Schlüsselelemente zu identifizieren, welche die Attraktivität und die Preisgestaltung beeinflussen. Zu den analysierten Merkmalen gehören die geografische Lage, die Art der Unterkunft, die Anzahl der Zimmer und Bäder, die Verfügbarkeit von Annehmlichkeiten und die durchschnittliche Bewertung der Unterkünfte. Darüber hinaus wird untersucht, wie die Erfahrung und das Profil des Gastgebers - etwa die Dauer der Mitgliedschaft bei Airbnb und die Verifizierung des Profils - die Entscheidung des Gastes beeinflussen.
 
@@ -43,6 +49,11 @@ Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch,
 
 ## 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
 
+<<<<<<< HEAD
+```{r}
+
+```
+=======
 *ETL \[3pt\]*
 
 -   How qualitative (detailed) is the ETL/EDA process done? \[1pt\]
@@ -56,6 +67,7 @@ Data analysis \[2pt\]
 -   Are data attributes clear and obvious discussed? \[1pt\]
 
 -   Are adequate EDA methodologies used for data analysis? \[1pt\]
+>>>>>>> 913e62e9000ecdfc8da966cef7bbd9d85c9da2ab
 
 ```{r setup}
 # load packages
@@ -107,7 +119,10 @@ df_zuerich_cleanead <- df_zuerich %>%
          -host_acceptance_rate,
          -host_response_rate,
          -calendar_updated,
-         -price)
+         -price
+         -license)
+
+#Felder: NA füllen
   
 ```
 
