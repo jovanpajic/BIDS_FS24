@@ -159,7 +159,7 @@ ggplot(df_zuerich_cleanead, aes(x = price_in_usd)) +
   labs(title = "Distribution of Price in USD")
 
 ggplot(df_zuerich_cleanead, aes(x = review_scores_rating)) +
-  geom_histogram(binwidth = 5, fill = "lightgreen", color = "black") +
+  geom_histogram(binwidth = 0.25, fill = "lightgreen", color = "black") +
   labs(title = "Distribution of Review Scores Rating")
 
 ggplot(df_zuerich_cleanead, aes(x = reviews_per_month)) +
@@ -181,7 +181,7 @@ write.csv(df_zuerich_cleanead, "df_zuerich_cleanead.csv", row.names = FALSE)
 
 ## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
 
-Data analysis \[2pt\] Cedric / Jovan Are data attributes clear and obvious discussed? \[1pt\] Are adequate EDA methodologies used for data analysis? \[1pt\]
+*Data analysis \[2pt\] Cedric / Jovan Are data attributes clear and obvious discussed? \[1pt\] Are adequate EDA methodologies used for data analysis? \[1pt\]*
 
 Die bereinigten Datensets der verschiedenen Orten sind alle gleich aufgebaut. Da wir den Preis der einzelnen Airbnb Apparment anschauen möchten ist dies unser wichtigster Wert:
 
@@ -267,6 +267,38 @@ ggplot(df_zuerich_cleanead, aes(x = accommodates, y = price_in_usd)) +
   geom_smooth(method = "lm", color = "red", se = TRUE) +
   theme_minimal()
 ```
+
+*Die Analyse zeigt auf die irgendwie logische Korrelation zwischen den Anzahl Gästen respektive Betten und den Preisen eines AirBNBs... Also je grösser das AirBNB desto mehr kostet es...*
+
+Gibt es noch andere Korrelationen welche nicht so klar ersichtlich sind?
+
+Vielleicht sind die negativen Beziehungen spannender:
+
+```{r}
+ggplot(df_zuerich_cleanead, aes(x = minimum_nights, y = price_in_usd)) +
+  geom_point(aes(color = accommodates), alpha = 0.5) +
+  labs(x = "Minimum Nächte", y = "Preis (USD)", color = "Beherbergt", title = "Negative Beziehung zwischen Minimum Nächte und Preis") +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  theme_minimal()
+
+
+ggplot(df_zuerich_cleanead, aes(x = latitude, y = price_in_usd)) +
+  geom_point(aes(color = beds), alpha = 0.5) +
+  labs(x = "Latitude", y = "Preis (USD)", color = "Betten", title = "Negative Beziehung zwischen Latitude und Preis") +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  theme_minimal()
+
+ggplot(df_zuerich_cleanead, aes(x = calculated_host_listings_count_private_rooms, y = price_in_usd)) +
+  geom_point(aes(color = host_is_superhost), alpha = 0.5) +
+  labs(x = "Anzahl Listings pro Hos", y = "Preis (USD)", color = "Host ist Superhost", title = "Negative Beziehung zwischen Anzahl Listings pro Host und Preis") +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  theme_minimal()
+
+```
+
+*Sieht schon ein wenig besser aus - vorallem die Latitude. Wobei auch hier ist es irgendwie klar. Je weiter weg das AirBNB von zentrum weg ist desto günstiger ist die Wohnung...*
+
+*Gibt es sonst noch irgendwelche Möglichkeiten den Preis vorherauszusagen?*
 
 Descriptive analysis \[7pt\]
 
