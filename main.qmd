@@ -9,17 +9,17 @@ editor: visual
 
 ## 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
 
-Forschungsfrage: Welche Merkmale einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Person zu erzielen?
+In der heutigen schnelllebigen Welt des Online-Tourismus spielen Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von Unterkünften an, von einfachen Zimmern bis hin zu luxuriösen Villen. So vielfältig wie das Angebot sind auch die Vorlieben und Erwartungen der Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage: *Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Person zu erzielen?*
 
-Columns
+Die Bedeutung dieser Frage ergibt sich aus dem zunehmenden Wettbewerb unter den Gastgebern, die bestrebt sind, ihre Unterkünfte attraktiv zu gestalten und gleichzeitig optimale Preise zu erzielen. Durch die Analyse von Daten aus den Regionen Zürich, Genf und Waadt versucht diese Arbeit, die Schlüsselelemente zu identifizieren, welche die Attraktivität und die Preisgestaltung beeinflussen. Zu den analysierten Merkmalen gehören die geografische Lage, die Art der Unterkunft, die Anzahl der Zimmer und Bäder, die Verfügbarkeit von Annehmlichkeiten und die durchschnittliche Bewertung der Unterkünfte. Darüber hinaus wird untersucht, wie die Erfahrung und das Profil des Gastgebers - etwa die Dauer der Mitgliedschaft bei Airbnb und die Verifizierung des Profils - die Entscheidung des Gastes beeinflussen.
 
-neigbourhood_group_cleansed, propert_type, room_type, acco
+Ziel der Arbeit ist es, ein tieferes Verständnis dafür zu entwickeln, wie verschiedene Faktoren zusammenwirken, um den wahrgenommenen Wert einer Unterkunft aus Sicht des Gastes zu steigern. Die Ergebnisse können nicht nur Gastgebern wertvolle Einblicke bieten, wie sie ihre Angebote verbessern können, sondern auch Airbnb selbst, um seine Plattform weiter zu optimieren.
 
 ## 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
 
 Die Daten für diese Analyse stammen von der Inside Airbnb Organisation (<https://insideairbnb.com/get-the-data/>), die sich dafür einsetzt, ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen auf der Airbnb-Website stammen. Diese Datensätze würden wir als Vertrauenswürdig einstufen.
 
-Die extrahierten Datensätze umfassen Informationen aus drei bedeutenden Regionen in der Schweiz: Zürich (27. Dezember 2023), Genf (27. Dezember 2023) und Vaud (10. März 2024).
+Die extrahierten Datensätze umfassen Informationen aus drei bedeutenden Regionen in der Schweiz: Zürich (27. Dezember 2023), Genénve (27. Dezember 2023) und Vaud (10. März 2024).
 
 Die Daten umfassen verschiedene Dateien für jede Stadt, wobei für die Analyse hauptsächlich das "listings_long.csv"-File verwendet wird, da es für die Geschäftsfragen relevant ist. Die Qualität der Daten in diesem File ist insgesamt sehr hoch, mit wenigen leeren Feldern und einer konsistenten Struktur innerhalb der Spalten.
 
