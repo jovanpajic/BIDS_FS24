@@ -7,6 +7,12 @@ editor: visual
 
 ## 1. Abstrakt
 
+Document Abstract \[1pt\]
+
+-   Does it provide a comprehensible glipse of the project? \[0.5pt\]
+
+-   Is the outcome teased? \[0.5pt\]
+
 ## 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
 
 In der heutigen schnelllebigen Welt des Online-Tourismus spielen Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von Unterkünften an, von einfachen Zimmern bis hin zu luxuriösen Villen. So vielfältig wie das Angebot sind auch die Vorlieben und Erwartungen der Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage: *Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Person zu erzielen?*
@@ -151,13 +157,41 @@ print(correlation_matrix)
 
 ## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
 
-Was kommt hier rein?
+Descriptive analysis \[7pt\]
+
+-   Was reasonable statistics used for data inspection and which attributes have been checked? \[2pt\]
+
+-   Are the findings and statements qualitative? \[3pt\]
+
+-   What are the conclusions of the findings? \[2pt\]
+
+Predictive analysis \[7pt\]
+
+-   Are the applied methods goal orientated? \[2pt\]
+
+-   Were the applied methods qualitatively performed? \[3pt\]
+
+-   What are the conclusions of the findings? \[2pt\]
+
+Prescriptive analysis \[7pt\]
+
+-   Is the applied method reasonable for the given problem? \[2pt\]
+
+-   Were the applied methods qualitatively performed? \[3pt\]
+
+-   What are the conclusions of the findings? \[2pt\]
 
 ```{r}
 
 ```
 
 ## 6. Ergebnisse (statistische Ergebnisse, Zahlen, Diagramme)
+
+Conclusion \[3pt\]
+
+-   Are the initial BI problems reasonably discussed/solved? \[2pt\]
+
+-   Are the obtained new insights of the data sets of good quality? \[1pt\]
 
 ## 7. Schlussfolgerung (Beantwortung der Frage)
 
