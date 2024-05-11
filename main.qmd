@@ -10,6 +10,7 @@ editor: visual
 2.  Kategorie 4 abschliessen
 3.  Bei allen 3 regionen correlation matrix der Variablen vergleichen -\> Die mit einer Correlation filtern
 4.  Fragen wie die Datenquelle angegeben werden soll
+5.  Dozent fragen ob 2 oder 3 Methoden (Descriptive, Predictive, Prescriptive) umgesetzt werden muss
 
 ## 1. Abstrakt
 
@@ -21,13 +22,31 @@ Document Abstract \[1pt\]
 
 ## 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
 
+Questions \[2.5pt\] Cedric
+
+-   Are all BI topics (descriptive, predictiv and prescriptive) covered in the questions? \[0.5pt\]
+
+-   Is the formulation close enough? \[1pt\]
+
+-   Is there a reasonable complexity of the questions (i.e. the BI problems)? \[1pt\]
+
+Hypothesis [1pt]
+Are (is) there (a) global hypothesis and motivation(s) to prove? [1pt]
+
 In der heutigen schnelllebigen Welt des Online-Tourismus spielen Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von Unterkünften an, von einfachen Zimmern bis hin zu luxuriösen Villen. So vielfältig wie das Angebot sind auch die Vorlieben und Erwartungen der Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage: ***Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Person zu erzielen?***
 
 Die Bedeutung dieser Frage ergibt sich aus dem zunehmenden Wettbewerb unter den Gastgebern, die bestrebt sind, ihre Unterkünfte attraktiv zu gestalten und gleichzeitig optimale Preise zu erzielen. Durch die Analyse von Daten aus den Regionen Zürich, Genf und Waadt versucht diese Arbeit, die Schlüsselelemente zu identifizieren, welche die Attraktivität und die Preisgestaltung beeinflussen. Zu den analysierten Merkmalen gehören die geografische Lage, die Art der Unterkunft, die Anzahl der Zimmer und Bäder, die Verfügbarkeit von Annehmlichkeiten und die durchschnittliche Bewertung der Unterkünfte. Darüber hinaus wird untersucht, wie die Erfahrung und das Profil des Gastgebers - etwa die Dauer der Mitgliedschaft bei Airbnb und die Verifizierung des Profils - die Entscheidung des Gastes beeinflussen.
 
 Ziel der Arbeit ist es, ein tieferes Verständnis dafür zu entwickeln, wie verschiedene Faktoren zusammenwirken, um den wahrgenommenen Wert einer Unterkunft aus Sicht des Gastes zu steigern. Die Ergebnisse können nicht nur Gastgebern wertvolle Einblicke bieten, wie sie ihre Angebote verbessern können, sondern auch Airbnb selbst, um seine Plattform weiter zu optimieren.
 
+
+
 ## 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
+
+Data set [2.5pt] Jovan
+Comprises the data set a resonable amount of observations to answer the BI questions? [1pt]
+Bring the additional data set new information to the basic data set? [1pt]
+Are all data set accessible linked in documentation? [0.5pt]
 
 Die Daten für diese Analyse stammen von der Inside Airbnb Organisation (<https://insideairbnb.com/get-the-data/>), die sich dafür einsetzt, ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen auf der Airbnb-Website stammen. Diese Datensätze würden wir als Vertrauenswürdig einstufen.
 
@@ -49,6 +68,10 @@ Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch,
 
 ## 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
 
+ETL [3pt] Jovan
+How qualitative (detailed) is the ETL/EDA process done? [1pt]
+What are the findings and how are they discussed? [1pt]
+Was the data set cleaned with reasonable approaches? [1pt]
 
 ```{r setup}
 # load packages
@@ -153,7 +176,11 @@ print(correlation_matrix)
 
 ## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
 
-Descriptive analysis \[7pt\]
+Data analysis [2pt] Cedric / Jovan
+Are data attributes clear and obvious discussed? [1pt]
+Are adequate EDA methodologies used for data analysis? [1pt]
+
+Descriptive analysis \[7pt\] 
 
 -   Was reasonable statistics used for data inspection and which attributes have been checked? \[2pt\]
 
