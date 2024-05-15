@@ -41,19 +41,21 @@ Durch die Kombination beschreibender, prädiktiver und präskriptiver Analysen w
 
 ## 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
 
-Data set \[2.5pt\] Jovan
+Data set \[2.5pt\] -\> Yes Jovan
 
-Comprises the data set a resonable amount of observations to answer the BI questions? \[1pt\]
+Comprises the data set a resonable amount of observations to answer the BI questions? \[1pt\] -\> Yes
 
-Bring the additional data set new information to the basic data set? \[1pt\]
+Bring the additional data set new information to the basic data set? \[1pt\] -\> Yes
 
-Are all data set accessible linked in documentation? \[0.5pt\]
+Are all data set accessible linked in documentation? \[0.5pt\] -\> Yes
 
 Die Daten für diese Analyse stammen von der Inside Airbnb Organisation (<https://insideairbnb.com/get-the-data/>), die sich dafür einsetzt, ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen auf der Airbnb-Website stammen. Diese Datensätze würden wir als Vertrauenswürdig einstufen.
 
 Die extrahierten Datensätze umfassen Informationen aus drei bedeutenden Regionen in der Schweiz: Zürich (27. Dezember 2023), Genénve (27. Dezember 2023) und Vaud (10. März 2024).
 
 Die Daten umfassen verschiedene Dateien für jede Stadt, wobei für die Analyse hauptsächlich das "listings_long.csv"-File verwendet wird, da es für die Geschäftsfragen relevant ist. Die Qualität der Daten in diesem File ist insgesamt sehr hoch, mit wenigen leeren Feldern und einer konsistenten Struktur innerhalb der Spalten.
+
+Es werden insgesamt 3 Datensätze verwendet, die dieselbe Struktur aufweisen, jedoch aus drei verschiedenen Regionen stammen, die wir hier analysieren möchten.
 
 Einige Spalten, wie "description", "neighborhood_overview", "host_neighborhood", "neighborhood", und die Beschreibung der Liegenschaft, wie "bathrooms" und "bedrooms", weisen eine beträchtliche Anzahl leerer Felder auf. Es wird vermutet, dass diese Felder optional für die Gastgeber sind und daher nicht immer ausgefüllt werden. Ebenso fehlt bei einigen Einträgen der Preis, was eine Analyse erfordert, um mögliche Korrelationen mit anderen Feldern, wie dem ersten Review, zu identifizieren.
 
@@ -69,7 +71,13 @@ Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch,
 
 ## 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
 
-ETL \[3pt\] Jovan How qualitative (detailed) is the ETL/EDA process done? \[1pt\] What are the findings and how are they discussed? \[1pt\] Was the data set cleaned with reasonable approaches? \[1pt\]
+ETL \[3pt\] Jovan
+
+How qualitative (detailed) is the ETL/EDA process done? \[1pt\]
+
+What are the findings and how are they discussed? \[1pt\]
+
+Was the data set cleaned with reasonable approaches? \[1pt\]
 
 ```{r setup}
 # load packages
@@ -81,31 +89,36 @@ library(tidyr)
 
 ```{r import}
 df_zuerich <- read_csv(here::here("dataSource/Zurich/listings_long.csv/listings.csv"), show_col_types = FALSE)
+
+df_vaud <- read_csv(here::here("dataSource/Vaud/listings_long.csv/listings.csv"), show_col_types = FALSE)
+
+df_geneva <- read_csv(here::here("dataSource/Geneva/listings_long.csv/listings.csv"), show_col_types = FALSE)
 ```
 
 ```{r}
-View(df_zuerich)
+#View(df_zuerich)
+#str(df_zuerich)
+#summary(df_zuerich)
 ```
 
-```{r}
+Nachdem wir die Zusammenfassung der Daten betrachtet und eine detaillierte Analyse der Dataframes durchgeführt haben, haben wir die folgenden Datenanpassungen vorgenommen:
 
-```
+1.  Konvertiere **`host_response_rate`** von Zeichenfolge (chr) in Ganzzahl (integer), wobei "N/A" durch NA ersetzt wird. Entferne das Prozentzeichen (%) und benenne die Spalte in **`host_response_rate_in_%`** um.
 
-```{r}
+2.  Konvertiere **`host_acceptance_rate`** von Zeichenfolge (chr) in Ganzzahl (integer), wobei "N/A" durch NA ersetzt wird. Entferne das Prozentzeichen (%) und benenne die Spalte in **`host_acceptance_rate_in_%`** um.
 
-```
+3.  Konvertiere **`price`** von Zeichenfolge (chr) in Dezimalzahl (double), wobei das Dollarzeichen (\$) entfernt wird. Benenne die Spalte in **`price_in_$`** um.
 
-```{r data cleaning}
-#host_response_rate von chr zu integer (if "N/A" set to NA) -> % entfernen -> rename to host_response_rate_in_%
-#host_acceptance_rate von chr zu integer (if "N/A" set to NA)-> % entfernen -> rename to host_acceptance_rate_in_%
-#price von chr zu double -> $ entfernen -> rename to price_in_$
-#Delete Columns: description, neighborhood_overview, host_location, host_about, host_neighbourhood, host_verifications, neighbourhood, neighbourhood_cleansed, bathrooms, bedrooms, amenities
-#Analyse von NA Value oder leeren feldern -> Ersetzen
+4.  Lösche die folgenden Spalten: **`description`**, **`neighborhood_overview`**, **`host_location`**, **`host_about`**, **`host_neighbourhood`**, **`host_verifications`**, **`neighbourhood`**, **`neighbourhood_cleansed`**, **`bathrooms`**, **`bedrooms`**, **`amenities`**, **`calendar_updated`** , **`license`**.
 
+5.  Analysiere fehlende Werte (NA) oder leere Felder und ersetze sie gegebenenfalls.
 
+```{r data cleaning zuerich}
 
 df_zuerich_cleanead <- df_zuerich %>%
-  mutate(price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), NA))
+  mutate(host_response_rate_in_percent = as.integer(gsub("%", "", na_if(host_response_rate, "N/A"))),
+         host_acceptance_rate_in_percent = as.integer(gsub("%", "", na_if(host_acceptance_rate, "N/A"))),
+        (price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), NA)))
          ) %>%
   filter(!is.na(price_in_usd)) %>%
   select(-description, 
@@ -125,33 +138,86 @@ df_zuerich_cleanead <- df_zuerich %>%
          -calendar_updated,
          -license)
 
-
 #Umwandeln der verschiedenen NA Werte in korrekte N/A Werte von R:
 na_formats <- c("N/A", "n/a", "na", "NA")  # Alle möglichen NA-Formate
 df_zuerich_cleanead <- df_zuerich_cleanead %>%
   mutate(across(everything(), ~ifelse(. %in% na_formats, NA, .)))
-  
+```
+
+```{r data cleaning vaud}
+
+df_vaud_cleanead <- df_vaud %>%
+  mutate(host_response_rate_in_percent = as.integer(gsub("%", "", na_if(host_response_rate, "N/A"))),
+         host_acceptance_rate_in_percent = as.integer(gsub("%", "", na_if(host_acceptance_rate, "N/A"))),
+        (price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), NA)))
+         ) %>%
+  filter(!is.na(price_in_usd)) %>%
+  select(-description, 
+         -neighborhood_overview, 
+         -host_location, 
+         -host_about, 
+         -host_neighbourhood, 
+         -host_verifications,
+         -host_acceptance_rate,
+         -host_response_rate,
+         -neighbourhood, 
+         -neighbourhood_cleansed, 
+         -bathrooms, 
+         -bedrooms, 
+         -amenities,
+         -price,
+         -calendar_updated,
+         -license)
+
+#Umwandeln der verschiedenen NA Werte in korrekte N/A Werte von R:
+na_formats <- c("N/A", "n/a", "na", "NA")  # Alle möglichen NA-Formate
+df_vaud_cleanead <- df_vaud_cleanead %>%
+  mutate(across(everything(), ~ifelse(. %in% na_formats, NA, .)))
+```
+
+```{r data cleaning geneva}
+
+df_geneva_cleanead <- df_geneva %>%
+  mutate(host_response_rate_in_percent = as.integer(gsub("%", "", na_if(host_response_rate, "N/A"))),
+         host_acceptance_rate_in_percent = as.integer(gsub("%", "", na_if(host_acceptance_rate, "N/A"))),
+        (price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), NA)))
+         ) %>%
+  filter(!is.na(price_in_usd)) %>%
+  select(-description, 
+         -neighborhood_overview, 
+         -host_location, 
+         -host_about, 
+         -host_neighbourhood, 
+         -host_verifications,
+         -host_acceptance_rate,
+         -host_response_rate,
+         -neighbourhood, 
+         -neighbourhood_cleansed, 
+         -bathrooms, 
+         -bedrooms, 
+         -amenities,
+         -price,
+         -calendar_updated,
+         -license)
+
+#Umwandeln der verschiedenen NA Werte in korrekte N/A Werte von R:
+na_formats <- c("N/A", "n/a", "na", "NA")  # Alle möglichen NA-Formate
+df_geneva_cleanead <- df_geneva_cleanead %>%
+  mutate(across(everything(), ~ifelse(. %in% na_formats, NA, .)))
 ```
 
 ```{r}
-colnames(df_zuerich_cleanead)
+#colnames(df_zuerich_cleanead)
 ```
 
+Um die Daten nach der Bereinigung zu überprüfen und einen Überblick zu erhalten, führen wir eine standardmässige Datenanalysen durch am Beispiel **`df_zuerich_cleanead`** .
+
 ```{r eda}
-df_zuerich_eda <- df_zuerich_cleanead
 
 # Check for duplicates by id
 duplicated_ids <- df_zuerich_cleanead %>% 
-  group_by(id) %>% 
+  group_by(id)  %>% 
   filter(n() > 1)
-
-# Summarize the data for each column
-summary_stats <- df_zuerich_cleanead %>%
-  summarize(
-    price_in_usd = mean(price_in_usd, na.rm = TRUE),
-    review_scores_rating = mean(review_scores_rating, na.rm = TRUE),
-    reviews_per_month = mean(reviews_per_month, na.rm = TRUE)
-  )
 
 # Visualize the distributions
 ggplot(df_zuerich_cleanead, aes(x = price_in_usd)) +
@@ -166,22 +232,24 @@ ggplot(df_zuerich_cleanead, aes(x = reviews_per_month)) +
   geom_histogram(binwidth = 0.5, fill = "orange", color = "black") +
   labs(title = "Distribution of Reviews per Month")
 
-# Analyze relationships
-correlation_matrix <- cor(df_zuerich_cleanead[c("price_in_usd", "review_scores_rating", "reviews_per_month")], use = "complete.obs")
 
-# Output the correlation matrix
-print(correlation_matrix)
 ```
 
 ```{r}
-# Exportieren des DataFrames df_zuerich_cleanead in eine CSV-Datei
+# Exportieren des DataFrames df_zuerich_cleanead, df_vaud_cleanead & df_geneva_cleanead in eine CSV-Datei
 write.csv(df_zuerich_cleanead, "df_zuerich_cleanead.csv", row.names = FALSE)
+write.csv(df_vaud_cleanead, "df_vaud_cleanead.csv", row.names = FALSE)
+write.csv(df_geneva_cleanead, "df_geneva_cleanead.csv", row.names = FALSE)
 
 ```
 
 ## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
 
-*Data analysis \[2pt\] Cedric / Jovan Are data attributes clear and obvious discussed? \[1pt\] Are adequate EDA methodologies used for data analysis? \[1pt\]*
+*Data analysis \[2pt\] Cedric / Jovan*
+
+*Are data attributes clear and obvious discussed? \[1pt\]*
+
+*Are adequate EDA methodologies used for data analysis? \[1pt\]*
 
 Die bereinigten Datensets der verschiedenen Orten sind alle gleich aufgebaut. Da wir den Preis der einzelnen Airbnb Apparment anschauen möchten ist dies unser wichtigster Wert:
 
