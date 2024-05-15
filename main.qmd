@@ -207,7 +207,7 @@ df_geneva_cleanead <- df_geneva_cleanead %>%
 ```
 
 ```{r}
-#colnames(df_zuerich_cleanead)
+colnames(df_zuerich_cleanead)
 ```
 
 Um die Daten nach der Bereinigung zu überprüfen und einen Überblick zu erhalten, führen wir eine standardmässige Datenanalysen durch am Beispiel **`df_zuerich_cleanead`** .
@@ -275,6 +275,9 @@ ggplot(df_zuerich_cleanead, aes(x = price_in_usd)) +
 Nun ist stellt sich die Frage welche anderen Eigenschaften die grösste Auswirkung auf den Preis haben. Dazu gilt es herauszufinden wie die Korrelationen zwischen dem Preis pro USD und den anderen Attributen sind:
 
 ```{r}
+
+#normalisiierung fehlt!
+
 # Korrelation wird mit numerischen Werten berechnet:
 numeric_df <- df_zuerich_cleanead %>% select(where(is.numeric))
 
@@ -358,7 +361,7 @@ ggplot(df_zuerich_cleanead, aes(x = latitude, y = price_in_usd)) +
 
 ggplot(df_zuerich_cleanead, aes(x = calculated_host_listings_count_private_rooms, y = price_in_usd)) +
   geom_point(aes(color = host_is_superhost), alpha = 0.5) +
-  labs(x = "Anzahl Listings pro Hos", y = "Preis (USD)", color = "Host ist Superhost", title = "Negative Beziehung zwischen Anzahl Listings pro Host und Preis") +
+  labs(x = "Anzahl Listings pro Host", y = "Preis (USD)", color = "Host ist Superhost", title = "Negative Beziehung zwischen Anzahl Listings pro Host und Preis") +
   geom_smooth(method = "lm", color = "red", se = TRUE) +
   theme_minimal()
 
