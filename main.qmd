@@ -9,8 +9,9 @@ editor: visual
 1.  Alle 3 Regionen importieren
 2.  Kategorie 4 abschliessen
 3.  Bei allen 3 regionen correlation matrix der Variablen vergleichen -\> Die mit einer Correlation filtern
-4.  Fragen wie die Datenquelle angegeben werden soll
+4.  Fragen wie die Datenquelle angegeben werden soll -\> googlen / oder in klammern alternativ
 5.  Dozent fragen ob 2 oder 3 Methoden (Descriptive, Predictive, Prescriptive) umgesetzt werden muss
+6.  Eda beschreibe welche für uns relevant sind und erfrosche diese daten. Methode von eda durchführen
 
 ## 1. Abstrakt
 
@@ -118,7 +119,7 @@ Nachdem wir die Zusammenfassung der Daten betrachtet und eine detaillierte Analy
 df_zuerich_cleanead <- df_zuerich %>%
   mutate(host_response_rate_in_percent = as.integer(gsub("%", "", na_if(host_response_rate, "N/A"))),
          host_acceptance_rate_in_percent = as.integer(gsub("%", "", na_if(host_acceptance_rate, "N/A"))),
-        (price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), NA)))
+         price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), "N/A"))
          ) %>%
   filter(!is.na(price_in_usd)) %>%
   select(-description, 
@@ -149,9 +150,9 @@ df_zuerich_cleanead <- df_zuerich_cleanead %>%
 df_vaud_cleanead <- df_vaud %>%
   mutate(host_response_rate_in_percent = as.integer(gsub("%", "", na_if(host_response_rate, "N/A"))),
          host_acceptance_rate_in_percent = as.integer(gsub("%", "", na_if(host_acceptance_rate, "N/A"))),
-        (price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), NA)))
+         price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), "N/A"))
          ) %>%
-  filter(!is.na(price_in_usd)) %>%
+  #filter(!is.na(price_in_usd)) %>%
   select(-description, 
          -neighborhood_overview, 
          -host_location, 
@@ -180,9 +181,9 @@ df_vaud_cleanead <- df_vaud_cleanead %>%
 df_geneva_cleanead <- df_geneva %>%
   mutate(host_response_rate_in_percent = as.integer(gsub("%", "", na_if(host_response_rate, "N/A"))),
          host_acceptance_rate_in_percent = as.integer(gsub("%", "", na_if(host_acceptance_rate, "N/A"))),
-        (price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), NA)))
+         price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), "N/A"))
          ) %>%
-  filter(!is.na(price_in_usd)) %>%
+  #filter(!is.na(price_in_usd)) %>%
   select(-description, 
          -neighborhood_overview, 
          -host_location, 
