@@ -1,5 +1,7 @@
 ---
 title: "Project reporting"
+execute:
+  echo: false
 format:
   ieee-pdf: default
 editor: visual
@@ -12,6 +14,18 @@ editor: visual
 4.  Fragen wie die Datenquelle angegeben werden soll -\> googlen / oder in klammern alternativ
 5.  Dozent fragen ob 2 oder 3 Methoden (Descriptive, Predictive, Prescriptive) umgesetzt werden muss
 6.  Eda beschreibe welche für uns relevant sind und erfrosche diese daten. Methode von eda durchführen
+
+Sichtbarkeit Codeblox:
+
+Hide source code: echo=FALSE
+
+Hide text output: results = FALSE
+
+Hide messages: message=FALSE
+
+Hide warning messages: warning=FALSE
+
+Hide plots: fig.show='hide'
 
 ## 1. Abstrakt
 
@@ -79,6 +93,8 @@ How qualitative (detailed) is the ETL/EDA process done? \[1pt\]
 What are the findings and how are they discussed? \[1pt\]
 
 Was the data set cleaned with reasonable approaches? \[1pt\]
+
+#Anpassen: Neue Reihe mit Preis pro Person
 
 ```{r setup}
 # load packages
