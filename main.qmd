@@ -47,12 +47,35 @@ Questions \[2.5pt\] Cedric
 
 Hypothesis \[1pt\] Are (is) there (a) global hypothesis and motivation(s) to prove? \[1pt\]
 
-\
 In der heutigen, schnelllebigen Welt des Online-Tourismus spielen Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von Unterkünften an, von einfachen Zimmern bis hin zu luxuriösen Villen. So vielfältig wie das Angebot sind auch die Vorlieben und Erwartungen der Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage: ***Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Apparment zu erzielen?***
 
-Die Bedeutung dieser Frage ergibt sich aus dem zunehmenden Wettbewerb unter den Gastgebern, die bestrebt sind, ihre Unterkünfte attraktiv zu gestalten und gleichzeitig optimale Preise zu erzielen. Durch die Analyse von Daten aus den Regionen Zürich, Genénve und Vaud versucht diese Arbeit, die Schlüsselelemente zu identifizieren, die die Attraktivität und die Preisgestaltung beeinflussen. Neben der geografischen Lage, der Art der Unterkunft, der Anzahl der Zimmer und Bäder sowie der Verfügbarkeit von Annehmlichkeiten werden auch Faktoren wie die Erfahrung und das Profil des Gastgebers analysiert. Diese Untersuchung zielt darauf ab, die prädiktiven Merkmale einer Unterkunft zu bestimmen, die als Indikatoren für höhere Preise fungieren, und präskriptive Empfehlungen für Gastgeber zu entwickeln, um die Attraktivität ihrer Unterkünfte zu steigern.
+Der grösste Unterschied eines Airbnbs ist deren Grösse. Eine der wichtigsten Eigenschaften eines Apartments ist aber die Lage, die Bewertung und der Gastgeber, somit definieren wir folgende Nullhypothesen:
 
-Durch die Kombination beschreibender, prädiktiver und präskriptiver Analysen wird die Studie ein tiefgreifendes Verständnis dafür vermitteln, wie verschiedene Faktoren zusammenwirken, um den wahrgenommenen Wert einer Unterkunft aus Sicht des Gastes zu erhöhen. Die Hypothese, dass Unterkünfte mit modernen Annehmlichkeiten, hervorragender Lage und hohen Bewertungen signifikant höhere Preise erzielen, wird überprüft, um Gastgebern und Airbnb wertvolle Einblicke für die Optimierung von Angeboten und Plattform zu bieten.
+1.  **Bewertung der Airbnb-Unterkünften:**
+
+    -   **Nullhypothese (H₀)**: Die Höhe der Bewertung hat keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+
+    -   **Alternativhypothese (H₁)**: Die Höhe der Bewertung hat einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+
+2.  **Gastgeber der Airbnb-Unterkunft:**
+
+    -   **Nullhypothese (H₀)**: Die Informationen über den Host, wie "host_is_superhost", "host_identifiy_verified" und "host_listings_count" haben keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+
+    -   **Alternativhypothese (H₁)**: Die Informationen über den Host, wie "host_is_superhost", "host_identifiy_verified" und "host_listings_count" haben einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+
+3.  **Lage des Airbnb:**
+
+    -   **Nullhypothese (H₀)**: Die Nähe zum Stadtzentrum hat keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+
+    -   **Alternativhypothese (H₁)**: Die Nähe zum Stadtzentrum hat einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+
+Weitere wichtige Eigenschaften sind Ereignisse (z.B. Zürich: Streetparade, Zürich Film Festival) in der betreffenden Stadt. Da wir aber die Daten nur zu einem einzelnen Zeitpunkt haben und keine Zeitserie, können wir den Einfluss dieser Ereignisse auf den Preis pro Person der Unterkunft nicht untersuchen.
+
+**Deskriptive Analyse:** Wir möchten überprüfen, ob unsere Hypothesen so stimmen und wir mit unserer Annahme über die Einflüsse auf den Preis pro Person der Unterkunft richtig liegen.
+
+**Prädiktive Analyse:** Wir möchten den Trend des Preises pro Person der Unterkunft aufzeigen und untersuchen, ob wir mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis machen können.
+
+**Präskriptive Analyse:** Wir möchten zeigen, welche Eigenschaften wie verbessert werden müssen, um die Preise pro Person der Unterkunft signifikant erhöhen zu können, um einen höheren Preis erzielen zu können.
 
 ## 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
 
