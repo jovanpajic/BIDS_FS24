@@ -37,16 +37,6 @@ Document Abstract \[1pt\]
 
 ## 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
 
-Questions \[2.5pt\] Cedric
-
--   Are all BI topics (descriptive, predictiv and prescriptive) covered in the questions? \[0.5pt\]
-
--   Is the formulation close enough? \[1pt\]
-
--   Is there a reasonable complexity of the questions (i.e. the BI problems)? \[1pt\]
-
-Hypothesis \[1pt\] Are (is) there (a) global hypothesis and motivation(s) to prove? \[1pt\]
-
 In der heutigen, schnelllebigen Welt des Online-Tourismus spielen Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von Unterkünften an, von einfachen Zimmern bis hin zu luxuriösen Villen. So vielfältig wie das Angebot sind auch die Vorlieben und Erwartungen der Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage: ***Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Apparment zu erzielen?***
 
 Der grösste Unterschied eines Airbnbs ist deren Grösse. Eine der wichtigsten Eigenschaften eines Apartments ist aber die Lage, die Bewertung und der Gastgeber, somit definieren wir folgende Nullhypothesen:
