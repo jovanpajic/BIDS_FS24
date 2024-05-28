@@ -286,18 +286,25 @@ df_zuerich %>%
 df_geneva_cleanead <- df_geneva_cleanead %>%
   mutate(price_per_person = ifelse(room_type %in% c("Entire home/apt", "Hotel room"), 
                                    price_in_usd / accommodates, 
-                                   price_in_usd))
+                                   price_in_usd)) %>%
+  na.omit()
 
 df_zuerich_cleanead <- df_zuerich_cleanead %>%
   mutate(price_per_person = ifelse(room_type %in% c("Entire home/apt", "Hotel room"), 
                                    price_in_usd / accommodates, 
-                                   price_in_usd))
+                                   price_in_usd)) %>%
+  na.omit()
 
 df_vaud_cleanead <- df_vaud_cleanead %>%
   mutate(price_per_person = ifelse(room_type %in% c("Entire home/apt", "Hotel room"), 
                                    price_in_usd / accommodates, 
-                                   price_in_usd))
+                                   price_in_usd)) %>%
+  na.omit()
 
+```
+
+```{r}
+sum(is.na(df_zuerich_cleanead))
 ```
 
 ```{r, export}
@@ -480,6 +487,18 @@ cat("R²:", r2, "\n")
 importance <- importance(model)
 print(importance)
 ```
+
+Die vorliegende Predictive Analyse zielt darauf ab, den Trend des Preises pro Person einer Unterkunft aufzuzeigen und zu untersuchen, ob mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis gemacht werden kann. Dabei wurden Verfügbarkeit (availability_365), Bewertung (review_scores_rating) und Anzahl der Bewertungen (number_of_reviews) als Prädiktoren herangezogen.
+
+Die Modellbewertung zeigt folgende Ergebnisse:
+
+-   **RMSE: 41.90135** – Der durchschnittliche quadratische Fehler beträgt 41.90 USD, was auf erhebliche Abweichungen zwischen den vorhergesagten und tatsächlichen Preisen hinweist.
+
+-   **MAE: 27.91819** – Der mittlere absolute Fehler beträgt 27.92 USD, was ebenfalls auf erhebliche Abweichungen hinweist.
+
+-   **R²: -0.01782196** – Ein negativer R²-Wert deutet darauf hin, dass das Modell die Variation des Preises pro Person nicht gut erklärt und kaum besser als zufällige Vorhersagen ist.
+
+Die Merkmalswichtigkeit zeigt, dass die Verfügbarkeit über 365 Tage (IncNodePurity = 833646.7) der wichtigste Prädiktor ist, gefolgt von der Anzahl der Bewertungen (IncNodePurity = 718716.6) und der Bewertung der Unterkunft (IncNodePurity = 488147.3). Dies zeigt, dass die Verfügbarkeit der Unterkunft, die Anzahl der Bewertungen und die Bewertungen selbst wesentliche Faktoren bei der Preisgestaltung sind.
 
 Prescriptive analysis \[7pt\]
 
