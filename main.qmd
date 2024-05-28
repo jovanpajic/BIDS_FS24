@@ -1,7 +1,13 @@
 ---
-title: "Project reporting"
+title: "Optimierung der Preisstrategien bei Airbnb: Eine Analyse zur Maximierung der Einnahmen"
+subtitle: "Eine datengetriebene Untersuchung der Faktoren, die zu höheren Buchungspreisen führen"
+author: "Cedric Gisler & Jovan Pajic"
+date: "28/05/2024"
 execute:
+  error: true
   echo: false
+  message: false
+  warning: false
 format:
   ieee-pdf: default
 editor: visual
@@ -43,21 +49,21 @@ Der grösste Unterschied eines Airbnbs ist deren Grösse. Eine der wichtigsten E
 
 1.  **Bewertung der Airbnb-Unterkünften:**
 
-    -   **Nullhypothese (H₀)**: Die Höhe der Bewertung hat keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+    -   **Nullhypothese (H0)**: Die Höhe der Bewertung hat keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
 
-    -   **Alternativhypothese (H₁)**: Die Höhe der Bewertung hat einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+    -   **Alternativhypothese (H1)**: Die Höhe der Bewertung hat einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
 
 2.  **Gastgeber der Airbnb-Unterkunft:**
 
-    -   **Nullhypothese (H₀)**: Die Informationen über den Host, wie "host_is_superhost", "host_identifiy_verified" und "host_listings_count" haben keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+    -   **Nullhypothese (H0)**: Die Informationen über den Host, wie "host_is_superhost", "host_identifiy_verified" und "host_listings_count" haben keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
 
-    -   **Alternativhypothese (H₁)**: Die Informationen über den Host, wie "host_is_superhost", "host_identifiy_verified" und "host_listings_count" haben einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+    -   **Alternativhypothese (H1)**: Die Informationen über den Host, wie "host_is_superhost", "host_identifiy_verified" und "host_listings_count" haben einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
 
 3.  **Lage des Airbnb:**
 
-    -   **Nullhypothese (H₀)**: Die Nähe zum Stadtzentrum hat keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+    -   **Nullhypothese (H0)**: Die Nähe zum Stadtzentrum hat keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
 
-    -   **Alternativhypothese (H₁)**: Die Nähe zum Stadtzentrum hat einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+    -   **Alternativhypothese (H1)**: Die Nähe zum Stadtzentrum hat einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
 
 Weitere wichtige Eigenschaften sind Ereignisse (z.B. Zürich: Streetparade, Zürich Film Festival) in der betreffenden Stadt. Da wir aber die Daten nur zu einem einzelnen Zeitpunkt haben und keine Zeitserie, können wir den Einfluss dieser Ereignisse auf den Preis pro Person der Unterkunft nicht untersuchen.
 
@@ -125,10 +131,10 @@ df_vaud <- read_csv(here::here("dataSource/Vaud/listings_long.csv/listings.csv")
 df_geneva <- read_csv(here::here("dataSource/Geneva/listings_long.csv/listings.csv"), show_col_types = FALSE)
 ```
 
-```{r}
-#View(df_zuerich)
-#str(df_zuerich)
-#summary(df_zuerich)
+```{r, results="hide"}
+View(df_zuerich)
+str(df_zuerich)
+summary(df_zuerich)
 ```
 
 Nachdem wir die Zusammenfassung der Daten betrachtet und eine detaillierte Analyse der Dataframes durchgeführt haben, haben wir die folgenden Datenanpassungen vorgenommen:
@@ -236,7 +242,7 @@ df_geneva_cleanead <- df_geneva_cleanead %>%
   mutate(across(everything(), ~ifelse(. %in% na_formats, NA, .)))
 ```
 
-```{r}
+```{r, results="hide"}
 colnames(df_zuerich_cleanead)
 ```
 
@@ -265,7 +271,34 @@ ggplot(df_zuerich_cleanead, aes(x = reviews_per_month)) +
 
 ```
 
+Da der Preis stark variiert, analysieren wir die Möglichkeit, den Preis pro Person zu berechnen. Dabei fällt auf, dass der Preis bei "Entire home/apt" für die maximale Anzahl der Gäste (**`accommodates`**) berechnet wird, was sinnvoll ist, da die gesamte Unterkunft gebucht wird. Bei "Private room" und "Shared room" hingegen wird der Preis mehrheitlich pro Person angegeben. Im Gegensatz dazu ist der Preis bei "Hotel room" wieder für die maximale Gästeanzahl festgelegt.
+
 ```{r}
+df_zuerich %>%
+  group_by(room_type) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count))
+```
+
+```{r, price_per_person}
+df_geneva_cleanead <- df_geneva_cleanead %>%
+  mutate(price_per_person = ifelse(room_type %in% c("Entire home/apt", "Hotel room"), 
+                                   price_in_usd / accommodates, 
+                                   price_in_usd))
+
+df_zuerich_cleanead <- df_zuerich_cleanead %>%
+  mutate(price_per_person = ifelse(room_type %in% c("Entire home/apt", "Hotel room"), 
+                                   price_in_usd / accommodates, 
+                                   price_in_usd))
+
+df_vaud_cleanead <- df_vaud_cleanead %>%
+  mutate(price_per_person = ifelse(room_type %in% c("Entire home/apt", "Hotel room"), 
+                                   price_in_usd / accommodates, 
+                                   price_in_usd))
+
+```
+
+```{r, export}
 # Exportieren des DataFrames df_zuerich_cleanead, df_vaud_cleanead & df_geneva_cleanead in eine CSV-Datei
 write.csv(df_zuerich_cleanead, "df_zuerich_cleanead.csv", row.names = FALSE)
 write.csv(df_vaud_cleanead, "df_vaud_cleanead.csv", row.names = FALSE)
@@ -283,7 +316,7 @@ write.csv(df_geneva_cleanead, "df_geneva_cleanead.csv", row.names = FALSE)
 
 Die bereinigten Datensets der verschiedenen Orten sind alle gleich aufgebaut. Da wir den Preis der einzelnen Airbnb Apparment anschauen möchten ist dies unser wichtigster Wert:
 
-```{r}
+```{r, results="hide"}
 summary(df_zuerich_cleanead$price_in_usd)
 ```
 
@@ -305,8 +338,6 @@ ggplot(df_zuerich_cleanead, aes(x = price_in_usd)) +
 Nun ist stellt sich die Frage welche anderen Eigenschaften die grösste Auswirkung auf den Preis haben. Dazu gilt es herauszufinden wie die Korrelationen zwischen dem Preis pro USD und den anderen Attributen sind:
 
 ```{r}
-
-#normalisiierung fehlt!
 
 # Korrelation wird mit numerischen Werten berechnet:
 numeric_df <- df_zuerich_cleanead %>% select(where(is.numeric))

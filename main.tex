@@ -185,7 +185,8 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={Project reporting},
+  pdftitle={Optimierung der Preisstrategien bei Airbnb: Eine Analyse zur Maximierung der Einnahmen},
+  pdfauthor={Cedric Gisler \& Jovan Pajic},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -210,9 +211,11 @@
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
 % Do not put math or special symbols in the title.
-\title{Project reporting}
+\title{Optimierung der Preisstrategien bei Airbnb: Eine Analyse zur
+Maximierung der Einnahmen}
 
 \author{
+Cedric Gisler \& Jovan Pajic%
 
 }
 \begin{document}
@@ -238,7 +241,7 @@
 % creates the second title. It will be ignored for other modes.
 % \IEEEpeerreviewmaketitle
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, frame hidden, enhanced, sharp corners, boxrule=0pt, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, sharp corners, enhanced, frame hidden, breakable, interior hidden, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -264,6 +267,18 @@
   Methode von eda durchführen
 \end{enumerate}
 
+Sichtbarkeit Codeblox:
+
+Hide source code: echo=FALSE
+
+Hide text output: results = FALSE
+
+Hide messages: message=FALSE
+
+Hide warning messages: warning=FALSE
+
+Hide plots: fig.show=`hide'
+
 \hypertarget{abstrakt}{%
 \section{1. Abstrakt}\label{abstrakt}}
 
@@ -280,23 +295,6 @@ Document Abstract {[}1pt{]}
 \section{2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am
 Ende)}\label{einleitung-mit-forschungsfrage-d.h.-geschuxe4ftsfrage-am-ende}}
 
-Questions {[}2.5pt{]} Cedric
-
-\begin{itemize}
-\item
-  Are all BI topics (descriptive, predictiv and prescriptive) covered in
-  the questions? {[}0.5pt{]}
-\item
-  Is the formulation close enough? {[}1pt{]}
-\item
-  Is there a reasonable complexity of the questions (i.e.~the BI
-  problems)? {[}1pt{]}
-\end{itemize}
-
-Hypothesis {[}1pt{]} Are (is) there (a) global hypothesis and
-motivation(s) to prove? {[}1pt{]}
-
-\hfill\break
 In der heutigen, schnelllebigen Welt des Online-Tourismus spielen
 Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie
 Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von
@@ -306,28 +304,71 @@ Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage:
 \textbf{\emph{Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste
 an und ermöglichen es, einen höheren Preis pro Apparment zu erzielen?}}
 
-Die Bedeutung dieser Frage ergibt sich aus dem zunehmenden Wettbewerb
-unter den Gastgebern, die bestrebt sind, ihre Unterkünfte attraktiv zu
-gestalten und gleichzeitig optimale Preise zu erzielen. Durch die
-Analyse von Daten aus den Regionen Zürich, Genénve und Vaud versucht
-diese Arbeit, die Schlüsselelemente zu identifizieren, die die
-Attraktivität und die Preisgestaltung beeinflussen. Neben der
-geografischen Lage, der Art der Unterkunft, der Anzahl der Zimmer und
-Bäder sowie der Verfügbarkeit von Annehmlichkeiten werden auch Faktoren
-wie die Erfahrung und das Profil des Gastgebers analysiert. Diese
-Untersuchung zielt darauf ab, die prädiktiven Merkmale einer Unterkunft
-zu bestimmen, die als Indikatoren für höhere Preise fungieren, und
-präskriptive Empfehlungen für Gastgeber zu entwickeln, um die
-Attraktivität ihrer Unterkünfte zu steigern.
+Der grösste Unterschied eines Airbnbs ist deren Grösse. Eine der
+wichtigsten Eigenschaften eines Apartments ist aber die Lage, die
+Bewertung und der Gastgeber, somit definieren wir folgende
+Nullhypothesen:
 
-Durch die Kombination beschreibender, prädiktiver und präskriptiver
-Analysen wird die Studie ein tiefgreifendes Verständnis dafür
-vermitteln, wie verschiedene Faktoren zusammenwirken, um den
-wahrgenommenen Wert einer Unterkunft aus Sicht des Gastes zu erhöhen.
-Die Hypothese, dass Unterkünfte mit modernen Annehmlichkeiten,
-hervorragender Lage und hohen Bewertungen signifikant höhere Preise
-erzielen, wird überprüft, um Gastgebern und Airbnb wertvolle Einblicke
-für die Optimierung von Angeboten und Plattform zu bieten.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Bewertung der Airbnb-Unterkünften:}
+
+  \begin{itemize}
+  \item
+    \textbf{Nullhypothese (H0)}: Die Höhe der Bewertung hat keinen
+    Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+  \item
+    \textbf{Alternativhypothese (H1)}: Die Höhe der Bewertung hat einen
+    Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+  \end{itemize}
+\item
+  \textbf{Gastgeber der Airbnb-Unterkunft:}
+
+  \begin{itemize}
+  \item
+    \textbf{Nullhypothese (H0)}: Die Informationen über den Host, wie
+    ``host\_is\_superhost'', ``host\_identifiy\_verified'' und
+    ``host\_listings\_count'' haben keinen Einfluss auf die Höhe des
+    Preises pro Person der Unterkunft.
+  \item
+    \textbf{Alternativhypothese (H1)}: Die Informationen über den Host,
+    wie ``host\_is\_superhost'', ``host\_identifiy\_verified'' und
+    ``host\_listings\_count'' haben einen Einfluss auf die Höhe des
+    Preises pro Person der Unterkunft.
+  \end{itemize}
+\item
+  \textbf{Lage des Airbnb:}
+
+  \begin{itemize}
+  \item
+    \textbf{Nullhypothese (H0)}: Die Nähe zum Stadtzentrum hat keinen
+    Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+  \item
+    \textbf{Alternativhypothese (H1)}: Die Nähe zum Stadtzentrum hat
+    einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+  \end{itemize}
+\end{enumerate}
+
+Weitere wichtige Eigenschaften sind Ereignisse (z.B. Zürich:
+Streetparade, Zürich Film Festival) in der betreffenden Stadt. Da wir
+aber die Daten nur zu einem einzelnen Zeitpunkt haben und keine
+Zeitserie, können wir den Einfluss dieser Ereignisse auf den Preis pro
+Person der Unterkunft nicht untersuchen.
+
+\textbf{Deskriptive Analyse:} Wir möchten überprüfen, ob unsere
+Hypothesen so stimmen und wir mit unserer Annahme über die Einflüsse auf
+den Preis pro Person der Unterkunft richtig liegen.
+
+\textbf{Prädiktive Analyse:} Wir möchten den Trend des Preises pro
+Person der Unterkunft aufzeigen und untersuchen, ob wir mithilfe der
+Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine
+Prognose über den Preis machen können.
+
+\textbf{Präskriptive Analyse:} Wir möchten zeigen, welche Eigenschaften
+wie verbessert werden müssen, um die Preise pro Person der Unterkunft
+signifikant erhöhen zu können, um einen höheren Preis erzielen zu
+können.
 
 \hypertarget{datenquelle-mit-angaben-zu-quelle-qualituxe4t-und-bereinigungsschritten-der-daten}{%
 \section{3. Datenquelle (mit Angaben zu Quelle, Qualität und
@@ -454,71 +495,6 @@ folgenden Datenanpassungen vorgenommen:
   gegebenenfalls.
 \end{enumerate}
 
-\begin{verbatim}
- [1] "id"                                          
- [2] "listing_url"                                 
- [3] "scrape_id"                                   
- [4] "last_scraped"                                
- [5] "source"                                      
- [6] "name"                                        
- [7] "picture_url"                                 
- [8] "host_id"                                     
- [9] "host_url"                                    
-[10] "host_name"                                   
-[11] "host_since"                                  
-[12] "host_response_time"                          
-[13] "host_is_superhost"                           
-[14] "host_thumbnail_url"                          
-[15] "host_picture_url"                            
-[16] "host_listings_count"                         
-[17] "host_total_listings_count"                   
-[18] "host_has_profile_pic"                        
-[19] "host_identity_verified"                      
-[20] "neighbourhood_group_cleansed"                
-[21] "latitude"                                    
-[22] "longitude"                                   
-[23] "property_type"                               
-[24] "room_type"                                   
-[25] "accommodates"                                
-[26] "bathrooms_text"                              
-[27] "beds"                                        
-[28] "minimum_nights"                              
-[29] "maximum_nights"                              
-[30] "minimum_minimum_nights"                      
-[31] "maximum_minimum_nights"                      
-[32] "minimum_maximum_nights"                      
-[33] "maximum_maximum_nights"                      
-[34] "minimum_nights_avg_ntm"                      
-[35] "maximum_nights_avg_ntm"                      
-[36] "has_availability"                            
-[37] "availability_30"                             
-[38] "availability_60"                             
-[39] "availability_90"                             
-[40] "availability_365"                            
-[41] "calendar_last_scraped"                       
-[42] "number_of_reviews"                           
-[43] "number_of_reviews_ltm"                       
-[44] "number_of_reviews_l30d"                      
-[45] "first_review"                                
-[46] "last_review"                                 
-[47] "review_scores_rating"                        
-[48] "review_scores_accuracy"                      
-[49] "review_scores_cleanliness"                   
-[50] "review_scores_checkin"                       
-[51] "review_scores_communication"                 
-[52] "review_scores_location"                      
-[53] "review_scores_value"                         
-[54] "instant_bookable"                            
-[55] "calculated_host_listings_count"              
-[56] "calculated_host_listings_count_entire_homes" 
-[57] "calculated_host_listings_count_private_rooms"
-[58] "calculated_host_listings_count_shared_rooms" 
-[59] "reviews_per_month"                           
-[60] "host_response_rate_in_percent"               
-[61] "host_acceptance_rate_in_percent"             
-[62] "price_in_usd"                                
-\end{verbatim}
-
 Um die Daten nach der Bereinigung zu überprüfen und einen Überblick zu
 erhalten, führen wir eine standardmässige Datenanalysen durch am
 Beispiel \textbf{\texttt{df\_zuerich\_cleanead}} .
@@ -528,6 +504,28 @@ Beispiel \textbf{\texttt{df\_zuerich\_cleanead}} .
 \includegraphics{main_files/figure-pdf/eda-2.pdf}
 
 \includegraphics{main_files/figure-pdf/eda-3.pdf}
+
+Da der Preis stark variiert, analysieren wir die Möglichkeit, den Preis
+pro Person zu berechnen. Dabei fällt auf, dass der Preis bei ``Entire
+home/apt'' für die maximale Anzahl der Gäste
+(\textbf{\texttt{accommodates}}) berechnet wird, was sinnvoll ist, da
+die gesamte Unterkunft gebucht wird. Bei ``Private room'' und ``Shared
+room'' hingegen wird der Preis mehrheitlich pro Person angegeben. Im
+Gegensatz dazu ist der Preis bei ``Hotel room'' wieder für die maximale
+Gästeanzahl festgelegt.
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule\noalign{}
+room\_type & count \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Entire home/apt & 2119 \\
+Private room & 670 \\
+Shared room & 21 \\
+Hotel room & 9 \\
+\end{longtable}
 
 \hypertarget{datenanalyse-informationen-zur-datenstruktur-organisation-und-zu-den-fuxfcr-die-analyse-verwendeten-methoden}{%
 \section{5. Datenanalyse (Informationen zur Datenstruktur, Organisation
@@ -544,12 +542,7 @@ Die bereinigten Datensets der verschiedenen Orten sind alle gleich
 aufgebaut. Da wir den Preis der einzelnen Airbnb Apparment anschauen
 möchten ist dies unser wichtigster Wert:
 
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   20.0    95.0   133.0   157.8   185.0   999.0 
-\end{verbatim}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-5-1.pdf}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-6-1.pdf}
 
 \begin{verbatim}
 List of 3
@@ -564,7 +557,7 @@ List of 3
  - attr(*, "validate")= logi TRUE
 \end{verbatim}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-5-2.pdf}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-6-2.pdf}
 
 Nun ist stellt sich die Frage welche anderen Eigenschaften die grösste
 Auswirkung auf den Preis haben. Dazu gilt es herauszufinden wie die
@@ -660,6 +653,8 @@ calculated_host_listings_count_private_rooms
                                  0.042059103 
                                 price_in_usd 
                                  1.000000000 
+                            price_per_person 
+                                 0.454062799 
 \end{verbatim}
 
 Die Korrelationen der verschiedenen Variablen mit dem Preis
@@ -747,11 +742,11 @@ beeinflusst werden.
 Um diese Korrelationen auch noch grafisch aufzuzeigen mit einer linearen
 Regression.
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-7-1.pdf}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-8-1.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-7-2.pdf}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-8-2.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-7-3.pdf}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-8-3.pdf}
 
 \emph{Die Analyse zeigt auf die irgendwie logische Korrelation zwischen
 den Anzahl Gästen respektive Betten und den Preisen eines
@@ -761,11 +756,11 @@ Gibt es noch andere Korrelationen welche nicht so klar ersichtlich sind?
 
 Vielleicht sind die negativen Beziehungen spannender:
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-8-1.pdf}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-9-1.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-8-2.pdf}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-9-2.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-8-3.pdf}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-9-3.pdf}
 
 \emph{Sieht schon ein wenig besser aus - vorallem die Latitude. Wobei
 auch hier ist es irgendwie klar. Je weiter weg das AirBNB von zentrum
