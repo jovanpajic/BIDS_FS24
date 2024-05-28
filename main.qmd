@@ -121,6 +121,8 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
+library(caret)
+library(randomForest)
 ```
 
 ```{r import}
@@ -445,12 +447,39 @@ Descriptive analysis \[7pt\]
 Predictive analysis \[7pt\]
 
 1.  **Prädiktiv (Predictive)**: Um prädiktive Analysen einzubeziehen, könnte deine Fragestellung erweitert werden, um Vorhersagemodelle zu entwickeln, die den erzielbaren Preis basierend auf bestimmten Merkmalen der Unterkünfte prognostizieren. Dies könnte beispielsweise die Frage beinhalten: "Welche Merkmale einer Airbnb-Unterkunft sind prädiktive Indikatoren für einen höheren Preis?"
+2.  **Wir möchten den Trend des Preises pro Person der Unterkunft aufzeigen und untersuchen, ob wir mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis machen können.**
+3.  Are the applied methods goal orientated? \[2pt\]
+4.  Were the applied methods qualitatively performed? \[3pt\]
+5.  What are the conclusions of the findings? \[2pt\]
 
--   Are the applied methods goal orientated? \[2pt\]
+```{r}
+set.seed(123)
+trainIndex <- createDataPartition(df_zuerich_cleanead$price_per_person, p = .8, 
+                                  list = FALSE, 
+                                  times = 1)
+trainData <- df_zuerich_cleanead[ trainIndex,]
+testData <- df_zuerich_cleanead[-trainIndex,]
 
--   Were the applied methods qualitatively performed? \[3pt\]
+# Training des Modells
+model <- randomForest(price_per_person ~ availability_365  + review_scores_rating + number_of_reviews, 
+                      data = trainData, 
+                      ntree = 500)
 
--   What are the conclusions of the findings? \[2pt\]
+# Evaluierung des Modells
+predictions <- predict(model, testData)
+rmse <- sqrt(mean((predictions - testData$price_per_person)^2))
+mae <- mean(abs(predictions - testData$price_per_person))
+r2 <- 1 - sum((predictions - testData$price_per_person)^2) / sum((mean(testData$price_per_person) - testData$price_per_person)^2)
+
+# Ergebnisse anzeigen
+cat("RMSE:", rmse, "\n")
+cat("MAE:", mae, "\n")
+cat("R²:", r2, "\n")
+
+# Schlussfolgerungen
+importance <- importance(model)
+print(importance)
+```
 
 Prescriptive analysis \[7pt\]
 
