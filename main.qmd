@@ -399,7 +399,7 @@ dfSummary(df_geneva_cleanead)
 
 Um die Forschungsfragen zu beantworten und die Hypothesen zu testen, wurden verschiedene statistische Methoden und Verfahren angewendet:
 
-#### 1. **Deskriptive Statistik**
+#### **Deskriptive Statistik**
 
 Die deskriptive Statistik liefert grundlegende Informationen über die Struktur und Verteilung der Daten. Ziel ist es, einen Überblick über die Daten zu bekommen und mögliche Anomalien oder interessante Muster zu erkennen.
 
@@ -499,7 +499,7 @@ ggplot(df_zuerich_cleanead, aes(y = review_scores_rating)) +
   labs(title = "Boxplot der Bewertung in Geneva", y = "Bewertung")
 ```
 
-#### 2. **Korrelationsanalyse**
+#### **Korrelationsanalyse**
 
 Die Korrelationsanalyse untersucht die Stärke und Richtung der Beziehung zwischen verschiedenen numerischen Variablen. Pearson-Korrelationskoeffizienten wurden berechnet, um zu quantifizieren, wie stark zwei Variablen miteinander variieren.
 
@@ -548,7 +548,7 @@ print(calculate_correlations(df_vaud_cleanead))
 print(calculate_correlations(df_geneva_cleanead))
 ```
 
-#### 3. **Lineare Regression**
+#### **Lineare Regression**
 
 Die lineare Regression wurde verwendet, um die Beziehung zwischen einer abhängigen Variable (Preis pro Person) und einer oder mehreren unabhängigen Variablen zu modellieren. Dies hilft, die Auswirkungen der unabhängigen Variablen auf die abhängige Variable zu quantifizieren und Vorhersagen zu treffen.
 
@@ -599,7 +599,7 @@ for (city in names(city_data_list)){
 
 ```
 
-#### 4. **Visualisierung**
+#### **Visualisierung**
 
 Visualisierungen sind ein wesentliches Werkzeug, um Datenmuster und Zusammenhänge intuitiv darzustellen und zu verstehen. Verschiedene Arten von Plots wurden verwendet, um die Ergebnisse der deskriptiven Statistik, der Korrelationsanalyse und der Regressionsmodelle zu visualisieren.
 
@@ -650,17 +650,17 @@ plot_regression <- function(data, x_var, y_var, title) {
 }
 ```
 
-#### 5. Predictive Analysis
+#### Predictive Analysis
 
 Zusätzlich zu den deskriptiven und inferenziellen Analysen wurde eine prädiktive Analyse durchgeführt, um den Preis pro Person basierend auf den verfügbaren Merkmalen vorherzusagen. Hierfür wurde ein Regressionsmodell mit mehreren Prädiktoren erstellt und evaluiert.
 
-#### 5.1 Datenvorbereitung
+#### Datenvorbereitung
 
 -   **Feature Engineering:** Erstellung neuer Variablen, wie z.B. `distance_to_center`, und Transformation von kategorialen Variablen in numerische Werte.
 
 -   **Train-Test-Split:** Aufteilung der Daten in Trainings- und Testdatensätze, um die Modellleistung zu evaluieren.
 
-#### 5.2 Modelltraining und -evaluation
+#### Modelltraining und -evaluation
 
 -   **Modelltraining:** Ein multiple lineares Regressionsmodell wurde auf den Trainingsdaten trainiert.
 
@@ -1018,4 +1018,44 @@ Die Merkmalswichtigkeit zeigt, dass die Verfügbarkeit über 365 Tage (IncNodePu
 The `echo: false` option disables the printing of code (only output is displayed).
 -->
 ```
+In diesem Kapitel fassen wir die wichtigsten Ergebnisse unserer Analyse zusammen und beantworten die eingangs gestellte Forschungsfrage: "Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Apartment zu erzielen?"
+
+### Bewertung der Airbnb-Unterkünfte
+
+Unsere Analyse zeigte, dass die Sauberkeitsbewertung (review_scores_cleanliness) einen signifikanten positiven Einfluss auf den Preis pro Person in allen drei untersuchten Städten (Zürich, Vaud und Genf) hat. Dies deutet darauf hin, dass Gäste bereit sind, mehr für Unterkünfte zu zahlen, die als besonders sauber bewertet wurden. Die Gesamtbewertung (review_scores_rating) und die Kommunikationsbewertung (review_scores_communication) hatten hingegen keinen einheitlich signifikanten Einfluss auf den Preis.
+
+### Gastgeber der Airbnb-Unterkünfte
+
+Die Untersuchung der Gastgebermerkmale ergab, dass in Zürich die Anzahl der Listings eines Hosts (host_listings_count) einen signifikant negativen Einfluss auf den Preis pro Person hat. Dies könnte darauf hindeuten, dass Gastgeber mit vielen Angeboten möglicherweise niedrigere Preise anbieten, um die Auslastung zu maximieren. Der Status als Superhost (host_is_superhost) und die Verifizierung des Hosts (host_identity_verified) hatten hingegen keinen konsistenten signifikanten Einfluss auf den Preis.
+
+### Lage der Airbnb-Unterkünfte
+
+Die geografische Analyse zeigte, dass in Vaud der Längengrad (longitude) einen signifikant negativen Einfluss auf den Preis pro Person hat. Dies könnte auf spezifische regionale Preisunterschiede hinweisen. In Zürich und Genf hatten die geografischen Koordinaten jedoch keinen signifikanten Einfluss auf den Preis.
+
+### Predictive Analysis
+
+NOCH ERLEDIGEN
+
+Unsere prädiktive Analyse zeigte, dass die Verfügbarkeit der Unterkunft über 365 Tage (availability_365), die Anzahl der Bewertungen (number_of_reviews) und die Sauberkeitsbewertung (review_scores_cleanliness) wesentliche Prädiktoren für den Preis pro Person sind. Das entwickelte Vorhersagemodell zeigte jedoch eine begrenzte Vorhersagegenauigkeit, was auf die Komplexität und die vielen Einflussfaktoren des Preises hinweist.
+
+NOCH ERLEDIGEN
+
+### Empfehlungen für Gastgeber
+
+Auf Basis unserer Ergebnisse können folgende Empfehlungen für Gastgeber abgeleitet werden, um den Preis pro Person ihrer Unterkünfte zu maximieren:
+
+1.  **Sauberkeit verbessern**: Da die Sauberkeitsbewertung einen signifikanten Einfluss auf den Preis hat, sollten Gastgeber sicherstellen, dass ihre Unterkünfte stets sauber und gepflegt sind, um positive Bewertungen in diesem Bereich zu erhalten.
+
+2.  **Anzahl der Listings optimieren**: Gastgeber mit vielen Listings sollten ihre Preisstrategie überprüfen und möglicherweise höhere Preise für besonders exklusive oder gut bewertete Unterkünfte festlegen.
+
+3.  **Geografische Preisstrategien anwenden**: Insbesondere in Regionen wie Vaud sollten Gastgeber die lokale Preisstruktur berücksichtigen und ihre Preise entsprechend anpassen.
+
+### Beantwortung der Forschungsfrage
+
+Zusammenfassend lässt sich sagen, dass die Sauberkeitsbewertung einer Unterkunft, die Verfügbarkeit der Unterkunft und die Anzahl der Listings eines Hosts die wichtigsten Faktoren sind, die den Preis pro Person einer Airbnb-Unterkunft beeinflussen. Gastgeber sollten daher auf diese Merkmale achten, um ihre Einnahmen zu maximieren.
+
+### Weiterführende Forschung
+
+Für zukünftige Untersuchungen wäre es sinnvoll, zusätzliche Daten über längere Zeiträume zu sammeln, um den Einfluss saisonaler Ereignisse und Trends besser zu verstehen. Zudem könnten nicht-lineare Modelle oder maschinelle Lernverfahren eingesetzt werden, um die Komplexität der Einflussfaktoren besser abzubilden und genauere Vorhersagen zu ermöglichen.
+
 ## 8. Referenzen
