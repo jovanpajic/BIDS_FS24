@@ -59,21 +59,33 @@ Der grösste Unterschied eines Airbnbs ist deren Grösse. Eine der wichtigsten E
 
 1.  **Bewertung der Airbnb-Unterkünften:**
 
-    -   **Nullhypothese (H0)**: Die Höhe der Bewertung hat keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
-
-    -   **Alternativhypothese (H1)**: Die Höhe der Bewertung hat einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+    -   **Nullhypothese (H0):** Die Höhe der Gesamtbewertung (review_scores_rating) hat keinen signifikanten Einfluss auf den Preis pro Person der Unterkunft.
+    -   **Alternativhypothese (H1):** Die Höhe der Gesamtbewertung (review_scores_rating) hat einen signifikanten Einfluss auf den Preis pro Person der Unterkunft.
+    -   **Fragen:**
+        -   Hat die Gesamtbewertung der Unterkunft (review_scores_rating) einen signifikanten Einfluss auf den Preis pro Person?
+        -   Gibt es bestimmte Bewertungsmetriken (z.B. Sauberkeit, Kommunikation), die den Preis pro Person stärker beeinflussen als andere?
 
 2.  **Gastgeber der Airbnb-Unterkunft:**
 
-    -   **Nullhypothese (H0)**: Die Informationen über den Host, wie "host_is_superhost", "host_identifiy_verified" und "host_listings_count" haben keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+    -   **Nullhypothese (H0):** Die Attribute des Hosts wie "host_is_superhost", "host_identity_verified" und "host_listings_count" haben keinen signifikanten Einfluss auf den Preis pro Person der Unterkunft.
+    -   **Alternativhypothese (H1):** Die Attribute des Hosts wie "host_is_superhost", "host_identity_verified" und "host_listings_count" haben einen signifikanten Einfluss auf den Preis pro Person der Unterkunft.
+    -   **Fragen:**
+        -   Beeinflusst der Status "Superhost" (host_is_superhost) den Preis pro Person?
 
-    -   **Alternativhypothese (H1)**: Die Informationen über den Host, wie "host_is_superhost", "host_identifiy_verified" und "host_listings_count" haben einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+        -   Hat die Verifizierung des Hosts (host_identity_verified) einen Einfluss auf den Preis pro Person?
+
+        -   Wie beeinflusst die Anzahl der Listings eines Hosts (host_listings_count) den Preis pro Person?
 
 3.  **Lage des Airbnb:**
 
-    -   **Nullhypothese (H0)**: Die Nähe zum Stadtzentrum hat keinen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+    -   **Nullhypothese (H0):** Die Entfernung zum Stadtzentrum (berechnet durch geografische Koordinaten) hat keinen signifikanten Einfluss auf den Preis pro Person der Unterkunft.
 
-    -   **Alternativhypothese (H1)**: Die Nähe zum Stadtzentrum hat einen Einfluss auf die Höhe des Preises pro Person der Unterkunft.
+    -   **Alternativhypothese (H1):** Die Entfernung zum Stadtzentrum (berechnet durch geografische Koordinaten) hat einen signifikanten Einfluss auf den Preis pro Person der Unterkunft.
+
+    -   **Fragen:**
+
+        -   Beeinflusst die Entfernung zum Stadtzentrum den Preis pro Person der Unterkunft?
+        -   Gibt es andere geografische Faktoren (z.B. Nähe zu bestimmten Attraktionen), die den Preis pro Person beeinflussen?
 
 Weitere wichtige Eigenschaften sind Ereignisse (z.B. Zürich: Streetparade, Zürich Film Festival) in der betreffenden Stadt. Da wir aber die Daten nur zu einem einzelnen Zeitpunkt haben und keine Zeitserie, können wir den Einfluss dieser Ereignisse auf den Preis pro Person der Unterkunft nicht untersuchen.
 
@@ -139,6 +151,7 @@ library(ggplot2)
 library(tidyr)
 library(caret)
 library(randomForest)
+library(summarytools)
 ```
 
 ```{r import}
@@ -344,217 +357,236 @@ write.csv(df_geneva_cleanead, "df_geneva_cleanead.csv", row.names = FALSE)
 ```{=html}
 <!--
 
-
 *Data analysis \[2pt\] Cedric / Jovan*
 
 *Are data attributes clear and obvious discussed? \[1pt\]* -> dictonary
 
 *Are adequate EDA methodologies used for data analysis? \[1pt\]* 
 
-Exploratory Data Analysis is the:
-critical process of performing initial investigations on data so as
-• to discover patterns,
-• to spot anomalies,
-• to test hypothesis and
-• to check assumptions
-with the help of
-• summary statistics and
-• graphical representations.
-
 -->
 ```
-Die bereinigten Datensets der verschiedenen Orten sind alle gleich aufgebaut. Da wir den Preis der einzelnen Airbnb Apparment anschauen möchten ist dies unser wichtigster Wert:
+### Datenstruktur und Organisation
 
-```{r, results="hide"}
-summary(df_zuerich_cleanead$price_in_usd)
+Die vorliegenden bereinigten Datensets besteht aus Informationen zu Airbnb-Unterkünften in Zürich, Geneve und Vaud und umfasst 63 Variablen und mehrere tausend Zeilen, wobei jede Zeile eine einzelne Unterkunft repräsentiert. Die Variablen enthalten diverse Informationen, darunter:
+
+-   **ID und URLs:** Eindeutige Identifikationsnummern und Links zu den Listings.
+
+-   **Host-Informationen:** Daten über die Gastgeber, wie `host_id`, `host_name`, `host_is_superhost`, `host_identity_verified`, und `host_listings_count`.
+
+-   **Eigenschaften der Unterkunft:** Variablen wie `accommodates`, `bedrooms`, `bathrooms`, `beds`, `price_in_usd`, und `price_per_person`.
+
+-   **Bewertungen:** Bewertungsscores wie `review_scores_rating`, `review_scores_cleanliness`, `review_scores_checkin`, etc.
+
+-   **Geografische Daten:** `latitude` und `longitude`.
+
+-   **Verfügbarkeitsdaten:** `availability_30`, `availability_60`, `availability_90`, `availability_365`.
+
+```{r}
+dfSummary(df_zuerich_cleanead)
+view(dfSummary(df_zuerich_cleanead))
 ```
 
-```{r, results = FALSE}
-# Boxplot mit verbesserten Einstellungen für Achsen und Breite anzeigen
-ggplot(df_zuerich_cleanead, aes(y = price_in_usd, x = 1)) + 
-  geom_boxplot(fill = "blue", color = "black", alpha = 0.7, width = 0.2) +
-  labs(title = "Verteilung der Preise in USD", y = "Preis (USD)") +
+```{r}
+dfSummary(df_vaud_cleanead)
+view(dfSummary(df_vaud_cleanead))
+```
+
+```{r}
+dfSummary(df_geneva_cleanead)
+view(dfSummary(df_geneva_cleanead))
+```
+
+### Methoden der Datenanalyse
+
+Um die Forschungsfragen zu beantworten und die Hypothesen zu testen, wurden verschiedene statistische Methoden und Verfahren angewendet:
+
+#### 1. **Deskriptive Statistik**
+
+Die deskriptive Statistik liefert grundlegende Informationen über die Struktur und Verteilung der Daten. Ziel ist es, einen Überblick über die Daten zu bekommen und mögliche Anomalien oder interessante Muster zu erkennen.
+
+-   **Ziel:** Ein grundlegendes Verständnis der Datenstruktur und Verteilung der Variablen zu erlangen.
+
+-   **Massnahmen:** Berechnung von Mittelwerten, Mediane, Standardabweichungen und Visualisierung der Datenverteilung durch Histogramme und Boxplots.
+
+Kurze Übersicht über die Datensets Zürich, Vaud und Gemeva
+
+```{r}
+# Deskriptive Statistik für numerische Variablen
+summary(df_zuerich_cleanead$price_per_person)
+summary(df_zuerich_cleanead$review_scores_rating)
+
+# Histogramm für die Verteilung des Preises pro Person
+ggplot(df_zuerich_cleanead, aes(x = price_per_person)) +
+  geom_histogram(binwidth = 10, fill = "blue", color = "black", alpha = 0.7) +
   theme_minimal() +
-  scale_x_continuous(expand = expansion(mult = c(0.5, 0.5))) 
-  theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  labs(title = "Verteilung des Preises pro Person in Zürich", x = "Preis pro Person", y = "Häufigkeit")
 
-ggplot(df_zuerich_cleanead, aes(x = price_in_usd)) +
-  geom_histogram(bins = 30, fill = "blue", color = "black", alpha = 0.7) +
-  labs(title = "Verteilung der Preise in USD", x = "Preis (USD)", y = "Anzahl der Einträge") +
-  theme_minimal()
+# Boxplot für den Preis pro Person
+ggplot(df_zuerich_cleanead, aes(y = price_per_person)) +
+  geom_boxplot(fill = "orange", color = "black", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Boxplot des Preises pro Person in Zürich", y = "Preis pro Person")
+
+# Histogramm für die Verteilung der Bewertung
+ggplot(df_zuerich_cleanead, aes(x = review_scores_rating)) +
+  geom_histogram(binwidth = 1, fill = "green", color = "black", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Verteilung der Bewertung in Zürich", x = "Bewertung", y = "Häufigkeit")
+
+# Boxplot für die Bewertung
+ggplot(df_zuerich_cleanead, aes(y = review_scores_rating)) +
+  geom_boxplot(fill = "purple", color = "black", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Boxplot der Bewertung in Zürich", y = "Bewertung")
 ```
-
-Nun ist stellt sich die Frage welche anderen Eigenschaften die grösste Auswirkung auf den Preis haben. Dazu gilt es herauszufinden wie die Korrelationen zwischen dem Preis pro USD und den anderen Attributen sind:
-
-```{r, results = FALSE}
-
-# Korrelation wird mit numerischen Werten berechnet:
-numeric_df <- df_zuerich_cleanead %>% select(where(is.numeric))
-
-# Berechnen der Matrix 
-correlation_matrix <- cor(numeric_df, use = "complete.obs")
-
-print(correlation_matrix[ , "price_in_usd"])
-
-```
-
-Die Korrelationen der verschiedenen Variablen mit dem Preis (**`price_in_usd`**) im Datensatz können wichtige Einsichten bieten, welche Faktoren den Preis beeinflussen. Hier ist eine Analyse der signifikanten positiven und negativen Korrelationen:
-
-### **Positive Korrelationen:**
-
-1.  **accommodates** (0.449): Es besteht eine moderate positive Korrelation zwischen der Anzahl der Gäste, die eine Unterkunft aufnehmen kann, und dem Preis. Dies deutet darauf hin, dass grössere Unterkünfte, die mehr Gäste beherbergen können, in der Regel teurer sind.
-
-2.  **beds** (0.329): Eine ähnliche positive Korrelation gibt es zwischen der Anzahl der Betten und dem Preis, was darauf hindeutet, dass mehr Betten oft höhere Preise bedeuten, was auch mit der Grösse der Unterkunft zusammenhängen kann.
-
-3.  **availability_365** (0.157): Längere Verfügbarkeit im Laufe eines Jahres korreliert leicht positiv mit höheren Preisen. Dies könnte bedeuten, dass Unterkünfte, die seltener verfügbar sind, zu höheren Preisen angeboten werden.
-
-4.  **last_scraped** (0.308), **calendar_last_scraped** (0.308): Diese Korrelationen deuten darauf hin, dass die Zeitpunkte der Datenerfassung mit den Preisänder
-
-### **Negative Korrelationen:**
-
-1.  **latitude** (-0.097): Es gibt eine leichte negative Korrelation zwischen der geographischen Breite und dem Preis. Je weiter nördlich die Unterkunft liegt, desto geringer könnte der Preis sein, was auf regionale Preisunterschiede in der Stadt oder der Umgebung hinweisen könnte.
-
-2.  **minimum_nights** (-0.053), **first_review** (-0.053): Längere Mindestaufenthalte und frühere erste Bewertungen korrelieren leicht negativ mit dem Preis. Dies könnte darauf hinweisen, dass preisgünstigere Unterkünfte möglicherweise längere Aufenthalte erfordern oder schon länger auf dem Markt sind.
-
-3.  **calculated_host_listings_count_private_rooms** (-0.103): Eine höhere Anzahl von Inseraten, die private Zimmer betreffen, korreliert leicht negativ mit dem Preis, was darauf hinweisen könnte, dass Gastgeber mit mehreren Einträgen möglicherweise günstigere Preise anbieten, um wettbewerbsfähig zu bleiben.
-
-### **Interpretation**
-
--   **Hohe positive Korrelationen** zeigen an, dass mit zunehmender Kapazität und Verfügbarkeit der Unterkünfte der Preis steigt. Dies reflektiert die Marktlogik, dass grössere und häufiger verfügbare Unterkünfte als wertvoller angesehen werden.
-
--   **Negative Korrelationen** deuten darauf hin, dass bestimmte Faktoren wie die geografische Lage (nördlicher) oder die Politik längerer Mindestaufenthalte die Preise senken können. Dies könnte für Gäste attraktiv sein, die längerfristige Aufenthalte suchen oder flexibel in der Wahl der Region sind.
-
-Diese Korrelationen sollten jedoch vorsichtig interpretiert werden, da Korrelation nicht gleich Kausalität ist. Andere verborgene Variablen könnten ebenfalls eine Rolle spielen, und die Effekte könnten durch spezifische Marktbedingungen oder andere nicht berücksichtigte Faktoren beeinflusst werden.
-
-Um diese Korrelationen auch noch grafisch aufzuzeigen mit einer linearen Regression.
 
 ```{r}
-ggplot(df_zuerich_cleanead, aes(x = beds, y = price_in_usd)) +
-  geom_point(aes(color = accommodates), alpha = 0.5) +
-  labs(x = "Anzahl der Betten", y = "Preis (USD)", color = "Beherbergt", title = "Beziehung zwischen Bettenanzahl und Preis") +
-  geom_smooth(method = "lm", color = "red", se = TRUE) +
-  theme_minimal()
+# Deskriptive Statistik für numerische Variablen
+summary(df_vaud_cleanead$price_per_person)
+summary(df_vaud_cleanead$review_scores_rating)
 
+# Histogramm für die Verteilung des Preises pro Person
+ggplot(df_vaud_cleanead, aes(x = price_per_person)) +
+  geom_histogram(binwidth = 10, fill = "blue", color = "black", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Verteilung des Preises pro Person in Vaud", x = "Preis pro Person", y = "Häufigkeit")
 
-ggplot(df_zuerich_cleanead, aes(x = accommodates, y = price_in_usd)) +
-  geom_point(aes(color = beds), alpha = 0.5) +
-  labs(x = "Anzahl der Gäste", y = "Preis (USD)", color = "Betten", title = "Beziehung zwischen Gästeanzahl und Preis") +
-  geom_smooth(method = "lm", color = "red", se = TRUE) +
-  theme_minimal()
+# Boxplot für den Preis pro Person
+ggplot(df_vaud_cleanead, aes(y = price_per_person)) +
+  geom_boxplot(fill = "orange", color = "black", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Boxplot des Preises pro Person in Vaud", y = "Preis pro Person")
 
-ggplot(df_zuerich_cleanead, aes(x = accommodates, y = price_in_usd)) +
-  geom_point(aes(color = host_is_superhost), alpha = 0.5) +
-  labs(x = "Anzahl der Gäste", y = "Preis (USD)", color = "Host ist Superhost", title = "Beziehung zwischen Gästeanzahl und Preis") +
-  geom_smooth(method = "lm", color = "red", se = TRUE) +
-  theme_minimal()
+# Histogramm für die Verteilung der Bewertung
+ggplot(df_vaud_cleanead, aes(x = review_scores_rating)) +
+  geom_histogram(binwidth = 1, fill = "green", color = "black", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Verteilung der Bewertung in Vaud", x = "Bewertung", y = "Häufigkeit")
+
+# Boxplot für die Bewertung
+ggplot(df_vaud_cleanead, aes(y = review_scores_rating)) +
+  geom_boxplot(fill = "purple", color = "black", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Boxplot der Bewertung in Vaud", y = "Bewertung")
 ```
-
-*Die Analyse zeigt auf die irgendwie logische Korrelation zwischen den Anzahl Gästen respektive Betten und den Preisen eines AirBNBs... Also je grösser das AirBNB desto mehr kostet es...*
-
-Gibt es noch andere Korrelationen welche nicht so klar ersichtlich sind?
-
-Vielleicht sind die negativen Beziehungen spannender:
 
 ```{r}
-ggplot(df_zuerich_cleanead, aes(x = minimum_nights, y = price_in_usd)) +
-  geom_point(aes(color = accommodates), alpha = 0.5) +
-  labs(x = "Minimum Nächte", y = "Preis (USD)", color = "Beherbergt", title = "Negative Beziehung zwischen Minimum Nächte und Preis") +
-  geom_smooth(method = "lm", color = "red", se = TRUE) +
-  theme_minimal()
+# Deskriptive Statistik für numerische Variablen
+summary(df_geneva_cleanead$price_per_person)
+summary(df_geneva_cleanead$review_scores_rating)
 
+# Histogramm für die Verteilung des Preises pro Person
+ggplot(df_geneva_cleanead, aes(x = price_per_person)) +
+  geom_histogram(binwidth = 10, fill = "blue", color = "black", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Verteilung des Preises pro Person in Geneva", x = "Preis pro Person", y = "Häufigkeit")
 
-ggplot(df_zuerich_cleanead, aes(x = latitude, y = price_in_usd)) +
-  geom_point(aes(color = beds), alpha = 0.5) +
-  labs(x = "Latitude", y = "Preis (USD)", color = "Betten", title = "Negative Beziehung zwischen Latitude und Preis") +
-  geom_smooth(method = "lm", color = "red", se = TRUE) +
-  theme_minimal()
+# Boxplot für den Preis pro Person
+ggplot(df_geneva_cleanead, aes(y = price_per_person)) +
+  geom_boxplot(fill = "orange", color = "black", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Boxplot des Preises pro Person in Geneva", y = "Preis pro Person")
 
-ggplot(df_zuerich_cleanead, aes(x = calculated_host_listings_count_private_rooms, y = price_in_usd)) +
-  geom_point(aes(color = host_is_superhost), alpha = 0.5) +
-  labs(x = "Anzahl Listings pro Host", y = "Preis (USD)", color = "Host ist Superhost", title = "Negative Beziehung zwischen Anzahl Listings pro Host und Preis") +
-  geom_smooth(method = "lm", color = "red", se = TRUE) +
-  theme_minimal()
+# Histogramm für die Verteilung der Bewertung
+ggplot(df_geneva_cleanead, aes(x = review_scores_rating)) +
+  geom_histogram(binwidth = 1, fill = "green", color = "black", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Verteilung der Bewertung in Geneva", x = "Bewertung", y = "Häufigkeit")
 
+# Boxplot für die Bewertung
+ggplot(df_zuerich_cleanead, aes(y = review_scores_rating)) +
+  geom_boxplot(fill = "purple", color = "black", alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Boxplot der Bewertung in Geneva", y = "Bewertung")
 ```
 
-*Sieht schon ein wenig besser aus - vorallem die Latitude. Wobei auch hier ist es irgendwie klar. Je weiter weg das AirBNB von zentrum weg ist desto günstiger ist die Wohnung...*
+#### 2. **Korrelationsanalyse**
 
-*Gibt es sonst noch irgendwelche Möglichkeiten den Preis vorherauszusagen?* <!--
+Die Korrelationsanalyse untersucht die Stärke und Richtung der Beziehung zwischen verschiedenen numerischen Variablen. Pearson-Korrelationskoeffizienten wurden berechnet, um zu quantifizieren, wie stark zwei Variablen miteinander variieren.
 
-Descriptive analysis \[7pt\]
+-   **Ziel:** Identifikation von Zusammenhängen zwischen den Variablen, insbesondere zwischen den Bewertungen, Host-Informationen, geografischen Daten und dem Preis pro Person.
 
-1.  **Beschreibend (Descriptive)**: Deine Forschungsarbeit scheint beschreibende Analysen abzudecken, indem sie Merkmale von Airbnb-Unterkünften untersucht, die einen höheren Preis erzielen. Dies umfasst die Analyse der geografischen Lage, der Art der Unterkunft, der Anzahl der Zimmer und Bäder sowie der Verfügbarkeit von Annehmlichkeiten.
-
--   Was reasonable statistics used for data inspection and which attributes have been checked? \[2pt\]
-
--   Are the findings and statements qualitative? \[3pt\]
-
--   What are the conclusions of the findings? \[2pt\]
---> <!--
-
-Predictive analysis \[7pt\]
-
-1.  **Prädiktiv (Predictive)**: Um prädiktive Analysen einzubeziehen, könnte deine Fragestellung erweitert werden, um Vorhersagemodelle zu entwickeln, die den erzielbaren Preis basierend auf bestimmten Merkmalen der Unterkünfte prognostizieren. Dies könnte beispielsweise die Frage beinhalten: "Welche Merkmale einer Airbnb-Unterkunft sind prädiktive Indikatoren für einen höheren Preis?"
-2.  **Wir möchten den Trend des Preises pro Person der Unterkunft aufzeigen und untersuchen, ob wir mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis machen können.**
-3.  Are the applied methods goal orientated? \[2pt\]
-4.  Were the applied methods qualitatively performed? \[3pt\]
-5.  What are the conclusions of the findings? \[2pt\]
--->
-
-```{r predictive}
-set.seed(123)
-trainIndex <- createDataPartition(df_zuerich_cleanead$price_per_person, p = .8, 
-                                  list = FALSE, 
-                                  times = 1)
-trainData <- df_zuerich_cleanead[ trainIndex,]
-testData <- df_zuerich_cleanead[-trainIndex,]
-
-# Training des Modells
-model <- randomForest(price_per_person ~ availability_365  + review_scores_rating + number_of_reviews, 
-                      data = trainData, 
-                      ntree = 500)
-
-# Evaluierung des Modells
-predictions <- predict(model, testData)
-rmse <- sqrt(mean((predictions - testData$price_per_person)^2))
-mae <- mean(abs(predictions - testData$price_per_person))
-r2 <- 1 - sum((predictions - testData$price_per_person)^2) / sum((mean(testData$price_per_person) - testData$price_per_person)^2)
-
-# Ergebnisse anzeigen
-cat("RMSE:", rmse, "\n")
-cat("MAE:", mae, "\n")
-cat("R²:", r2, "\n")
-
-# Schlussfolgerungen
-importance <- importance(model)
-print(importance)
-```
-
-Die vorliegende Predictive Analyse zielt darauf ab, den Trend des Preises pro Person einer Unterkunft aufzuzeigen und zu untersuchen, ob mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis gemacht werden kann. Dabei wurden Verfügbarkeit (availability_365), Bewertung (review_scores_rating) und Anzahl der Bewertungen (number_of_reviews) als Prädiktoren herangezogen.
-
-Die Modellbewertung zeigt folgende Ergebnisse:
-
--   **RMSE: 41.90135** – Der durchschnittliche quadratische Fehler beträgt 41.90 USD, was auf erhebliche Abweichungen zwischen den vorhergesagten und tatsächlichen Preisen hinweist.
-
--   **MAE: 27.91819** – Der mittlere absolute Fehler beträgt 27.92 USD, was ebenfalls auf erhebliche Abweichungen hinweist.
-
--   **R²: -0.01782196** – Ein negativer R²-Wert deutet darauf hin, dass das Modell die Variation des Preises pro Person nicht gut erklärt und kaum besser als zufällige Vorhersagen ist.
-
-Die Merkmalswichtigkeit zeigt, dass die Verfügbarkeit über 365 Tage (IncNodePurity = 833646.7) der wichtigste Prädiktor ist, gefolgt von der Anzahl der Bewertungen (IncNodePurity = 718716.6) und der Bewertung der Unterkunft (IncNodePurity = 488147.3). Dies zeigt, dass die Verfügbarkeit der Unterkunft, die Anzahl der Bewertungen und die Bewertungen selbst wesentliche Faktoren bei der Preisgestaltung sind. <!--
-
-Prescriptive analysis \[7pt\]
-
-1.  **Präskriptiv (Prescriptive)**: Um präskriptive Analysen abzudecken, könnte die Forschung Empfehlungen entwickeln, wie Gastgeber ihre Unterkünfte modifizieren könnten, um die Attraktivität und den Preis zu maximieren. Die Frage könnte lauten: "Welche Änderungen könnten Gastgeber vornehmen, um den Preis ihrer Airbnb-Unterkünfte zu maximieren?"
-
--   Is the applied method reasonable for the given problem? \[2pt\]
-
--   Were the applied methods qualitatively performed? \[3pt\]
-
--   What are the conclusions of the findings? \[2pt\]
--->
+-   **Massnahmen:** Berechnung von Pearson-Korrelationskoeffizienten und Erstellung von Korrelationsmatrizen.
 
 ```{r}
+calculate_correlations <- function(data, city_name) {
+  # Filter für die jeweilige Stadt
+  
+  # Auswahl der numerischen Spalten
+  numerical_columns <- data %>%
+    select(where(is.numeric)) %>%
+    colnames()
+  
+  # Berechnung der Korrelationsmatrix
+  correlation_matrix <- cor(data %>% select(all_of(numerical_columns)), use = "complete.obs")
+  
+  # Extraktion der Korrelationen mit 'price_per_person'
+  correlation_with_price_per_person <- correlation_matrix["price_per_person", ] %>%
+    sort(decreasing = TRUE)
+  
+  # Umwandlung in DataFrame
+  correlation_df <- data.frame(
+    Variable = names(correlation_with_price_per_person),
+    Correlation = correlation_with_price_per_person
+  )
+  
+  # Auswahl der 5 höchsten und 5 niedrigsten Korrelationen
+  top_5 <- correlation_df %>% head(6) # including 'price_per_person' itself
+  bottom_5 <- correlation_df %>% tail(5)
+  
+  # Zusammenfügen der Ergebnisse
+  result <- bind_rows(top_5, bottom_5) %>% 
+    filter(Variable != "price_per_person")
+  
+  # Ausgabe der Ergebnisse
+  return(result)
+}
 
+
+
+print(calculate_correlations(df_zuerich_cleanead, "Zuerich"))
+
+
+print(calculate_correlations(df_vaud_cleanead, "Vaud"))
+
+
+print(calculate_correlations(df_geneva_cleanead, "Geneva"))
+
+```
+
+#### 3. **Lineare Regression**
+
+Die lineare Regression wurde verwendet, um die Beziehung zwischen einer abhängigen Variable (Preis pro Person) und einer oder mehreren unabhängigen Variablen zu modellieren. Dies hilft, die Auswirkungen der unabhängigen Variablen auf die abhängige Variable zu quantifizieren und Vorhersagen zu treffen.
+
+-   **Ziel:** Untersuchung des Einflusses einzelner Variablen (z.B. Bewertungen, Host-Attribute, Entfernung zum Stadtzentrum) auf den Preis pro Person.
+
+-   **Massnahmen:** Aufbau mehrerer linearer Regressionsmodelle, um den Einfluss spezifischer unabhängiger Variablen auf die abhängige Variable (Preis pro Person) zu analysieren.
+
+#### 4. **Visualisierung**
+
+Visualisierungen sind ein wesentliches Werkzeug, um Datenmuster und Zusammenhänge intuitiv darzustellen und zu verstehen. Verschiedene Arten von Plots wurden verwendet, um die Ergebnisse der deskriptiven Statistik, der Korrelationsanalyse und der Regressionsmodelle zu visualisieren.
+
+-   **Ziel:** Verständliche Darstellung der Ergebnisse und Identifikation von Mustern in den Daten.
+
+-   **Massnahmen:** Erstellung von Scatterplots, Boxplots, Barplots und Heatmaps zur Visualisierung der Beziehungen zwischen den Variablen.
+
+#### 5. Predictive Analysis
+
+Zusätzlich zu den deskriptiven und inferenziellen Analysen wurde eine prädiktive Analyse durchgeführt, um den Preis pro Person basierend auf den verfügbaren Merkmalen vorherzusagen. Hierfür wurde ein Regressionsmodell mit mehreren Prädiktoren erstellt und evaluiert.
+
+#### 5.1 Datenvorbereitung
+
+-   **Feature Engineering:** Erstellung neuer Variablen, wie z.B. `distance_to_center`, und Transformation von kategorialen Variablen in numerische Werte.
+
+-   **Train-Test-Split:** Aufteilung der Daten in Trainings- und Testdatensätze, um die Modellleistung zu evaluieren.
+
+#### 5.2 Modelltraining und -evaluation
+
+-   **Modelltraining:** Ein multiple lineares Regressionsmodell wurde auf den Trainingsdaten trainiert.
+
+-   **Modellbewertung:** Das Modell wurde auf den Testdaten evaluiert, um die Vorhersagegenauigkeit zu beurteilen.
+
+```         
 ```
 
 ## 6. Ergebnisse (statistische Ergebnisse, Zahlen, Diagramme)
@@ -569,6 +601,83 @@ Conclusion \[3pt\]
 -   Are the obtained new insights of the data sets of good quality? \[1pt\]
 -->
 ```
+#### **Deskriptive Statistik**
+
+#### K**orrelationsanalyse**
+
+#### **Lineare Regression**
+
+#### **Visualisierung**
+
+#### Predictive Analysis
+
+Die bereinigten Datensets der verschiedenen Orten sind alle gleich aufgebaut. Da wir den Preis der einzelnen Airbnb Apparment anschauen möchten ist dies unser wichtigster Wert:
+
+```{r, results="hide"}
+summary(df_zuerich_cleanead$price_per_person)
+```
+
+```{r, results = FALSE}
+#Boxplot mit verbesserten Einstellungen für Achsen und Breite anzeigen 
+ggplot(df_zuerich_cleanead, aes(y = price_per_person, x = 1)) +    geom_boxplot(fill = "blue", color = "black", alpha = 0.7, width = 0.2) +   labs(title = "Verteilung der Preise in USD", y = "Preis (USD)") +   theme_minimal() +   scale_x_continuous(expand = expansion(mult = c(0.5, 0.5)))    theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank())  ggplot(df_zuerich_cleanead, aes(x = price_per_person)) +   geom_histogram(bins = 30, fill = "blue", color = "black", alpha = 0.7) +   labs(title = "Verteilung der Preise in USD", x = "Preis (USD)", y = "Anzahl der Einträge") +   theme_minimal()}
+```
+
+Nun ist stellt sich die Frage welche anderen Eigenschaften die grösste Auswirkung auf den Preis haben. Dazu gilt es herauszufinden wie die Korrelationen zwischen dem Preis pro USD und den anderen Attributen sind.
+
+Die Korrelationen der verschiedenen Variablen mit dem Preis (**`price_per_person`**) im Datensatz können wichtige Einsichten bieten, welche Faktoren den Preis beeinflussen.
+
+-   **Starke positive Korrelation:**
+
+    -   **price_in_usd (0.45):** Der Gesamtpreis in USD zeigt eine starke positive Korrelation mit dem Preis pro Person. Dies ist intuitiv sinnvoll, da teurere Appartements auch höhere Preise pro Person haben.
+
+    -   **availability_365 (0.19), availability_60 (0.16), availability_90 (0.16), availability_30 (0.16):** Die Verfügbarkeitsmetriken zeigen alle eine positive Korrelation, was darauf hindeutet, dass Appartements mit höheren Preisen pro Person tendenziell länger verfügbar sind.
+
+-   **Starke negative Korrelation:**
+
+    -   **accommodates (-0.25):** Die Anzahl der Personen, die eine Unterkunft aufnehmen kann, zeigt eine deutliche negative Korrelation. Größere Unterkünfte haben tendenziell niedrigere Preise pro Person.
+
+    -   **host_total_listings_count (-0.20):** Gastgeber mit mehr Angeboten haben tendenziell niedrigere Preise pro Person, was auf Effizienz oder eine andere Preispolitik hinweisen könnte.
+
+    -   **host_listings_count (-0.18):** Ähnlich wie bei der Gesamtanzahl der Listings, zeigt auch die Anzahl der Listings pro Gastgeber eine negative Korrelation.
+
+-   **Moderate Korrelation:**
+
+    -   **review_scores_location (0.11):** Der Standortbewertungs-Score zeigt eine moderate positive Korrelation. Bessere Lagen können höhere Preise pro Person rechtfertigen.
+
+    -   **host_id (0.11), host_since (0.10):** Diese zeigen leichte positive Korrelationen, was darauf hindeutet, dass erfahrenere oder etablierte Gastgeber höhere Preise verlangen könnten.
+
+-   **Geringe oder keine Korrelation:**
+
+    -   **latitude (-0.04), longitude (0.04):** Geografische Koordinaten zeigen eine sehr geringe Korrelation, was darauf hinweist, dass die genaue Lage (abgesehen von den Stadtteilen) nicht stark mit dem Preis pro Person zusammenhängt.
+
+    -   **review_scores_cleanliness (0.07), review_scores_accuracy (0.02), review_scores_communication (0.02):** Bewertungen in diesen Kategorien zeigen nur sehr geringe positive Korrelationen.
+
+-   **Überraschend negative Korrelationen:**
+
+    -   **number_of_reviews_l30d (-0.13):** Eine höhere Anzahl von Bewertungen in den letzten 30 Tagen korreliert negativ mit dem Preis pro Person, was darauf hindeuten könnte, dass viel frequentierte Unterkünfte eventuell günstigere Preise anbieten.
+
+## 
+
+<!--  Descriptive analysis \[7pt\]  1.  **Beschreibend (Descriptive)**: Deine Forschungsarbeit scheint beschreibende Analysen abzudecken, indem sie Merkmale von Airbnb-Unterkünften untersucht, die einen höheren Preis erzielen. Dies umfasst die Analyse der geografischen Lage, der Art der Unterkunft, der Anzahl der Zimmer und Bäder sowie der Verfügbarkeit von Annehmlichkeiten.  -   Was reasonable statistics used for data inspection and which attributes have been checked? \[2pt\]  -   Are the findings and statements qualitative? \[3pt\]  -   What are the conclusions of the findings? \[2pt\] -->
+
+<!--  Predictive analysis \[7pt\]  1.  **Prädiktiv (Predictive)**: Um prädiktive Analysen einzubeziehen, könnte deine Fragestellung erweitert werden, um Vorhersagemodelle zu entwickeln, die den erzielbaren Preis basierend auf bestimmten Merkmalen der Unterkünfte prognostizieren. Dies könnte beispielsweise die Frage beinhalten: "Welche Merkmale einer Airbnb-Unterkunft sind prädiktive Indikatoren für einen höheren Preis?" 2.  **Wir möchten den Trend des Preises pro Person der Unterkunft aufzeigen und untersuchen, ob wir mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis machen können.** 3.  Are the applied methods goal orientated? \[2pt\] 4.  Were the applied methods qualitatively performed? \[3pt\] 5.  What are the conclusions of the findings? \[2pt\] -->
+
+```{r predictive}
+set.seed(123) trainIndex <- createDataPartition(df_zuerich_cleanead$price_per_person, p = .8,                                    list = FALSE,                                    times = 1) trainData <- df_zuerich_cleanead[ trainIndex,] testData <- df_zuerich_cleanead[-trainIndex,]  # Training des Modells model <- randomForest(price_per_person ~ availability_365  + review_scores_rating + number_of_reviews,                        data = trainData,                        ntree = 500)  # Evaluierung des Modells predictions <- predict(model, testData) rmse <- sqrt(mean((predictions - testData$price_per_person)^2)) mae <- mean(abs(predictions - testData$price_per_person)) r2 <- 1 - sum((predictions - testData$price_per_person)^2) / sum((mean(testData$price_per_person) - testData$price_per_person)^2)  # Ergebnisse anzeigen cat("RMSE:", rmse, "\n") cat("MAE:", mae, "\n") cat("R²:", r2, "\n")  # Schlussfolgerungen importance <- importance(model) print(importance)}
+```
+
+Die vorliegende Predictive Analyse zielt darauf ab, den Trend des Preises pro Person einer Unterkunft aufzuzeigen und zu untersuchen, ob mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis gemacht werden kann. Dabei wurden Verfügbarkeit (availability_365), Bewertung (review_scores_rating) und Anzahl der Bewertungen (number_of_reviews) als Prädiktoren herangezogen.
+
+Die Modellbewertung zeigt folgende Ergebnisse:
+
+-   **RMSE: 41.90135** – Der durchschnittliche quadratische Fehler beträgt 41.90 USD, was auf erhebliche Abweichungen zwischen den vorhergesagten und tatsächlichen Preisen hinweist.
+
+-   **MAE: 27.91819** – Der mittlere absolute Fehler beträgt 27.92 USD, was ebenfalls auf erhebliche Abweichungen hinweist.
+
+-   **R²: -0.01782196** – Ein negativer R²-Wert deutet darauf hin, dass das Modell die Variation des Preises pro Person nicht gut erklärt und kaum besser als zufällige Vorhersagen ist.
+
+Die Merkmalswichtigkeit zeigt, dass die Verfügbarkeit über 365 Tage (IncNodePurity = 833646.7) der wichtigste Prädiktor ist, gefolgt von der Anzahl der Bewertungen (IncNodePurity = 718716.6) und der Bewertung der Unterkunft (IncNodePurity = 488147.3). Dies zeigt, dass die Verfügbarkeit der Unterkunft, die Anzahl der Bewertungen und die Bewertungen selbst wesentliche Faktoren bei der Preisgestaltung sind. <!--  Prescriptive analysis \[7pt\]  1.  **Präskriptiv (Prescriptive)**: Um präskriptive Analysen abzudecken, könnte die Forschung Empfehlungen entwickeln, wie Gastgeber ihre Unterkünfte modifizieren könnten, um die Attraktivität und den Preis zu maximieren. Die Frage könnte lauten: "Welche Änderungen könnten Gastgeber vornehmen, um den Preis ihrer Airbnb-Unterkünfte zu maximieren?"  -   Is the applied method reasonable for the given problem? \[2pt\]  -   Were the applied methods qualitatively performed? \[3pt\]  -   What are the conclusions of the findings? \[2pt\] -->
+
 ## 7. Schlussfolgerung (Beantwortung der Frage)
 
 ```{=html}
