@@ -2,7 +2,7 @@
 title: "Optimierung der Preisstrategien bei Airbnb: Eine Analyse zur Maximierung der Einnahmen"
 subtitle: "Eine datengetriebene Untersuchung der Faktoren, die zu höheren Buchungspreisen führen"
 author: "Cedric Gisler & Jovan Pajic"
-date: "28/05/2024"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
 execute:
   error: true
   echo: false
@@ -11,15 +11,17 @@ execute:
 format:
   ieee-pdf: default
 editor: visual
+bibliography: references.bib
 ---
 
-0.  Offene Punkte
-1.  Alle 3 Regionen importieren
-2.  Kategorie 4 abschliessen
-3.  Bei allen 3 regionen correlation matrix der Variablen vergleichen -\> Die mit einer Correlation filtern
-4.  Fragen wie die Datenquelle angegeben werden soll -\> googlen / oder in klammern alternativ
-5.  Dozent fragen ob 2 oder 3 Methoden (Descriptive, Predictive, Prescriptive) umgesetzt werden muss
-6.  Eda beschreibe welche für uns relevant sind und erfrosche diese daten. Methode von eda durchführen
+```{=html}
+<!--
+
+Bei allen 3 regionen correlation matrix der Variablen vergleichen -\> Die mit einer Correlation filtern
+
+Dozent fragen ob 2 oder 3 Methoden (Descriptive, Predictive, Prescriptive) umgesetzt werden muss
+
+Eda beschreibe welche für uns relevant sind und erfrosche diese daten. Methode von eda durchführen
 
 Sichtbarkeit Codeblox:
 
@@ -33,13 +35,18 @@ Hide warning messages: warning=FALSE
 
 Hide plots: fig.show='hide'
 
+-->
+```
 ## 1. Abstrakt
+<!--
 
 Document Abstract \[1pt\]
 
 -   Does it provide a comprehensible glipse of the project? \[0.5pt\]
 
 -   Is the outcome teased? \[0.5pt\]
+-->
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 ## 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
 
@@ -74,6 +81,7 @@ Weitere wichtige Eigenschaften sind Ereignisse (z.B. Zürich: Streetparade, Zür
 **Präskriptive Analyse:** Wir möchten zeigen, welche Eigenschaften wie verbessert werden müssen, um die Preise pro Person der Unterkunft signifikant erhöhen zu können, um einen höheren Preis erzielen zu können.
 
 ## 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
+<!--
 
 Data set \[2.5pt\] -\> Yes Jovan
 
@@ -82,8 +90,9 @@ Comprises the data set a resonable amount of observations to answer the BI quest
 Bring the additional data set new information to the basic data set? \[1pt\] -\> Yes
 
 Are all data set accessible linked in documentation? \[0.5pt\] -\> Yes
+-->
 
-Die Daten für diese Analyse stammen von der Inside Airbnb Organisation (<https://insideairbnb.com/get-the-data/>), die sich dafür einsetzt, ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen auf der Airbnb-Website stammen. Diese Datensätze würden wir als Vertrauenswürdig einstufen.
+Die Daten für diese Analyse stammen von der Inside Airbnb Organisation [@inside-airbnb-2023], die sich dafür einsetzt, ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen auf der Airbnb-Website stammen. Diese Datensätze würden wir als Vertrauenswürdig einstufen.
 
 Die extrahierten Datensätze umfassen Informationen aus drei bedeutenden Regionen in der Schweiz: Zürich (27. Dezember 2023), Genénve (27. Dezember 2023) und Vaud (10. März 2024).
 
@@ -93,7 +102,7 @@ Es werden insgesamt 3 Datensätze verwendet, die dieselbe Struktur aufweisen, je
 
 Einige Spalten, wie "description", "neighborhood_overview", "host_neighborhood", "neighborhood", und die Beschreibung der Liegenschaft, wie "bathrooms" und "bedrooms", weisen eine beträchtliche Anzahl leerer Felder auf. Es wird vermutet, dass diese Felder optional für die Gastgeber sind und daher nicht immer ausgefüllt werden. Ebenso fehlt bei einigen Einträgen der Preis, was eine Analyse erfordert, um mögliche Korrelationen mit anderen Feldern, wie dem ersten Review, zu identifizieren.
 
-Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch, und die Beschreibung der Datenfelder wird durch das Data Dictionary (<https://docs.google.com/spreadsheets/d/1iWCNJcSutYqpULSQHlNyGInUvHg2BoUGoNRIGa6Szc4/edit#gid=1322284596>) gut unterstützt.
+Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch, und die Beschreibung der Datenfelder wird durch das Data Dictionary [@inside-airbnb-2022] gut unterstützt.
 
 **Datenbereinigungsschritte:**
 
@@ -104,6 +113,7 @@ Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch,
 3.  **Analyse von Einträgen ohne Preisangabe:** Einige Einträge weisen keine Preisangabe auf, was eine Analyse erfordert, um mögliche Korrelationen mit anderen Feldern, wie dem ersten Review, zu identifizieren. Je nach Ergebnis dieser Analyse könnten Einträge ohne Preisangabe entfernt oder anderweitig behandelt werden, um die Datenintegrität zu gewährleisten.
 
 ## 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
+<!--
 
 ETL \[3pt\] Jovan
 
@@ -112,8 +122,7 @@ How qualitative (detailed) is the ETL/EDA process done? \[1pt\]
 What are the findings and how are they discussed? \[1pt\]
 
 Was the data set cleaned with reasonable approaches? \[1pt\]
-
-#Anpassen: Neue Reihe mit Preis pro Person
+-->
 
 ```{r setup}
 # load packages
@@ -134,9 +143,9 @@ df_geneva <- read_csv(here::here("dataSource/Geneva/listings_long.csv/listings.c
 ```
 
 ```{r, results="hide"}
-View(df_zuerich)
-str(df_zuerich)
-summary(df_zuerich)
+#View(df_zuerich)
+#str(df_zuerich)
+#summary(df_zuerich)
 ```
 
 Nachdem wir die Zusammenfassung der Daten betrachtet und eine detaillierte Analyse der Dataframes durchgeführt haben, haben wir die folgenden Datenanpassungen vorgenommen:
@@ -275,14 +284,18 @@ ggplot(df_zuerich_cleanead, aes(x = reviews_per_month)) +
 
 Da der Preis stark variiert, analysieren wir die Möglichkeit, den Preis pro Person zu berechnen. Dabei fällt auf, dass der Preis bei "Entire home/apt" für die maximale Anzahl der Gäste (**`accommodates`**) berechnet wird, was sinnvoll ist, da die gesamte Unterkunft gebucht wird. Bei "Private room" und "Shared room" hingegen wird der Preis mehrheitlich pro Person angegeben. Im Gegensatz dazu ist der Preis bei "Hotel room" wieder für die maximale Gästeanzahl festgelegt.
 
+````{=html}
+<!--
 ```{r}
 df_zuerich %>%
   group_by(room_type) %>%
   summarise(count = n()) %>%
   arrange(desc(count))
 ```
+-->
+````
 
-```{r, price_per_person}
+```{r price_per_person}
 df_geneva_cleanead <- df_geneva_cleanead %>%
   mutate(price_per_person = ifelse(room_type %in% c("Entire home/apt", "Hotel room"), 
                                    price_in_usd / accommodates, 
@@ -303,11 +316,11 @@ df_vaud_cleanead <- df_vaud_cleanead %>%
 
 ```
 
-```{r}
+```{r, results = FALSE}
 sum(is.na(df_zuerich_cleanead))
 ```
 
-```{r, export}
+```{r export}
 # Exportieren des DataFrames df_zuerich_cleanead, df_vaud_cleanead & df_geneva_cleanead in eine CSV-Datei
 write.csv(df_zuerich_cleanead, "df_zuerich_cleanead.csv", row.names = FALSE)
 write.csv(df_vaud_cleanead, "df_vaud_cleanead.csv", row.names = FALSE)
@@ -316,12 +329,14 @@ write.csv(df_geneva_cleanead, "df_geneva_cleanead.csv", row.names = FALSE)
 ```
 
 ## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
+<!--
 
 *Data analysis \[2pt\] Cedric / Jovan*
 
 *Are data attributes clear and obvious discussed? \[1pt\]*
 
 *Are adequate EDA methodologies used for data analysis? \[1pt\]*
+-->
 
 Die bereinigten Datensets der verschiedenen Orten sind alle gleich aufgebaut. Da wir den Preis der einzelnen Airbnb Apparment anschauen möchten ist dies unser wichtigster Wert:
 
@@ -329,7 +344,7 @@ Die bereinigten Datensets der verschiedenen Orten sind alle gleich aufgebaut. Da
 summary(df_zuerich_cleanead$price_in_usd)
 ```
 
-```{r}
+```{r, results = FALSE}
 # Boxplot mit verbesserten Einstellungen für Achsen und Breite anzeigen
 ggplot(df_zuerich_cleanead, aes(y = price_in_usd, x = 1)) + 
   geom_boxplot(fill = "blue", color = "black", alpha = 0.7, width = 0.2) +
@@ -346,7 +361,7 @@ ggplot(df_zuerich_cleanead, aes(x = price_in_usd)) +
 
 Nun ist stellt sich die Frage welche anderen Eigenschaften die grösste Auswirkung auf den Preis haben. Dazu gilt es herauszufinden wie die Korrelationen zwischen dem Preis pro USD und den anderen Attributen sind:
 
-```{r}
+```{r, results = FALSE}
 
 # Korrelation wird mit numerischen Werten berechnet:
 numeric_df <- df_zuerich_cleanead %>% select(where(is.numeric))
@@ -440,6 +455,7 @@ ggplot(df_zuerich_cleanead, aes(x = calculated_host_listings_count_private_rooms
 *Sieht schon ein wenig besser aus - vorallem die Latitude. Wobei auch hier ist es irgendwie klar. Je weiter weg das AirBNB von zentrum weg ist desto günstiger ist die Wohnung...*
 
 *Gibt es sonst noch irgendwelche Möglichkeiten den Preis vorherauszusagen?*
+<!--
 
 Descriptive analysis \[7pt\]
 
@@ -450,6 +466,8 @@ Descriptive analysis \[7pt\]
 -   Are the findings and statements qualitative? \[3pt\]
 
 -   What are the conclusions of the findings? \[2pt\]
+-->
+<!--
 
 Predictive analysis \[7pt\]
 
@@ -458,8 +476,9 @@ Predictive analysis \[7pt\]
 3.  Are the applied methods goal orientated? \[2pt\]
 4.  Were the applied methods qualitatively performed? \[3pt\]
 5.  What are the conclusions of the findings? \[2pt\]
+-->
 
-```{r}
+```{r predictive}
 set.seed(123)
 trainIndex <- createDataPartition(df_zuerich_cleanead$price_per_person, p = .8, 
                                   list = FALSE, 
@@ -499,6 +518,7 @@ Die Modellbewertung zeigt folgende Ergebnisse:
 -   **R²: -0.01782196** – Ein negativer R²-Wert deutet darauf hin, dass das Modell die Variation des Preises pro Person nicht gut erklärt und kaum besser als zufällige Vorhersagen ist.
 
 Die Merkmalswichtigkeit zeigt, dass die Verfügbarkeit über 365 Tage (IncNodePurity = 833646.7) der wichtigste Prädiktor ist, gefolgt von der Anzahl der Bewertungen (IncNodePurity = 718716.6) und der Bewertung der Unterkunft (IncNodePurity = 488147.3). Dies zeigt, dass die Verfügbarkeit der Unterkunft, die Anzahl der Bewertungen und die Bewertungen selbst wesentliche Faktoren bei der Preisgestaltung sind.
+<!--
 
 Prescriptive analysis \[7pt\]
 
@@ -509,30 +529,28 @@ Prescriptive analysis \[7pt\]
 -   Were the applied methods qualitatively performed? \[3pt\]
 
 -   What are the conclusions of the findings? \[2pt\]
+-->
 
 ```{r}
 
 ```
 
 ## 6. Ergebnisse (statistische Ergebnisse, Zahlen, Diagramme)
+<!--
 
 Conclusion \[3pt\]
 
 -   Are the initial BI problems reasonably discussed/solved? \[2pt\]
 
 -   Are the obtained new insights of the data sets of good quality? \[1pt\]
+-->
 
 ## 7. Schlussfolgerung (Beantwortung der Frage)
+<!--
 
-## 8. Referenzen
-
-```{r}
-1 + 1
-```
-
-```{r}
-#| echo: false
-2 * 2
-```
+#\| echo: false
 
 The `echo: false` option disables the printing of code (only output is displayed).
+-->
+
+## 8. Referenzen
