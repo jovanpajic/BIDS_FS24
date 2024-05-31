@@ -91,6 +91,7 @@ Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch,
 library(readr)
 library(dplyr)
 library(ggplot2)
+library(gridExtra)
 library(tidyr)
 library(tidyverse)
 library(broom)
@@ -556,13 +557,17 @@ geneva_cor <- calculate_correlations(df_geneva_cleaned)
 ```
 
 ```{r}
-# Funktion zur Erstellung eines Streudiagramms mit Regressionslinie
-plot_regression <- function(data, x_var, y_var, title) {
-  ggplot(data, aes_string(x = x_var, y = y_var)) +
-    geom_point(alpha = 0.5) +
-    geom_smooth(method = "lm", color = "blue") +
-    theme_minimal() +
-    labs(title = title, x = x_var, y = y_var)
+# Funktion zur Erstellung eines Streudiagramms mit Regressionslinie für mehrere Variablen mit einem Titel
+plot_multiple_regressions_single_title <- function(data, x_vars, y_var, main_title) {
+  plots <- lapply(x_vars, function(x_var) {
+    ggplot(data, aes_string(x = x_var, y = y_var)) +
+      geom_point(alpha = 0.5) +
+      geom_smooth(method = "lm", color = "red") +
+      theme_minimal() +
+      labs(x = x_var, y = y_var)
+  })
+  
+  grid.arrange(grobs = plots, ncol = 1, top = main_title)
 }
 ```
 
@@ -902,89 +907,40 @@ print(plot_vaud)
 print(plot_geneva)
 ```
 
-### Lineare Regression für Zürich
+### Lineare Regression für Zürich, Vaud und Geneva
 
 ```{r}
-# Erstellung der Plots für Zürich - Bewertung
-plot_zurich_rating <- plot_regression(df_zuerich_cleaned, "review_scores_rating", "price_per_person", "Lineare Regression für Zürich - Gesamtbewertung")
-plot_zuerich_cleanliness <- plot_regression(df_zuerich_cleaned, "review_scores_cleanliness", "price_per_person", "Lineare Regression für Zürich - Sauberkeit")
-plot_zuerich_communication <- plot_regression(df_zuerich_cleaned, "review_scores_communication", "price_per_person", "Lineare Regression für Zürich - Kommunikation")
+# Variablen für Bewertungen, Gastgeber und Lage
+rating_vars <- c("review_scores_rating", "review_scores_cleanliness", "review_scores_communication")
+host_vars <- c("host_is_superhost", "host_identity_verified", "host_listings_count")
+location_vars <- c("longitude", "latitude")
 
-# Erstellung der Plots für Zürich - Gastgeber
-plot_zuerich_superhost <- plot_regression(df_zuerich_cleaned, "host_is_superhost", "price_per_person", "Lineare Regression für Zürich - Superhost")
-plot_zuerich_identity_verified <- plot_regression(df_zuerich_cleaned, "host_identity_verified", "price_per_person", "Lineare Regression für Zürich - Identität verifiziert")
-plot_zuerich_listings_count <- plot_regression(df_zuerich_cleaned, "host_listings_count", "price_per_person", "Lineare Regression für Zürich - Anzahl der Listings")
+# Plot für Bewertungen in Zürich
+plot_multiple_regressions_single_title(df_zuerich_cleaned, rating_vars, "price_per_person", "Zürich - Bewertungen")
 
-# Erstellung der Plots für Zürich - Lage
-plot_zuerich_longitude <- plot_regression(df_zuerich_cleaned, "longitude", "price_per_person", "Lineare Regression für Zürich - Längengrad")
-plot_zuerich_latitude <- plot_regression(df_zuerich_cleaned, "latitude", "price_per_person", "Lineare Regression für Zürich - Breitengrad")
+# Plot für Gastgeber in Zürich
+plot_multiple_regressions_single_title(df_zuerich_cleaned, host_vars, "price_per_person", "Zürich - Gastgeber")
 
-# Anzeigen der Plots
-print(plot_zurich_rating)
-print(plot_zuerich_cleanliness)
-print(plot_zuerich_communication)
+# Plot für Lage in Zürich
+plot_multiple_regressions_single_title(df_zuerich_cleaned, location_vars, "price_per_person", "Zürich - Lage")
 
-print(plot_zuerich_listings_count)
+# Plot für Bewertungen in Vaud
+plot_multiple_regressions_single_title(df_vaud_cleaned, rating_vars, "price_per_person", "Vaud - Bewertungen")
 
-print(plot_zuerich_longitude)
-print(plot_zuerich_latitude)
+# Plot für Gastgeber in Vaud
+plot_multiple_regressions_single_title(df_vaud_cleaned, host_vars, "price_per_person", "Vaud - Gastgeber")
 
-```
+# Plot für Lage in Vaud
+plot_multiple_regressions_single_title(df_vaud_cleaned, location_vars, "price_per_person", "Vaud - Lage")
 
-### Lineare Regression für Vaud
+# Plot für Bewertungen in Geneva
+plot_multiple_regressions_single_title(df_geneva_cleaned, rating_vars, "price_per_person", "Geneva - Bewertungen")
 
-```{r}
-# Erstellung der Plots für Vaud - Bewertung
-plot_vaud_rating <- plot_regression(df_vaud_cleaned, "review_scores_rating", "price_per_person", "Lineare Regression für Vaud - Gesamtbewertung")
-plot_vaud_cleanliness <- plot_regression(df_vaud_cleaned, "review_scores_cleanliness", "price_per_person", "Lineare Regression für Vaud - Sauberkeit")
-plot_vaud_communication <- plot_regression(df_vaud_cleaned, "review_scores_communication", "price_per_person", "Lineare Regression für Vaud - Kommunikation")
+# Plot für Gastgeber in Geneva
+plot_multiple_regressions_single_title(df_geneva_cleaned, host_vars, "price_per_person", "Geneva - Gastgeber")
 
-# Erstellung der Plots für Vaud - Gastgeber
-plot_vaud_superhost <- plot_regression(df_vaud_cleaned, "host_is_superhost", "price_per_person", "Lineare Regression für Vaud - Superhost")
-plot_vaud_identity_verified <- plot_regression(df_vaud_cleaned, "host_identity_verified", "price_per_person", "Lineare Regression für Vaud - Identität verifiziert")
-plot_vaud_listings_count <- plot_regression(df_vaud_cleaned, "host_listings_count", "price_per_person", "Lineare Regression für Vaud - Anzahl der Listings")
-
-# Erstellung der Plots für Vaud - Lage
-plot_vaud_longitude <- plot_regression(df_vaud_cleaned, "longitude", "price_per_person", "Lineare Regression für Vaud - Längengrad")
-plot_vaud_latitude <- plot_regression(df_vaud_cleaned, "latitude", "price_per_person", "Lineare Regression für Vaud - Breitengrad")
-
-print(plot_vaud_rating)
-print(plot_vaud_cleanliness)
-print(plot_vaud_communication)
-
-print(plot_vaud_listings_count)
-
-print(plot_vaud_longitude)
-print(plot_vaud_latitude)
-
-```
-
-### Lineare Regression für Geneva
-
-```{r}
-# Erstellung der Plots für Geneva - Bewertung
-plot_geneva_rating <- plot_regression(df_geneva_cleaned, "review_scores_rating", "price_per_person", "Lineare Regression für Geneva - Gesamtbewertung")
-plot_geneva_cleanliness <- plot_regression(df_geneva_cleaned, "review_scores_cleanliness", "price_per_person", "Lineare Regression für Geneva - Sauberkeit")
-plot_geneva_communication <- plot_regression(df_geneva_cleaned, "review_scores_communication", "price_per_person", "Lineare Regression für Geneva - Kommunikation")
-
-# Erstellung der Plots für Geneva - Gastgeber
-plot_geneva_superhost <- plot_regression(df_geneva_cleaned, "host_is_superhost", "price_per_person", "Lineare Regression für Geneva - Superhost")
-plot_geneva_identity_verified <- plot_regression(df_geneva_cleaned, "host_identity_verified", "price_per_person", "Lineare Regression für Geneva - Identität verifiziert")
-plot_geneva_listings_count <- plot_regression(df_geneva_cleaned, "host_listings_count", "price_per_person", "Lineare Regression für Geneva - Anzahl der Listings")
-
-# Erstellung der Plots für Geneva - Lage
-plot_geneva_longitude <- plot_regression(df_geneva_cleaned, "longitude", "price_per_person", "Lineare Regression für Geneva - Längengrad")
-plot_geneva_latitude <- plot_regression(df_geneva_cleaned, "latitude", "price_per_person", "Lineare Regression für Geneva - Breitengrad")
-
-print(plot_geneva_rating)
-print(plot_geneva_cleanliness)
-print(plot_geneva_communication)
-
-print(plot_geneva_listings_count)
-
-print(plot_geneva_longitude)
-print(plot_geneva_latitude)
-
+# Plot für Lage in Geneva
+plot_multiple_regressions_single_title(df_geneva_cleaned, location_vars, "price_per_person", "Geneva - Lage")
 ```
 
 ### Schlussfolgerung
