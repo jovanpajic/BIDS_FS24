@@ -14,31 +14,11 @@ editor: visual
 bibliography: references.bib
 ---
 
-```{=html}
-<!--
-
-
-Eda beschreibe welche für uns relevant sind und erfrosche diese daten. Methode von eda durchführen
-
-Sichtbarkeit Codeblox:
-
-Hide source code: echo=FALSE
-
-Hide text output: results = FALSE
-
-Hide messages: message=FALSE
-
-Hide warning messages: warning=FALSE
-
-Hide plots: fig.show='hide'
-
--->
-```
-# 1. Abstrakt
+# Abstrakt
 
 In der heutigen dynamischen Welt des Online-Tourismus ist Airbnb eine zentrale Plattform für die Buchung von Unterkünften. Diese Arbeit untersucht die Faktoren, die den Preis pro Person einer Airbnb-Unterkunft beeinflussen, um Gastgebern datenbasierte Empfehlungen zur Optimierung ihrer Preisstrategien zu geben. Mithilfe von deskriptiver Statistik, Korrelationsanalysen und linearen Regressionsmodellen analysieren wir die Daten von Airbnb-Unterkünften in Zürich, Vaud und Genf. Die Ergebnisse zeigen, dass die Sauberkeitsbewertung der Unterkünfte, die Anzahl der Listings eines Hosts sowie die Verfügbarkeit wesentliche Einflussfaktoren sind. Basierend auf diesen Erkenntnissen entwickeln wir prädiktive Modelle zur Vorhersage des Preises pro Person. Unsere Analyse bietet Einblicke für Gastgeber, die ihre Preisstrategien verbessern und ihre Einnahmen maximieren möchten.
 
-# 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
+# Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
 
 In der heutigen, schnelllebigen Welt des Online-Tourismus spielen Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von Unterkünften an, von einfachen Zimmern bis hin zu luxuriösen Villen. So vielfältig wie das Angebot sind auch die Vorlieben und Erwartungen der Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage: ***Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Apparment zu erzielen?***
 
@@ -82,7 +62,7 @@ Weitere wichtige Eigenschaften sind Ereignisse (z.B. Zürich: Streetparade, Zür
 
 **Präskriptive Analyse:** Wir möchten zeigen, welche Eigenschaften wie verbessert werden müssen, um die Preise pro Person der Unterkunft signifikant erhöhen zu können, um einen höheren Preis erzielen zu können.
 
-# 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
+#Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
 
 Die Daten für diese Analyse stammen von der Inside Airbnb Organisation [@inside-airbnb-2023], die sich dafür einsetzt, ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen auf der Airbnb-Website stammen. Diese Datensätze würden wir als Vertrauenswürdig einstufen.
 
@@ -104,7 +84,7 @@ Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch,
 
 3.  **Analyse von Einträgen ohne Preisangabe:** Einige Einträge weisen keine Preisangabe auf, was eine Analyse erfordert, um mögliche Korrelationen mit anderen Feldern, wie dem ersten Review, zu identifizieren. Je nach Ergebnis dieser Analyse könnten Einträge ohne Preisangabe entfernt oder anderweitig behandelt werden, um die Datenintegrität zu gewährleisten.
 
-# 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
+# Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
 
 ```{r setup}
 # load packages
@@ -274,7 +254,7 @@ ggplot(df_zuerich_cleaned, aes(x = reviews_per_month)) +
 
 ```
 
-```{r, results=hide}
+```{r, results='hide'}
 df_zuerich_cleaned %>%
   group_by(room_type) %>%
   summarise(count = n()) %>%
@@ -322,19 +302,8 @@ write.csv(df_geneva_cleaned, "df_geneva_cleaned.csv", row.names = FALSE)
 
 ```
 
-# 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
+# Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
 
-```{=html}
-<!--
-
-*Data analysis \[2pt\] Cedric / Jovan*
-
-*Are data attributes clear and obvious discussed? \[1pt\]* -> dictonary
-
-*Are adequate EDA methodologies used for data analysis? \[1pt\]* 
-
--->
-```
 ## Datenstruktur und Organisation
 
 Die vorliegenden bereinigten Datensets besteht aus Informationen zu Airbnb-Unterkünften in Zürich, Geneve und Vaud und umfasst 63 Variablen und mehrere tausend Zeilen, wobei jede Zeile eine einzelne Unterkunft repräsentiert. Die Variablen enthalten diverse Informationen, darunter:
@@ -618,15 +587,9 @@ plot_regression <- function(data, x_var, y_var, title) {
 }
 ```
 
-### Predictive Analysis
+### **Predictive Analysis**
 
 Um prädiktive Analysen einzubeziehen, haben wir eine Vorhersagemodell entwickelt, um den erzielbaren Preis basierend auf bestimmten Merkmalen der Unterkünfte zu prognostizieren. Unser Ziel war es, den Trend des Preises pro Person der Unterkunft aufzuzeigen und zu untersuchen, ob wir mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis machen können. Dabei wurden die sechs besten Variablen mit der höchsten Korrelation im Modell verwendet.
-
-\<!--
-
-Are the applied methods goal orientated? \\\[2pt\\\] 4. Were the applied methods qualitatively performed? \\\[3pt\\\] 5. What are the conclusions of the findings? \\\[2pt\\\]
-
---\>
 
 ```{r predictive modell zurich}
 # Setzen des Seeds für Reproduzierbarkeit
@@ -647,13 +610,14 @@ mae <- mean(abs(predictions - testData$price_per_person))
 r2 <- 1 - sum((predictions - testData$price_per_person)^2) / sum((mean(testData$price_per_person) - testData$price_per_person)^2)  
 
 # Ergebnisse anzeigen 
+print("Vorhersagemodell für Zürich")
 cat("RMSE:", rmse, "\n") 
 cat("MAE:", mae, "\n") 
 cat("R²:", r2, "\n")  
 
 # Schlussfolgerungen 
 importance <- importance(model) 
-print(importance)
+#print(importance)
 ```
 
 Die vorliegende Predictive Analyse zielt darauf ab, den Trend des Preises pro Person einer Unterkunft aufzuzeigen und zu untersuchen, ob mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis gemacht werden kann.
@@ -664,7 +628,7 @@ Die Modellbewertung zeigt folgende Ergebnisse:
 
 -   **MAE: 8.352074** – Der mittlere absolute Fehler beträgt 8.35 USD, was ebenfalls auf geringe Abweichungen hinweist.
 
--   **R²: 0.7960764** – Ein R²-Wert von 0.80 deutet darauf hin, dass das Modell die Variation des Preises pro Person gut erklärt und einen großen Teil der Variabilität im Preis vorhersagen kann.
+-   **R²: 0.7960764** – Ein R²-Wert von 0.80 deutet darauf hin, dass das Modell die Variation des Preises pro Person gut erklärt und einen grossen Teil der Variabilität im Preis vorhersagen kann.
 
 Die Merkmalswichtigkeit zeigt, dass der Preis in USD (IncNodePurity = 1279516.0) der wichtigste Prädiktor ist, gefolgt von der Anzahl der privaten Zimmer in den Angeboten des Gastgebers (IncNodePurity = 416287.9) und der Anzahl der Personen, die die Unterkunft aufnehmen kann (IncNodePurity = 420585.7). Andere wichtige Merkmale sind die Verfügbarkeit über 365 Tage (IncNodePurity = 321470.4), die Gesamtanzahl der Angebote des Gastgebers (IncNodePurity = 234611.4), und die durchschnittliche maximale Aufenthaltsdauer (IncNodePurity = 188941.3). Dies zeigt, dass der Preis in USD, die Anzahl der privaten Zimmer, die Kapazität der Unterkunft und die Verfügbarkeit wesentliche Faktoren bei der Preisgestaltung sind.
 
@@ -687,13 +651,14 @@ mae <- mean(abs(predictions - testData$price_per_person))
 r2 <- 1 - sum((predictions - testData$price_per_person)^2) / sum((mean(testData$price_per_person) - testData$price_per_person)^2)  
 
 # Ergebnisse anzeigen 
+print("Vorhersagemodell für Vaud")
 cat("RMSE:", rmse, "\n") 
 cat("MAE:", mae, "\n") 
 cat("R²:", r2, "\n")  
 
 # Schlussfolgerungen 
 importance <- importance(model) 
-print(importance)
+#print(importance)
 ```
 
 Die Modellbewertung zeigt folgende Ergebnisse:
@@ -702,7 +667,7 @@ Die Modellbewertung zeigt folgende Ergebnisse:
 
 -   **MAE: 6.181381** – Der mittlere absolute Fehler beträgt 6.18 USD, was ebenfalls auf geringe Abweichungen hinweist.
 
--   **R²: 0.7177398** – Ein R²-Wert von 0.72 deutet darauf hin, dass das Modell die Variation des Preises pro Person gut erklärt und einen großen Teil der Variabilität im Preis vorhersagen kann.
+-   **R²: 0.7177398** – Ein R²-Wert von 0.72 deutet darauf hin, dass das Modell die Variation des Preises pro Person gut erklärt und einen grossen Teil der Variabilität im Preis vorhersagen kann.
 
 Die Merkmalswichtigkeit zeigt, dass der Preis in USD (IncNodePurity = 671102.83) der wichtigste Prädiktor ist, gefolgt von der Anzahl der privaten Zimmer in den Angeboten des Gastgebers (IncNodePurity = 231015.26) und der Kapazität der Unterkunft (IncNodePurity = 315227.40). Andere wichtige Merkmale sind die Verfügbarkeit über 90 Tage (IncNodePurity = 125946.08), die geographische Länge (IncNodePurity = 176045.99) und die Anzahl der Betten (IncNodePurity = 95966.35). Dies zeigt, dass der Preis in USD, die Anzahl der privaten Zimmer, die Kapazität der Unterkunft und die Verfügbarkeit wesentliche Faktoren bei der Preisgestaltung sind.
 
@@ -725,13 +690,14 @@ mae <- mean(abs(predictions - testData$price_per_person))
 r2 <- 1 - sum((predictions - testData$price_per_person)^2) / sum((mean(testData$price_per_person) - testData$price_per_person)^2)  
 
 # Ergebnisse anzeigen 
+print("Vorhersagemodell für Genf")
 cat("RMSE:", rmse, "\n") 
 cat("MAE:", mae, "\n") 
 cat("R²:", r2, "\n")  
 
 # Schlussfolgerungen 
 importance <- importance(model) 
-print(importance)
+#print(importance)
 ```
 
 Die Modellbewertung zeigt folgende Ergebnisse:
@@ -746,7 +712,7 @@ Die Merkmalswichtigkeit zeigt, dass der Preis in USD (IncNodePurity = 542561.0) 
 
 Insgesamt zeigt die Analyse, dass die Modelle für Zürich und Vaud gut funktionieren, während das Modell für Genf noch Verbesserungspotenzial hat.
 
-# 6. Ergebnisse (statistische Ergebnisse, Zahlen, Diagramme)
+# Ergebnisse (statistische Ergebnisse, Zahlen, Diagramme)
 
 ```{=html}
 <!--
@@ -958,14 +924,14 @@ plot_correlations <- function(cor_df, title, num_top_bottom = 10) {
     geom_bar(stat = "identity", fill = "steelblue") +
     coord_flip() +
     theme_minimal() +
-    labs(title = title, x = "Variable", y = "Korrelation")
+    labs(title = title, subtitle = "Die 20 Variablen mit dem höchsten Wert", x = "Variable", y = "Korrelation")
 }
 
 
 # Erstellung der Plots
-plot_zurich <- plot_correlations(zurich_cor, "Korrelationen mit price_per_person in Zürich")
-plot_vaud <- plot_correlations(vaud_cor, "Korrelationen mit price_per_person in Vaud")
-plot_geneva <- plot_correlations(geneva_cor, "Korrelationen mit price_per_person in Geneva")
+plot_zurich <- plot_correlations(zurich_cor, "Korrelationen mit preis pp. in Zürich")
+plot_vaud <- plot_correlations(vaud_cor, "Korrelationen mit preis pp. in Vaud")
+plot_geneva <- plot_correlations(geneva_cor, "Korrelationen mit preis pp. in Genf")
 
 # Anzeigen der Plots
 print(plot_zurich)
@@ -1102,7 +1068,7 @@ Die wichtigsten Prädiktoren sind der Preis in USD, die Anzahl der privaten Zimm
 
 Insgesamt zeigt die Analyse, dass die Modelle für Zürich und Vaud relativ gute Vorhersageergebnisse liefern, während das Modell für Genf eine deutlich geringere Genauigkeit aufweist und Verbesserungspotenzial hat.
 
-# 7. Schlussfolgerung (Beantwortung der Frage)
+# Schlussfolgerung (Beantwortung der Frage)
 
 ```{=html}
 <!--
@@ -1130,7 +1096,7 @@ Die geografische Analyse zeigte, dass in Vaud der Längengrad (longitude) einen 
 
 Die prädiktive Analyse hat gezeigt, dass die entwickelten Modelle für Zürich und Vaud recht genaue Vorhersagen des Preises pro Person einer Unterkunft liefern. Die wichtigsten Prädiktoren in diesen Regionen sind der Preis in USD, die Anzahl der privaten Zimmer und die Kapazität der Unterkunft. Diese Faktoren spielen eine entscheidende Rolle bei der Preisgestaltung.
 
-Das Modell für Genf hingegen weist eine geringere Genauigkeit auf, was auf größere Abweichungen zwischen den vorhergesagten und tatsächlichen Preisen hinweist. Dies deutet darauf hin, dass zusätzliche oder andere relevante Variablen identifiziert und in das Modell integriert werden müssen, um die Vorhersagegenauigkeit zu verbessern.
+Das Modell für Genf hingegen weist eine geringere Genauigkeit auf, was auf grössere Abweichungen zwischen den vorhergesagten und tatsächlichen Preisen hinweist. Dies deutet darauf hin, dass zusätzliche oder andere relevante Variablen identifiziert und in das Modell integriert werden müssen, um die Vorhersagegenauigkeit zu verbessern.
 
 Zusammenfassend lässt sich sagen, dass die Modelle für Zürich und Vaud vielversprechend sind, während das Modell für Genf noch Verbesserungspotenzial hat. Zukünftige Analysen sollten sich darauf konzentrieren, die prädiktiven Variablen für Genf weiter zu untersuchen und zu optimieren.
 
@@ -1152,4 +1118,8 @@ Zusammenfassend lässt sich sagen, dass die Sauberkeitsbewertung einer Unterkunf
 
 Für zukünftige Untersuchungen wäre es sinnvoll, zusätzliche Daten über längere Zeiträume zu sammeln, um den Einfluss saisonaler Ereignisse und Trends besser zu verstehen. Zudem könnten nicht-lineare Modelle oder maschinelle Lernverfahren eingesetzt werden, um die Komplexität der Einflussfaktoren besser abzubilden und genauere Vorhersagen zu ermöglichen.
 
-# 8. Referenzen
+## Disclaimer
+
+Die Inhalte dieses Papers wurden eigenständig erarbeitet. Bei der Formulierung und Strukturierung bestimmter Textpassagen wurde ChatGPT[@openai-2022] zur Hilfe genommen, um Korrekturen vorzunehmen und die Kohärenz zu verbessern.
+
+# Referenzen
