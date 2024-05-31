@@ -34,7 +34,7 @@ Hide plots: fig.show='hide'
 
 -->
 ```
-## 1. Abstrakt
+# 1. Abstrakt
 
 ```{=html}
 <!--
@@ -48,7 +48,7 @@ Document Abstract \[1pt\]
 ```
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-## 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
+# 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
 
 In der heutigen, schnelllebigen Welt des Online-Tourismus spielen Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie Menschen reisen und Unterkünfte buchen. Airbnb bietet eine Vielzahl von Unterkünften an, von einfachen Zimmern bis hin zu luxuriösen Villen. So vielfältig wie das Angebot sind auch die Vorlieben und Erwartungen der Gäste. Vor diesem Hintergrund stellt sich die Forschungsfrage: ***Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Apparment zu erzielen?***
 
@@ -92,22 +92,8 @@ Weitere wichtige Eigenschaften sind Ereignisse (z.B. Zürich: Streetparade, Zür
 
 **Präskriptive Analyse:** Wir möchten zeigen, welche Eigenschaften wie verbessert werden müssen, um die Preise pro Person der Unterkunft signifikant erhöhen zu können, um einen höheren Preis erzielen zu können.
 
-## 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
+# 3. Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
 
-```{=html}
-<!--
-
-Data set \[2.5pt\] -\> Yes Jovan
-
-Comprises the data set a resonable amount of observations to answer the BI questions? \[1pt\] -\> Yes
-
-Bring the additional data set new information to the basic data set? \[1pt\] -\> Yes
-
-Are all data set accessible linked in documentation? \[0.5pt\] -\> Yes
-
-
--->
-```
 Die Daten für diese Analyse stammen von der Inside Airbnb Organisation [@inside-airbnb-2023], die sich dafür einsetzt, ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen auf der Airbnb-Website stammen. Diese Datensätze würden wir als Vertrauenswürdig einstufen.
 
 Die extrahierten Datensätze umfassen Informationen aus drei bedeutenden Regionen in der Schweiz: Zürich (27. Dezember 2023), Genénve (27. Dezember 2023) und Vaud (10. März 2024).
@@ -128,20 +114,8 @@ Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch,
 
 3.  **Analyse von Einträgen ohne Preisangabe:** Einige Einträge weisen keine Preisangabe auf, was eine Analyse erfordert, um mögliche Korrelationen mit anderen Feldern, wie dem ersten Review, zu identifizieren. Je nach Ergebnis dieser Analyse könnten Einträge ohne Preisangabe entfernt oder anderweitig behandelt werden, um die Datenintegrität zu gewährleisten.
 
-## 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
+# 4. Datenqualität (Analyse im Hinblick auf Datenqualitätsaspekte)
 
-```{=html}
-<!--
-
-ETL \[3pt\] Jovan
-
-How qualitative (detailed) is the ETL/EDA process done? \[1pt\]
-
-What are the findings and how are they discussed? \[1pt\]
-
-Was the data set cleaned with reasonable approaches? \[1pt\]
--->
-```
 ```{r setup}
 # load packages
 library(readr)
@@ -209,7 +183,7 @@ df_zuerich_cleaned <- df_zuerich %>%
 
 #Umwandeln der verschiedenen NA Werte in korrekte N/A Werte von R:
 na_formats <- c("N/A", "n/a", "na", "NA")  # Alle möglichen NA-Formate
-df_zuerich_cleaned <- df_zuerich_cleanead %>%
+df_zuerich_cleaned <- df_zuerich_cleaned %>%
   mutate(across(everything(), ~ifelse(. %in% na_formats, NA, .)))
 ```
 
@@ -310,7 +284,7 @@ ggplot(df_zuerich_cleaned, aes(x = reviews_per_month)) +
 
 ```
 
-```{r}
+```{r, results=hide}
 df_zuerich_cleaned %>%
   group_by(room_type) %>%
   summarise(count = n()) %>%
@@ -353,12 +327,12 @@ sum(is.na(df_zuerich_cleaned))
 ```{r export}
 # Exportieren des DataFrames df_zuerich_cleaned, df_vaud_cleaned & df_geneva_cleaned in eine CSV-Datei
 write.csv(df_zuerich_cleaned, "df_zuerich_cleaned.csv", row.names = FALSE)
-write.csv(df_vaud_cleanead, "df_vaud_cleaned.csv", row.names = FALSE)
-write.csv(df_geneva_cleanead, "df_geneva_cleaned.csv", row.names = FALSE)
+write.csv(df_vaud_cleaned, "df_vaud_cleaned.csv", row.names = FALSE)
+write.csv(df_geneva_cleaned, "df_geneva_cleaned.csv", row.names = FALSE)
 
 ```
 
-## 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
+# 5. Datenanalyse (Informationen zur Datenstruktur, Organisation und zu den für die Analyse verwendeten Methoden)
 
 ```{=html}
 <!--
@@ -371,7 +345,7 @@ write.csv(df_geneva_cleanead, "df_geneva_cleaned.csv", row.names = FALSE)
 
 -->
 ```
-### Datenstruktur und Organisation
+## Datenstruktur und Organisation
 
 Die vorliegenden bereinigten Datensets besteht aus Informationen zu Airbnb-Unterkünften in Zürich, Geneve und Vaud und umfasst 63 Variablen und mehrere tausend Zeilen, wobei jede Zeile eine einzelne Unterkunft repräsentiert. Die Variablen enthalten diverse Informationen, darunter:
 
@@ -408,11 +382,11 @@ summary(df_geneva_cleaned$price_per_person)
 summary(df_geneva_cleaned$review_scores_rating)
 ```
 
-### Methoden der Datenanalyse
+## Methoden der Datenanalyse
 
 Um die Forschungsfragen zu beantworten und die Hypothesen zu testen, wurden verschiedene statistische Methoden und Verfahren angewendet:
 
-#### **Deskriptive Statistik**
+### **Deskriptive Statistik**
 
 Die deskriptive Statistik liefert grundlegende Informationen über die Struktur und Verteilung der Daten. Ziel ist es, einen Überblick über die Daten zu bekommen und mögliche Anomalien oder interessante Muster zu erkennen.
 
@@ -512,7 +486,7 @@ ggplot(df_zuerich_cleaned, aes(y = review_scores_rating)) +
   labs(title = "Boxplot der Bewertung in Geneva", y = "Bewertung")
 ```
 
-#### **Korrelationsanalyse**
+### **Korrelationsanalyse**
 
 Die Korrelationsanalyse untersucht die Stärke und Richtung der Beziehung zwischen verschiedenen numerischen Variablen. Pearson-Korrelationskoeffizienten wurden berechnet, um zu quantifizieren, wie stark zwei Variablen miteinander variieren.
 
@@ -568,7 +542,7 @@ print("Genf Korrelation:")
 print(calculate_correlations(df_geneva_cleaned))
 ```
 
-#### **Lineare Regression**
+### **Lineare Regression**
 
 Die lineare Regression wurde verwendet, um die Beziehung zwischen einer abhängigen Variable (Preis pro Person) und einer oder mehreren unabhängigen Variablen zu modellieren. Dies hilft, die Auswirkungen der unabhängigen Variablen auf die abhängige Variable zu quantifizieren und Vorhersagen zu treffen.
 
@@ -576,7 +550,7 @@ Die lineare Regression wurde verwendet, um die Beziehung zwischen einer abhängi
 
 -   **Massnahmen:** Aufbau mehrerer linearer Regressionsmodelle, um den Einfluss spezifischer unabhängiger Variablen auf die abhängige Variable (Preis pro Person) zu analysieren.
 
-```{r}
+```{r, results='hide'}
 # Funktion zur Durchführung der linearen Regression
 perform_regression <- function(data, formula) {
   # Lineares Regressionsmodell
@@ -619,7 +593,7 @@ for (city in names(city_data_list)){
 
 ```
 
-#### **Visualisierung**
+### **Visualisierung**
 
 Verschiedene Arten von Plots wurden verwendet, um die Ergebnisse der deskriptiven Statistik, der Korrelationsanalyse und der Regressionsmodelle zu visualisieren.
 
@@ -670,7 +644,7 @@ plot_regression <- function(data, x_var, y_var, title) {
 }
 ```
 
-#### Predictive Analysis
+### Predictive Analysis
 
 Um prädiktive Analysen einzubeziehen, haben wir eine Vorhersagemodell entwickelt, um den erzielbaren Preis basierend auf bestimmten Merkmalen der Unterkünfte zu prognostizieren. Unser Ziel war es, den Trend des Preises pro Person der Unterkunft aufzuzeigen und zu untersuchen, ob wir mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis machen können. Dabei wurden die sechs besten Variablen mit der höchsten Korrelation im Modell verwendet.
 
@@ -798,7 +772,7 @@ Die Merkmalswichtigkeit zeigt, dass der Preis in USD (IncNodePurity = 542561.0) 
 
 Insgesamt zeigt die Analyse, dass die Modelle für Zürich und Vaud gut funktionieren, während das Modell für Genf noch Verbesserungspotenzial hat.
 
-## 6. Ergebnisse (statistische Ergebnisse, Zahlen, Diagramme)
+# 6. Ergebnisse (statistische Ergebnisse, Zahlen, Diagramme)
 
 ```{=html}
 <!--
@@ -810,11 +784,11 @@ Conclusion \[3pt\]
 -   Are the obtained new insights of the data sets of good quality? \[1pt\]
 -->
 ```
-### **Deskriptive Statistik**
+## **Deskriptive Statistik**
 
-### **Korrelationsanalyse**
+## **Korrelationsanalyse**
 
-#### Zürich
+### Zürich
 
 -   **Positive Korrelationen:**
 
@@ -828,7 +802,7 @@ Conclusion \[3pt\]
     -   **`host_listings_count` (-0.1772), `calculated_host_listings_count` (-0.1909), `host_total_listings_count` (-0.2006), `calculated_host_listings_count_entire_homes` (-0.2063):** Mehr Listings → niedrigerer Preis pro Person.
     -   **`accommodates` (-0.2531):** Mehr Plätze/Betten → niedrigerer Preis pro Person.
 
-#### Vaud
+### Vaud
 
 -   **Positive Korrelationen:**
 
@@ -843,7 +817,7 @@ Conclusion \[3pt\]
     -   **`longitude` (-0.1349):** Östlichere Längengrade → niedrigerer Preis pro Person.
     -   **`beds` (-0.2090) & `accommodates` (-0.3130):** Mehr Betten/Plätze → niedrigerer Preis pro Person.
 
-#### Geneva
+### Geneva
 
 -   **Positive Korrelationen:**
 
@@ -859,7 +833,7 @@ Conclusion \[3pt\]
     -   **`reviews_per_month` (-0.0976):** Mehr Bewertungen pro Monat → niedrigerer Preis pro Person.
     -   **`accommodates` (-0.2185):** Mehr Plätze/Betten → niedrigerer Preis pro Person.
 
-#### Gesamtschlussfolgerungen
+### Gesamtschlussfolgerungen
 
 Die Analyse der Korrelationen von `price_per_person` mit verschiedenen Variablen in den Städten Zürich, Vaud und Geneva liefert wertvolle Einblicke in die Faktoren, die den Preis pro Person beeinflussen. Hier sind die ausführlicheren Schlussfolgerungen:
 
@@ -879,9 +853,9 @@ Die Analyse der Korrelationen von `price_per_person` mit verschiedenen Variablen
 
 -   **Geografische Koordinaten (`longitude`, `latitude`)**: In Vaud zeigt der Längengrad eine signifikante negative Korrelation mit dem Preis pro Person, was auf eine geografische Preisstruktur hindeuten könnte. Dies könnte bedeuten, dass östlichere Lagen tendenziell günstiger sind. In Zürich und Geneva sind die geografischen Koordinaten nicht signifikant.
 
-### **Lineare Regression**
+## **Lineare Regression**
 
-#### Bewertung der Airbnb-Unterkünfte
+### Bewertung der Airbnb-Unterkünfte
 
 **Hypothesen:**
 
@@ -920,7 +894,7 @@ Die Analyse der Korrelationen von `price_per_person` mit verschiedenen Variablen
 
 -   **Interpretation:** In Geneva hat die Sauberkeitsbewertung einen signifikanten positiven Einfluss auf den Preis pro Person, während die Gesamtbewertung keinen signifikanten Einfluss hat. Die Kommunikationsbewertung ist grenzwertig signifikant negativ.
 
-#### Gastgeber der Airbnb-Unterkunft
+### Gastgeber der Airbnb-Unterkunft
 
 **Hypothesen:**
 
@@ -959,7 +933,7 @@ Die Analyse der Korrelationen von `price_per_person` mit verschiedenen Variablen
 
 -   **Interpretation:** In Geneva haben die Host-Attribute keinen signifikanten Einfluss auf den Preis pro Person.
 
-#### Lage des Airbnb
+### Lage des Airbnb
 
 **Hypothesen:**
 
@@ -992,36 +966,15 @@ Die Analyse der Korrelationen von `price_per_person` mit verschiedenen Variablen
 
 -   **Interpretation:** In Geneva haben die geografischen Koordinaten keinen signifikanten Einfluss auf den Preis pro Person.
 
-### Zusammenfassung:
+## Zusammenfassung:
 
 -   **Bewertung:** Die Sauberkeitsbewertung hat in allen Städten einen signifikanten positiven Einfluss auf den Preis pro Person. Die Gesamtbewertung hat keinen signifikanten Einfluss. Die Kommunikationsbewertung hat in Vaud einen signifikanten negativen Einfluss.
 -   **Gastgeber:** In Zürich hat die Anzahl der Listings eines Hosts einen signifikant negativen Einfluss. In Vaud und Geneva sind die Host-Attribute nicht signifikant.
 -   **Lage:** In Vaud hat der Längengrad einen signifikanten negativen Einfluss auf den Preis pro Person. In Zürich und Geneva haben die geografischen Koordinaten keinen signifikanten Einfluss.
 
-### **Visualisierung**
+## **Visualisierung**
 
 Die folgenden Plots zeigen die Korrelationen des Preis pro Person (`price_per_person`) in den verschiedenen Städten. Anhand dieser Diagramme lässt sich leicht erkennen, dass einige Korrelationen viel stärker positiv oder negativ ausfallen. Diese starken Korrelationen sollten genauer untersucht werden, um ihre Ursachen und Auswirkungen besser zu verstehen.
-
-```{r}
-
-plot_correlations <- function(cor_df, title) {
-  ggplot(cor_df, aes(x = reorder(Variable, Correlation), y = Correlation)) +
-    geom_bar(stat = "identity", fill = "steelblue") +
-    coord_flip() +
-    theme_minimal() +
-    labs(title = title, x = "Variable", y = "Korrelation")
-}
-
-# Erstellung der Plots
-plot_zurich <- plot_correlations(zurich_cor, "Korrelationen mit price_per_person in Zürich")
-plot_vaud <- plot_correlations(vaud_cor, "Korrelationen mit price_per_person in Vaud")
-plot_geneva <- plot_correlations(geneva_cor, "Korrelationen mit price_per_person in Geneva")
-
-# Anzeigen der Plots
-print(plot_zurich)
-print(plot_vaud)
-print(plot_geneva)
-```
 
 ```{r}
 plot_correlations <- function(cor_df, title, num_top_bottom = 10) {
@@ -1046,7 +999,7 @@ print(plot_vaud)
 print(plot_geneva)
 ```
 
-#### Lineare Regression für Zürich
+### Lineare Regression für Zürich
 
 ```{r}
 # Erstellung der Plots für Zürich - Bewertung
@@ -1077,7 +1030,7 @@ print(plot_zuerich_latitude)
 
 ```
 
-#### Lineare Regression für Vaud
+### Lineare Regression für Vaud
 
 ```{r}
 # Erstellung der Plots für Vaud - Bewertung
@@ -1103,7 +1056,7 @@ print(plot_vaud_identity_verified)
 print(plot_vaud_listings_count)
 ```
 
-#### Lineare Regression für Geneva
+### Lineare Regression für Geneva
 
 ```{r}
 # Erstellung der Plots für Geneva - Bewertung
@@ -1133,13 +1086,13 @@ print(plot_geneva_latitude)
 
 ```
 
-#### Schlussfolgerung
+### Schlussfolgerung
 
 Die verschiedenen Grafiken und deren lineare Regressionen liefern interessante Einblicke in die Beziehung zwischen den untersuchten Variablen und dem Preis pro Person. Allerdings zeigen die Ergebnisse, dass viele der unabhängigen Variablen nur einen geringen Einfluss auf den Preis pro Person haben.
 
 Zusammenfassend lässt sich sagen, dass die meisten untersuchten Variablen keinen starken Einfluss auf den Preis pro Person haben. Dies könnte darauf hindeuten, dass andere, nicht berücksichtigte Faktoren eine grössere Rolle spielen oder dass die Märkte in diesen Städten relativ homogen sind. Weitere Untersuchungen könnten sich auf zusätzliche Variablen oder nicht-lineare Modelle konzentrieren, um potenzielle Einflussfaktoren besser zu identifizieren.
 
-### Predictive Analysis
+## Predictive Analysis
 
 Um prädiktive Analysen einzubeziehen, haben wir ein Vorhersagemodell entwickelt, um den erzielbaren Preis basierend auf bestimmten Merkmalen der Unterkünfte zu prognostizieren. Unser Ziel war es, den Trend des Preises pro Person der Unterkunft aufzuzeigen und zu untersuchen, ob wir mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis machen können. Dabei wurden die sechs besten Variablen mit der höchsten Korrelation im Modell verwendet.
 
@@ -1175,7 +1128,7 @@ Die wichtigsten Prädiktoren sind der Preis in USD, die Anzahl der privaten Zimm
 
 Insgesamt zeigt die Analyse, dass die Modelle für Zürich und Vaud relativ gute Vorhersageergebnisse liefern, während das Modell für Genf eine deutlich geringere Genauigkeit aufweist und Verbesserungspotenzial hat.
 
-## 7. Schlussfolgerung (Beantwortung der Frage)
+# 7. Schlussfolgerung (Beantwortung der Frage)
 
 ```{=html}
 <!--
@@ -1187,19 +1140,19 @@ The `echo: false` option disables the printing of code (only output is displayed
 ```
 In diesem Kapitel fassen wir die wichtigsten Ergebnisse unserer Analyse zusammen und beantworten die eingangs gestellte Forschungsfrage: "Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und ermöglichen es, einen höheren Preis pro Apartment zu erzielen?"
 
-### Bewertung der Airbnb-Unterkünfte
+## Bewertung der Airbnb-Unterkünfte
 
 Unsere Analyse zeigte, dass die Sauberkeitsbewertung (review_scores_cleanliness) einen signifikanten positiven Einfluss auf den Preis pro Person in allen drei untersuchten Städten (Zürich, Vaud und Genf) hat. Dies deutet darauf hin, dass Gäste bereit sind, mehr für Unterkünfte zu zahlen, die als besonders sauber bewertet wurden. Die Gesamtbewertung (review_scores_rating) und die Kommunikationsbewertung (review_scores_communication) hatten hingegen keinen einheitlich signifikanten Einfluss auf den Preis.
 
-### Gastgeber der Airbnb-Unterkünfte
+## Gastgeber der Airbnb-Unterkünfte
 
 Die Untersuchung der Gastgebermerkmale ergab, dass in Zürich die Anzahl der Listings eines Hosts (host_listings_count) einen signifikant negativen Einfluss auf den Preis pro Person hat. Dies könnte darauf hindeuten, dass Gastgeber mit vielen Angeboten möglicherweise niedrigere Preise anbieten, um die Auslastung zu maximieren. Der Status als Superhost (host_is_superhost) und die Verifizierung des Hosts (host_identity_verified) hatten hingegen keinen konsistenten signifikanten Einfluss auf den Preis.
 
-### Lage der Airbnb-Unterkünfte
+## Lage der Airbnb-Unterkünfte
 
 Die geografische Analyse zeigte, dass in Vaud der Längengrad (longitude) einen signifikant negativen Einfluss auf den Preis pro Person hat. Dies könnte auf spezifische regionale Preisunterschiede hinweisen. In Zürich und Genf hatten die geografischen Koordinaten jedoch keinen signifikanten Einfluss auf den Preis.
 
-### Predictive Analysis
+## Predictive Analysis
 
 Die prädiktive Analyse hat gezeigt, dass die entwickelten Modelle für Zürich und Vaud recht genaue Vorhersagen des Preises pro Person einer Unterkunft liefern. Die wichtigsten Prädiktoren in diesen Regionen sind der Preis in USD, die Anzahl der privaten Zimmer und die Kapazität der Unterkunft. Diese Faktoren spielen eine entscheidende Rolle bei der Preisgestaltung.
 
@@ -1207,7 +1160,7 @@ Das Modell für Genf hingegen weist eine geringere Genauigkeit auf, was auf grö
 
 Zusammenfassend lässt sich sagen, dass die Modelle für Zürich und Vaud vielversprechend sind, während das Modell für Genf noch Verbesserungspotenzial hat. Zukünftige Analysen sollten sich darauf konzentrieren, die prädiktiven Variablen für Genf weiter zu untersuchen und zu optimieren.
 
-### Empfehlungen für Gastgeber
+## Empfehlungen für Gastgeber
 
 Auf Basis unserer Ergebnisse können folgende Empfehlungen für Gastgeber abgeleitet werden, um den Preis pro Person ihrer Unterkünfte zu maximieren:
 
@@ -1217,12 +1170,12 @@ Auf Basis unserer Ergebnisse können folgende Empfehlungen für Gastgeber abgele
 
 3.  **Geografische Preisstrategien anwenden**: Insbesondere in Regionen wie Vaud sollten Gastgeber die lokale Preisstruktur berücksichtigen und ihre Preise entsprechend anpassen.
 
-### Beantwortung der Forschungsfrage
+## Beantwortung der Forschungsfrage
 
 Zusammenfassend lässt sich sagen, dass die Sauberkeitsbewertung einer Unterkunft, die Verfügbarkeit der Unterkunft und die Anzahl der Listings eines Hosts die wichtigsten Faktoren sind, die den Preis pro Person einer Airbnb-Unterkunft beeinflussen. Gastgeber sollten daher auf diese Merkmale achten, um ihre Einnahmen zu maximieren.
 
-### Weiterführende Forschung
+## Weiterführende Forschung
 
 Für zukünftige Untersuchungen wäre es sinnvoll, zusätzliche Daten über längere Zeiträume zu sammeln, um den Einfluss saisonaler Ereignisse und Trends besser zu verstehen. Zudem könnten nicht-lineare Modelle oder maschinelle Lernverfahren eingesetzt werden, um die Komplexität der Einflussfaktoren besser abzubilden und genauere Vorhersagen zu ermöglichen.
 
-## 8. Referenzen
+# 8. Referenzen

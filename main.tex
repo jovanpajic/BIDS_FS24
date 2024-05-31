@@ -274,7 +274,7 @@ Cedric Gisler \& Jovan Pajic%
 % creates the second title. It will be ignored for other modes.
 % \IEEEpeerreviewmaketitle
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, sharp corners, interior hidden, frame hidden, enhanced, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, breakable, sharp corners, borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, enhanced]}{\end{tcolorbox}}\fi
 
 \hypertarget{abstrakt}{%
 \subsection{1. Abstrakt}\label{abstrakt}}
@@ -677,9 +677,10 @@ erkennen.
   \textbf{Ziel:} Ein grundlegendes Verständnis der Datenstruktur und
   Verteilung der Variablen zu erlangen.
 \item
-  \textbf{Massnahmen:} Berechnung von Mittelwerten, Mediane,
-  Standardabweichungen und Visualisierung der Datenverteilung durch
-  Histogramme und Boxplots.
+  \textbf{Massnahmen:} Die verschiedenen Statistiken und die
+  verschiedenen Attribute aufzeigen. Berechnung von Mittelwerten,
+  Medianen und Standardabweichungen. Einfache Visualisierung der für die
+  Fragen wichtigsten Attribute.
 \end{itemize}
 
 Kurze Übersicht über die Datensets Zürich, Vaud und Geneva
@@ -722,8 +723,8 @@ quantifizieren, wie stark zwei Variablen miteinander variieren.
   Variablen, insbesondere zwischen den Bewertungen, Host-Informationen,
   geografischen Daten und dem Preis pro Person.
 \item
-  \textbf{Massnahmen:} Berechnung von Korrelationskoeffizienten und
-  Erstellung von Korrelationsmatrizen.
+  \textbf{Massnahmen:} Korrelationskoeffizienten berechnen und die Top 5
+  der positiven und negativen Korrelationen angeben.
 \end{itemize}
 
 \hypertarget{lineare-regression}{%
@@ -961,9 +962,9 @@ Regressionsmodelle zu visualisieren.
   \textbf{Ziel:} Verständliche Darstellung der Ergebnisse und
   Identifikation von Mustern in den Daten.
 \item
-  \textbf{Massnahmen:} Erstellung von Scatterplots, Boxplots, Barplots
-  und Heatmaps zur Visualisierung der Beziehungen zwischen den
-  Variablen.
+  \textbf{Massnahmen:} Erstellung von Scatterplots, Boxplots und
+  Aufzeigen der Regressionen zur Visualisierung der Beziehungen zwischen
+  den Variablen.
 \end{itemize}
 
 \hypertarget{predictive-analysis}{%
@@ -1288,10 +1289,12 @@ beeinflussen. Hier sind die ausführlicheren Schlussfolgerungen:
 \begin{itemize}
 \item
   \textbf{Höherer Gesamtpreis (\texttt{price\_in\_usd})}: In allen drei
-  Städten zeigt sich eine positive Korrelation zwischen dem Gesamtpreis
-  und dem Preis pro Person. Dies bedeutet, dass teurere Unterkünfte auch
-  pro Person mehr kosten. Dies ist intuitiv, da eine höhere Grundmiete
-  oft höhere Pro-Kopf-Kosten nach sich zieht.
+  Städten besteht ein positiver Zusammenhang zwischen dem Gesamtpreis
+  und dem Preis pro Person. Das bedeutet, dass teurere Wohnungen auch
+  mehr pro Person kosten. Dies ist intuitiv nachvollziehbar, da eine
+  höhere Grundmiete oft auch zu höheren Kosten pro Person führt. Das
+  bedeutet aber auch, dass man, wenn man mit einer grösseren Gruppe
+  reist und eine grössere Unterkunft mietet, pro Person weniger zahlt.
 \item
   \textbf{Mehr private Zimmer
   (\texttt{calculated\_host\_listings\_count\_private\_rooms})}:
@@ -1316,7 +1319,7 @@ beeinflussen. Hier sind die ausführlicheren Schlussfolgerungen:
   dem Preis pro Person. Dies könnte darauf hindeuten, dass Unterkünfte,
   die häufiger bewertet werden, tendenziell günstiger sind. Diese
   Unterkünfte könnten eine breitere Zielgruppe ansprechen,
-  einschließlich preisbewusster Reisender, was zu häufigeren Buchungen
+  einschliesslich preisbewusster Reisender, was zu häufigeren Buchungen
   und somit zu mehr Bewertungen führt.
 \item
   \textbf{Zeit seit der letzten Bewertung (\texttt{last\_review})}: In
@@ -1334,15 +1337,15 @@ beeinflussen. Hier sind die ausführlicheren Schlussfolgerungen:
   messen, eine negative Korrelation mit dem Preis pro Person. Dies
   deutet darauf hin, dass Hosts mit vielen Listings ihre Preise
   wettbewerbsfähiger gestalten müssen, um die Nachfrage zu halten.
-  Größere Host-Operationen könnten Skaleneffekte nutzen, um niedrigere
+  Grössere Host-Operationen könnten Skaleneffekte nutzen, um niedrigere
   Preise anzubieten.
 \item
   \textbf{Anzahl der Betten und verfügbare Plätze (\texttt{beds},
   \texttt{accommodates})}: In allen drei Städten zeigen sich negative
   Korrelationen zwischen der Anzahl der Betten bzw. der verfügbaren
-  Plätze und dem Preis pro Person. Dies weist darauf hin, dass größere
+  Plätze und dem Preis pro Person. Dies weist darauf hin, dass grössere
   Unterkünfte tendenziell niedrigere Pro-Kopf-Kosten haben. Dies könnte
-  auf Skaleneffekte oder die Notwendigkeit, größere Gruppen anzuziehen,
+  auf Skaleneffekte oder die Notwendigkeit, grössere Gruppen anzuziehen,
   zurückzuführen sein.
 \item
   \textbf{Geografische Koordinaten (\texttt{longitude},
@@ -1667,7 +1670,7 @@ den Preis pro Person haben.
 Zusammenfassend lässt sich sagen, dass die meisten untersuchten
 Variablen keinen starken Einfluss auf den Preis pro Person haben. Dies
 könnte darauf hindeuten, dass andere, nicht berücksichtigte Faktoren
-eine größere Rolle spielen oder dass die Märkte in diesen Städten
+eine grössere Rolle spielen oder dass die Märkte in diesen Städten
 relativ homogen sind. Weitere Untersuchungen könnten sich auf
 zusätzliche Variablen oder nicht-lineare Modelle konzentrieren, um
 potenzielle Einflussfaktoren besser zu identifizieren.
