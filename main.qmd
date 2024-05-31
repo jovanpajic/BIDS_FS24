@@ -770,55 +770,6 @@ summary(df_geneva_cleaned$review_scores_rating)
 
 ## **Korrelationsanalyse**
 
-Anschliessend zeigen wir die verschiedenen Korrelationen auf, die zum Preis pro Person bestehen. Diese Analyse hilft dabei, die Attribute zu identifizieren, die besonders beachtet werden müssen.
-
-### Zürich
-
--   **Positive Korrelationen:**
-
-    -   **`price_in_usd` (0.4542):** Höherer Gesamtpreis → höherer Preis pro Person.
-    -   **`calculated_host_listings_count_private_rooms` (0.2536):** Mehr private Zimmer → höherer Preis pro Person.
-    -   **`maximum_maximum_nights` (0.1956) & `maximum_nights_avg_ntm` (0.1956):** Längere maximale Aufenthaltsdauer → höherer Preis pro Person.
-    -   **`availability_365` (0.1922):** Ganzjährige Verfügbarkeit → höherer Preis pro Person.
-
--   **Negative Korrelationen:**
-
-    -   **`host_listings_count` (-0.1772), `calculated_host_listings_count` (-0.1909), `host_total_listings_count` (-0.2006), `calculated_host_listings_count_entire_homes` (-0.2063):** Mehr Listings → niedrigerer Preis pro Person.
-    -   **`accommodates` (-0.2531):** Mehr Plätze/Betten → niedrigerer Preis pro Person.
-
-### Vaud
-
--   **Positive Korrelationen:**
-
-    -   **`price_in_usd` (0.2369):** Höherer Gesamtpreis → höherer Preis pro Person.
-    -   **`calculated_host_listings_count_private_rooms` (0.1654):** Mehr private Zimmer → höherer Preis pro Person.
-    -   **`availability_90` (0.1133), `availability_365` (0.0997), `availability_30` (0.0891):** Höhere Verfügbarkeit → höherer Preis pro Person.
-
--   **Negative Korrelationen:**
-
-    -   **`last_review` (-0.0820):** Länger zurückliegende letzte Bewertung → niedrigerer Preis pro Person.
-    -   **`reviews_per_month` (-0.1043):** Mehr Bewertungen pro Monat → niedrigerer Preis pro Person.
-    -   **`longitude` (-0.1349):** Östlichere Längengrade → niedrigerer Preis pro Person.
-    -   **`beds` (-0.2090) & `accommodates` (-0.3130):** Mehr Betten/Plätze → niedrigerer Preis pro Person.
-
-### Geneva
-
--   **Positive Korrelationen:**
-
-    -   **`price_in_usd` (0.3902):** Höherer Gesamtpreis → höherer Preis pro Person.
-    -   **`calculated_host_listings_count_private_rooms` (0.2662):** Mehr private Zimmer → höherer Preis pro Person.
-    -   **`availability_30` (0.2246), `availability_60` (0.2184), `availability_90` (0.1991):** Höhere Verfügbarkeit → höherer Preis pro Person.
-
--   **Negative Korrelationen:**
-
-    -   **`maximum_minimum_nights` (-0.0907):** Höhere minimale Aufenthaltsdauer → niedrigerer Preis pro Person.
-    -   **`number_of_reviews_l30d` (-0.0957):** Mehr Bewertungen in den letzten 30 Tagen → niedrigerer Preis pro Person.
-    -   **`minimum_maximum_nights` (-0.0966):** Höhere minimale maximale Aufenthaltsdauer → niedrigerer Preis pro Person.
-    -   **`reviews_per_month` (-0.0976):** Mehr Bewertungen pro Monat → niedrigerer Preis pro Person.
-    -   **`accommodates` (-0.2185):** Mehr Plätze/Betten → niedrigerer Preis pro Person.
-
-### Gesamtschlussfolgerungen
-
 Die Analyse der Korrelationen von `price_per_person` mit verschiedenen Variablen in den Städten Zürich, Vaud und Geneva liefert wertvolle Einblicke in die Faktoren, die den Preis pro Person beeinflussen. Hier sind die ausführlicheren Schlussfolgerungen:
 
 -   **Höherer Gesamtpreis (`price_in_usd`)**: In allen drei Städten besteht ein positiver Zusammenhang zwischen dem Gesamtpreis und dem Preis pro Person. Das bedeutet, dass teurere Wohnungen auch mehr pro Person kosten. Dies ist intuitiv nachvollziehbar, da eine höhere Grundmiete oft auch zu höheren Kosten pro Person führt. Das bedeutet aber auch, dass man, wenn man mit einer grösseren Gruppe reist und eine grössere Unterkunft mietet, pro Person weniger zahlt.
@@ -1007,8 +958,6 @@ print(plot_zurich_rating)
 print(plot_zuerich_cleanliness)
 print(plot_zuerich_communication)
 
-print(plot_zuerich_superhost)
-print(plot_zuerich_identity_verified)
 print(plot_zuerich_listings_count)
 
 print(plot_zuerich_longitude)
@@ -1037,9 +986,11 @@ print(plot_vaud_rating)
 print(plot_vaud_cleanliness)
 print(plot_vaud_communication)
 
-print(plot_vaud_superhost)
-print(plot_vaud_identity_verified)
 print(plot_vaud_listings_count)
+
+print(plot_vaud_longitude)
+print(plot_vaud_latitude)
+
 ```
 
 ### Lineare Regression für Geneva
@@ -1063,8 +1014,6 @@ print(plot_geneva_rating)
 print(plot_geneva_cleanliness)
 print(plot_geneva_communication)
 
-print(plot_geneva_superhost)
-print(plot_geneva_identity_verified)
 print(plot_geneva_listings_count)
 
 print(plot_geneva_longitude)
