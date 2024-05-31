@@ -274,27 +274,28 @@ Cedric Gisler \& Jovan Pajic%
 % creates the second title. It will be ignored for other modes.
 % \IEEEpeerreviewmaketitle
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, breakable, sharp corners, borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced, sharp corners, frame hidden, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \hypertarget{abstrakt}{%
-\subsection{1. Abstrakt}\label{abstrakt}}
+\section{Abstrakt}\label{abstrakt}}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
-est Lorem ipsum dolor sit amet.
+In der heutigen dynamischen Welt des Online-Tourismus ist Airbnb eine
+zentrale Plattform für die Buchung von Unterkünften. Diese Arbeit
+untersucht die Faktoren, die den Preis pro Person einer
+Airbnb-Unterkunft beeinflussen, um Gastgebern datenbasierte Empfehlungen
+zur Optimierung ihrer Preisstrategien zu geben. Mithilfe von
+deskriptiver Statistik, Korrelationsanalysen und linearen
+Regressionsmodellen analysieren wir die Daten von Airbnb-Unterkünften in
+Zürich, Vaud und Genf. Die Ergebnisse zeigen, dass die
+Sauberkeitsbewertung der Unterkünfte, die Anzahl der Listings eines
+Hosts sowie die Verfügbarkeit wesentliche Einflussfaktoren sind.
+Basierend auf diesen Erkenntnissen entwickeln wir prädiktive Modelle zur
+Vorhersage des Preises pro Person. Unsere Analyse bietet Einblicke für
+Gastgeber, die ihre Preisstrategien verbessern und ihre Einnahmen
+maximieren möchten.
 
 \hypertarget{einleitung-mit-forschungsfrage-d.h.-geschuxe4ftsfrage-am-ende}{%
-\subsection{2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am
+\section{Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am
 Ende)}\label{einleitung-mit-forschungsfrage-d.h.-geschuxe4ftsfrage-am-ende}}
 
 In der heutigen, schnelllebigen Welt des Online-Tourismus spielen
@@ -417,10 +418,8 @@ wie verbessert werden müssen, um die Preise pro Person der Unterkunft
 signifikant erhöhen zu können, um einen höheren Preis erzielen zu
 können.
 
-\hypertarget{datenquelle-mit-angaben-zu-quelle-qualituxe4t-und-bereinigungsschritten-der-daten}{%
-\subsection{3. Datenquelle (mit Angaben zu Quelle, Qualität und
-Bereinigungsschritten der
-Daten)}\label{datenquelle-mit-angaben-zu-quelle-qualituxe4t-und-bereinigungsschritten-der-daten}}
+\#Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten
+der Daten)
 
 Die Daten für diese Analyse stammen von der Inside Airbnb Organisation
 \protect\hyperlink{ref-inside-airbnb-2023}{{[}1{]}}, die sich dafür
@@ -481,7 +480,7 @@ unterstützt.
 \end{enumerate}
 
 \hypertarget{datenqualituxe4t-analyse-im-hinblick-auf-datenqualituxe4tsaspekte}{%
-\subsection{4. Datenqualität (Analyse im Hinblick auf
+\section{Datenqualität (Analyse im Hinblick auf
 Datenqualitätsaspekte)}\label{datenqualituxe4t-analyse-im-hinblick-auf-datenqualituxe4tsaspekte}}
 
 Nachdem wir die Zusammenfassung der Daten betrachtet und eine Analyse
@@ -520,10 +519,6 @@ Datenanpassungen vorgenommen:
   gegebenenfalls.
 \end{enumerate}
 
-\begin{verbatim}
-Error in mutate(., across(everything(), ~ifelse(. %in% na_formats, NA, : Objekt 'df_zuerich_cleanead' nicht gefunden
-\end{verbatim}
-
 Nach diesen Anpassungen haben wir die Daten weiter analysiert und die
 folgenden Schritte durchgeführt:
 
@@ -556,16 +551,6 @@ folgenden Schritte durchgeführt:
 
 \includegraphics{main_files/figure-pdf/eda-3.pdf}
 
-\begin{verbatim}
-# A tibble: 4 x 2
-  room_type       count
-  <chr>           <int>
-1 Entire home/apt  1802
-2 Private room      522
-3 Shared room        19
-4 Hotel room          9
-\end{verbatim}
-
 \includegraphics{main_files/figure-pdf/eda price_per_person-1.pdf}
 
 Die analysierten Werte zeigen eine ausgeglichene Verteilung ohne
@@ -573,21 +558,13 @@ signifikante Ausreisser oder extreme Werte. Dies deutet darauf hin, dass
 der Datenbereinigungsprozess effektiv war und die Daten konsistent und
 zuverlässig für weitere Analysen vorliegen.
 
-\begin{verbatim}
-Error in is.data.frame(x): Objekt 'df_vaud_cleanead' nicht gefunden
-\end{verbatim}
-
-\begin{verbatim}
-Error in is.data.frame(x): Objekt 'df_geneva_cleanead' nicht gefunden
-\end{verbatim}
-
 \hypertarget{datenanalyse-informationen-zur-datenstruktur-organisation-und-zu-den-fuxfcr-die-analyse-verwendeten-methoden}{%
-\subsection{5. Datenanalyse (Informationen zur Datenstruktur,
-Organisation und zu den für die Analyse verwendeten
+\section{Datenanalyse (Informationen zur Datenstruktur, Organisation und
+zu den für die Analyse verwendeten
 Methoden)}\label{datenanalyse-informationen-zur-datenstruktur-organisation-und-zu-den-fuxfcr-die-analyse-verwendeten-methoden}}
 
 \hypertarget{datenstruktur-und-organisation}{%
-\subsubsection{Datenstruktur und
+\subsection{Datenstruktur und
 Organisation}\label{datenstruktur-und-organisation}}
 
 Die vorliegenden bereinigten Datensets besteht aus Informationen zu
@@ -657,33 +634,23 @@ repräsentiert. Die Variablen enthalten diverse Informationen, darunter:
 \end{verbatim}
 
 \hypertarget{methoden-der-datenanalyse}{%
-\subsubsection{Methoden der
-Datenanalyse}\label{methoden-der-datenanalyse}}
+\subsection{Methoden der Datenanalyse}\label{methoden-der-datenanalyse}}
 
 Um die Forschungsfragen zu beantworten und die Hypothesen zu testen,
 wurden verschiedene statistische Methoden und Verfahren angewendet:
 
 \hypertarget{deskriptive-statistik}{%
-\paragraph{\texorpdfstring{\textbf{Deskriptive
+\subsubsection{\texorpdfstring{\textbf{Deskriptive
 Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik}}
 
 Die deskriptive Statistik liefert grundlegende Informationen über die
 Struktur und Verteilung der Daten. Ziel ist es, einen Überblick über die
 Daten zu bekommen und mögliche Anomalien oder interessante Muster zu
-erkennen.
+erkennen. Wir möchten damit ein grundlegendes Verständnis über die
+Datenstruktur und die Verteilung der Variablen erlangen. Dafür
+untersuchen wir die Attribute Preis pro Person und Bewertung.
 
-\begin{itemize}
-\item
-  \textbf{Ziel:} Ein grundlegendes Verständnis der Datenstruktur und
-  Verteilung der Variablen zu erlangen.
-\item
-  \textbf{Massnahmen:} Die verschiedenen Statistiken und die
-  verschiedenen Attribute aufzeigen. Berechnung von Mittelwerten,
-  Medianen und Standardabweichungen. Einfache Visualisierung der für die
-  Fragen wichtigsten Attribute.
-\end{itemize}
-
-Kurze Übersicht über die Datensets Zürich, Vaud und Geneva
+Kurze Übersicht über die Datensets Zürich, Vaud und Geneva:
 
 \includegraphics{main_files/figure-pdf/descriptive zurich-1.pdf}
 
@@ -710,265 +677,44 @@ Kurze Übersicht über die Datensets Zürich, Vaud und Geneva
 \includegraphics{main_files/figure-pdf/descriptive geneva-4.pdf}
 
 \hypertarget{korrelationsanalyse}{%
-\paragraph{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse}}
+\subsubsection{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse}}
 
 Die Korrelationsanalyse untersucht die Stärke und Richtung der Beziehung
 zwischen verschiedenen numerischen Variablen.
 Pearson-Korrelationskoeffizienten wurden berechnet, um zu
-quantifizieren, wie stark zwei Variablen miteinander variieren.
-
-\begin{itemize}
-\item
-  \textbf{Ziel:} Identifikation von Zusammenhängen zwischen den
-  Variablen, insbesondere zwischen den Bewertungen, Host-Informationen,
-  geografischen Daten und dem Preis pro Person.
-\item
-  \textbf{Massnahmen:} Korrelationskoeffizienten berechnen und die Top 5
-  der positiven und negativen Korrelationen angeben.
-\end{itemize}
+quantifizieren, wie stark zwei Variablen miteinander variieren. Die Idee
+ist, Zusammenhänge zwischen Variablen zu finden, insbesondere zwischen
+den Bewertungen, Host-Informationen, geografischen Daten und dem Preis
+pro Person. Dafür berechnen wir den Korrelationskoeffizienten und gehen
+auf die Top 5 der positiven und negativen Korrelationen ein.
 
 \hypertarget{lineare-regression}{%
-\paragraph{\texorpdfstring{\textbf{Lineare
+\subsubsection{\texorpdfstring{\textbf{Lineare
 Regression}}{Lineare Regression}}\label{lineare-regression}}
 
 Die lineare Regression wurde verwendet, um die Beziehung zwischen einer
 abhängigen Variable (Preis pro Person) und einer oder mehreren
 unabhängigen Variablen zu modellieren. Dies hilft, die Auswirkungen der
 unabhängigen Variablen auf die abhängige Variable zu quantifizieren und
-Vorhersagen zu treffen.
-
-\begin{itemize}
-\item
-  \textbf{Ziel:} Untersuchung des Einflusses einzelner Variablen (z.B.
-  Bewertungen, Host-Attribute, Entfernung zum Stadtzentrum) auf den
-  Preis pro Person.
-\item
-  \textbf{Massnahmen:} Aufbau mehrerer linearer Regressionsmodelle, um
-  den Einfluss spezifischer unabhängiger Variablen auf die abhängige
-  Variable (Preis pro Person) zu analysieren.
-\end{itemize}
-
-\begin{verbatim}
-Lineare Regression für Zuerich - Bewertung :
-Zusammenfassung des Modells:
-
-Call:
-lm(formula = formula, data = data)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--53.83 -26.27 -11.45  11.82 605.20 
-
-Coefficients:
-                            Estimate Std. Error t value Pr(>|t|)  
-(Intercept)                  24.0091    22.2725   1.078   0.2812  
-review_scores_rating          0.3043     6.0424   0.050   0.9598  
-review_scores_cleanliness    12.9328     5.1802   2.497   0.0126 *
-review_scores_communication  -3.7720     5.7870  -0.652   0.5146  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 49.01 on 1490 degrees of freedom
-Multiple R-squared:  0.006147,  Adjusted R-squared:  0.004146 
-F-statistic: 3.072 on 3 and 1490 DF,  p-value: 0.02686
-
-Lineare Regression für Zuerich - Gastgeber :
-Zusammenfassung des Modells:
-
-Call:
-lm(formula = formula, data = data)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--66.66 -25.83 -11.18  11.13 590.87 
-
-Coefficients:
-                            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                 85.38588    7.56590  11.286  < 2e-16 ***
-host_is_superhostTRUE        4.61051    2.74373   1.680   0.0931 .  
-host_identity_verifiedTRUE -14.39683    7.68063  -1.874   0.0611 .  
-host_listings_count         -0.12963    0.02044  -6.340 3.03e-10 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 48.29 on 1490 degrees of freedom
-Multiple R-squared:  0.03531,   Adjusted R-squared:  0.03337 
-F-statistic: 18.18 on 3 and 1490 DF,  p-value: 1.374e-11
-
-Lineare Regression für Zuerich - Lage :
-Zusammenfassung des Modells:
-
-Call:
-lm(formula = formula, data = data)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--57.91 -26.48 -11.50  12.19 605.12 
-
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)
-(Intercept)  4453.59    3636.89   1.225    0.221
-longitude      66.41      55.90   1.188    0.235
-latitude     -104.51      74.19  -1.409    0.159
-
-Residual standard error: 49.08 on 1491 degrees of freedom
-Multiple R-squared:  0.002804,  Adjusted R-squared:  0.001466 
-F-statistic: 2.096 on 2 and 1491 DF,  p-value: 0.1233
-
-Lineare Regression für Vaud - Bewertung :
-Zusammenfassung des Modells:
-
-Call:
-lm(formula = formula, data = data)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--48.990 -18.910  -5.301  11.254 262.597 
-
-Coefficients:
-                            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                   44.535      8.137   5.473 4.83e-08 ***
-review_scores_rating          -1.091      2.574  -0.424   0.6718    
-review_scores_cleanliness      8.596      2.070   4.152 3.40e-05 ***
-review_scores_communication   -5.619      2.367  -2.374   0.0177 *  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 28.29 on 2711 degrees of freedom
-Multiple R-squared:  0.008326,  Adjusted R-squared:  0.007228 
-F-statistic: 7.587 on 3 and 2711 DF,  p-value: 4.732e-05
-
-Lineare Regression für Vaud - Gastgeber :
-Zusammenfassung des Modells:
-
-Call:
-lm(formula = formula, data = data)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--49.101 -18.800  -5.248  12.019 257.667 
-
-Coefficients:
-                            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                57.858072   2.932052  19.733   <2e-16 ***
-host_is_superhostTRUE       0.154029   1.180702   0.130   0.8962    
-host_identity_verifiedTRUE -4.994676   2.969186  -1.682   0.0927 .  
-host_listings_count        -0.006069   0.007536  -0.805   0.4207    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 28.39 on 2711 degrees of freedom
-Multiple R-squared:  0.001344,  Adjusted R-squared:  0.0002391 
-F-statistic: 1.216 on 3 and 2711 DF,  p-value: 0.3022
-
-Lineare Regression für Vaud - Lage :
-Zusammenfassung des Modells:
-
-Call:
-lm(formula = formula, data = data)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--53.440 -18.109  -5.071  10.540 254.935 
-
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  404.690    198.159   2.042   0.0412 *  
-longitude    -16.129      2.283  -7.064 2.05e-12 ***
-latitude      -5.223      4.131  -1.264   0.2062    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 28.14 on 2712 degrees of freedom
-Multiple R-squared:  0.01877,   Adjusted R-squared:  0.01805 
-F-statistic: 25.94 on 2 and 2712 DF,  p-value: 6.899e-12
-
-Lineare Regression für Geneva - Bewertung :
-Zusammenfassung des Modells:
-
-Call:
-lm(formula = formula, data = data)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--61.30 -22.53  -7.47  12.33 344.15 
-
-Coefficients:
-                            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                   63.965     12.071   5.299 1.35e-07 ***
-review_scores_rating          -7.365      5.128  -1.436 0.151195    
-review_scores_cleanliness     14.473      3.889   3.721 0.000206 ***
-review_scores_communication   -6.894      3.947  -1.747 0.080928 .  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 37.15 on 1423 degrees of freedom
-Multiple R-squared:  0.01198,   Adjusted R-squared:  0.0099 
-F-statistic: 5.753 on 3 and 1423 DF,  p-value: 0.000655
-
-Lineare Regression für Geneva - Gastgeber :
-Zusammenfassung des Modells:
-
-Call:
-lm(formula = formula, data = data)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--52.93 -23.62  -7.64  11.55 343.46 
-
-Coefficients:
-                           Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                57.54004    5.55144  10.365   <2e-16 ***
-host_is_superhostTRUE       2.81315    2.22329   1.265    0.206    
-host_identity_verifiedTRUE  6.05701    5.61251   1.079    0.281    
-host_listings_count         0.01829    0.02936   0.623    0.533    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 37.33 on 1423 degrees of freedom
-Multiple R-squared:  0.002167,  Adjusted R-squared:  6.335e-05 
-F-statistic:  1.03 on 3 and 1423 DF,  p-value: 0.3782
-
-Lineare Regression für Geneva - Lage :
-Zusammenfassung des Modells:
-
-Call:
-lm(formula = formula, data = data)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--51.02 -23.09  -7.43  11.63 344.55 
-
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)
-(Intercept) -2192.77    2507.39  -0.875    0.382
-longitude      20.18      39.64   0.509    0.611
-latitude       46.17      54.36   0.849    0.396
-
-Residual standard error: 37.35 on 1424 degrees of freedom
-Multiple R-squared:  0.0007315, Adjusted R-squared:  -0.000672 
-F-statistic: 0.5212 on 2 and 1424 DF,  p-value: 0.5939
-\end{verbatim}
+Vorhersagen zu treffen. Dafür untersuchen wir den Einfluss einzelner
+Variablen (z.B. Bewertungen, Host-Attribute, Entfernung zum
+Stadtzentrum) auf den Preis pro Person, um unsere Hypothesen zu
+überprüfen. Weiterhin erstellen wir mehrere lineare Regressionsmodelle,
+um den Einfluss spezifischer unabhängiger Variablen auf die abhängige
+Variable (Preis pro Person) zu analysieren.
 
 \hypertarget{visualisierung}{%
-\paragraph{\texorpdfstring{\textbf{Visualisierung}}{Visualisierung}}\label{visualisierung}}
+\subsubsection{\texorpdfstring{\textbf{Visualisierung}}{Visualisierung}}\label{visualisierung}}
 
 Verschiedene Arten von Plots wurden verwendet, um die Ergebnisse der
 deskriptiven Statistik, der Korrelationsanalyse und der
-Regressionsmodelle zu visualisieren.
-
-\begin{itemize}
-\item
-  \textbf{Ziel:} Verständliche Darstellung der Ergebnisse und
-  Identifikation von Mustern in den Daten.
-\item
-  \textbf{Massnahmen:} Erstellung von Scatterplots, Boxplots und
-  Aufzeigen der Regressionen zur Visualisierung der Beziehungen zwischen
-  den Variablen.
-\end{itemize}
+Regressionsmodelle zu visualisieren. Das Ziel der Visualisierung ist es,
+eine verständliche Darstellung der Ergebnisse zu bieten und Muster in
+den Daten zu identifizieren.
 
 \hypertarget{predictive-analysis}{%
-\paragraph{Predictive Analysis}\label{predictive-analysis}}
+\subsubsection{\texorpdfstring{\textbf{Predictive
+Analysis}}{Predictive Analysis}}\label{predictive-analysis}}
 
 Um prädiktive Analysen einzubeziehen, haben wir eine Vorhersagemodell
 entwickelt, um den erzielbaren Preis basierend auf bestimmten Merkmalen
@@ -978,15 +724,9 @@ mithilfe der Bewertung und den wichtigsten Eigenschaften einer
 Unterkunft eine Prognose über den Preis machen können. Dabei wurden die
 sechs besten Variablen mit der höchsten Korrelation im Modell verwendet.
 
-\textless!--
-
-Are the applied methods goal orientated?
-\textbackslash{[}2pt\textbackslash{]} 4. Were the applied methods
-qualitatively performed? \textbackslash{[}3pt\textbackslash{]} 5. What
-are the conclusions of the findings?
-\textbackslash{[}2pt\textbackslash{]}
-
---\textgreater{}
+\begin{verbatim}
+[1] "Vorhersagemodell für Zürich"
+\end{verbatim}
 
 \begin{verbatim}
 RMSE: 18.75538 
@@ -998,16 +738,6 @@ MAE: 8.352074
 
 \begin{verbatim}
 R²: 0.7960764 
-\end{verbatim}
-
-\begin{verbatim}
-                                             IncNodePurity
-price_in_usd                                     1279516.0
-calculated_host_listings_count_private_rooms      416287.9
-maximum_nights_avg_ntm                            188941.3
-availability_365                                  321470.4
-host_total_listings_count                         234611.4
-accommodates                                      420585.7
 \end{verbatim}
 
 Die vorliegende Predictive Analyse zielt darauf ab, den Trend des
@@ -1028,7 +758,7 @@ Die Modellbewertung zeigt folgende Ergebnisse:
 \item
   \textbf{R²: 0.7960764} -- Ein R²-Wert von 0.80 deutet darauf hin, dass
   das Modell die Variation des Preises pro Person gut erklärt und einen
-  großen Teil der Variabilität im Preis vorhersagen kann.
+  grossen Teil der Variabilität im Preis vorhersagen kann.
 \end{itemize}
 
 Die Merkmalswichtigkeit zeigt, dass der Preis in USD (IncNodePurity =
@@ -1044,6 +774,10 @@ Kapazität der Unterkunft und die Verfügbarkeit wesentliche Faktoren bei
 der Preisgestaltung sind.
 
 \begin{verbatim}
+[1] "Vorhersagemodell für Vaud"
+\end{verbatim}
+
+\begin{verbatim}
 RMSE: 15.67096 
 \end{verbatim}
 
@@ -1053,16 +787,6 @@ MAE: 6.181381
 
 \begin{verbatim}
 R²: 0.7177398 
-\end{verbatim}
-
-\begin{verbatim}
-                                             IncNodePurity
-price_in_usd                                     671102.83
-calculated_host_listings_count_private_rooms     231015.26
-availability_90                                  125946.08
-longitude                                        176045.99
-beds                                              95966.35
-accommodates                                     315227.40
 \end{verbatim}
 
 Die Modellbewertung zeigt folgende Ergebnisse:
@@ -1078,7 +802,7 @@ Die Modellbewertung zeigt folgende Ergebnisse:
 \item
   \textbf{R²: 0.7177398} -- Ein R²-Wert von 0.72 deutet darauf hin, dass
   das Modell die Variation des Preises pro Person gut erklärt und einen
-  großen Teil der Variabilität im Preis vorhersagen kann.
+  grossen Teil der Variabilität im Preis vorhersagen kann.
 \end{itemize}
 
 Die Merkmalswichtigkeit zeigt, dass der Preis in USD (IncNodePurity =
@@ -1093,6 +817,10 @@ Kapazität der Unterkunft und die Verfügbarkeit wesentliche Faktoren bei
 der Preisgestaltung sind.
 
 \begin{verbatim}
+[1] "Vorhersagemodell für Genf"
+\end{verbatim}
+
+\begin{verbatim}
 RMSE: 29.24768 
 \end{verbatim}
 
@@ -1102,16 +830,6 @@ MAE: 11.75992
 
 \begin{verbatim}
 R²: 0.5316072 
-\end{verbatim}
-
-\begin{verbatim}
-                                             IncNodePurity
-price_in_usd                                      542561.0
-calculated_host_listings_count_private_rooms      214197.9
-availability_30                                   108033.9
-availability_60                                   115170.7
-availability_90                                   106147.8
-accommodates                                      237664.3
 \end{verbatim}
 
 Die Modellbewertung zeigt folgende Ergebnisse:
@@ -1145,18 +863,18 @@ funktionieren, während das Modell für Genf noch Verbesserungspotenzial
 hat.
 
 \hypertarget{ergebnisse-statistische-ergebnisse-zahlen-diagramme}{%
-\subsection{6. Ergebnisse (statistische Ergebnisse, Zahlen,
+\section{Ergebnisse (statistische Ergebnisse, Zahlen,
 Diagramme)}\label{ergebnisse-statistische-ergebnisse-zahlen-diagramme}}
 
 \hypertarget{deskriptive-statistik-1}{%
-\subsubsection{\texorpdfstring{\textbf{Deskriptive
+\subsection{\texorpdfstring{\textbf{Deskriptive
 Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik-1}}
 
 \hypertarget{korrelationsanalyse-1}{%
-\subsubsection{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse-1}}
+\subsection{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse-1}}
 
 \hypertarget{zuxfcrich}{%
-\paragraph{Zürich}\label{zuxfcrich}}
+\subsubsection{Zürich}\label{zuxfcrich}}
 
 \begin{itemize}
 \item
@@ -1196,7 +914,7 @@ Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik-1}}
 \end{itemize}
 
 \hypertarget{vaud}{%
-\paragraph{Vaud}\label{vaud}}
+\subsubsection{Vaud}\label{vaud}}
 
 \begin{itemize}
 \item
@@ -1236,7 +954,7 @@ Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik-1}}
 \end{itemize}
 
 \hypertarget{geneva}{%
-\paragraph{Geneva}\label{geneva}}
+\subsubsection{Geneva}\label{geneva}}
 
 \begin{itemize}
 \item
@@ -1279,7 +997,7 @@ Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik-1}}
 \end{itemize}
 
 \hypertarget{gesamtschlussfolgerungen}{%
-\paragraph{Gesamtschlussfolgerungen}\label{gesamtschlussfolgerungen}}
+\subsubsection{Gesamtschlussfolgerungen}\label{gesamtschlussfolgerungen}}
 
 Die Analyse der Korrelationen von \texttt{price\_per\_person} mit
 verschiedenen Variablen in den Städten Zürich, Vaud und Geneva liefert
@@ -1357,11 +1075,11 @@ beeinflussen. Hier sind die ausführlicheren Schlussfolgerungen:
 \end{itemize}
 
 \hypertarget{lineare-regression-1}{%
-\subsubsection{\texorpdfstring{\textbf{Lineare
+\subsection{\texorpdfstring{\textbf{Lineare
 Regression}}{Lineare Regression}}\label{lineare-regression-1}}
 
 \hypertarget{bewertung-der-airbnb-unterkuxfcnfte}{%
-\paragraph{Bewertung der
+\subsubsection{Bewertung der
 Airbnb-Unterkünfte}\label{bewertung-der-airbnb-unterkuxfcnfte}}
 
 \textbf{Hypothesen:}
@@ -1433,7 +1151,7 @@ Airbnb-Unterkünfte}\label{bewertung-der-airbnb-unterkuxfcnfte}}
 \end{itemize}
 
 \hypertarget{gastgeber-der-airbnb-unterkunft}{%
-\paragraph{Gastgeber der
+\subsubsection{Gastgeber der
 Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}}
 
 \textbf{Hypothesen:}
@@ -1503,7 +1221,7 @@ Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}}
 \end{itemize}
 
 \hypertarget{lage-des-airbnb}{%
-\paragraph{Lage des Airbnb}\label{lage-des-airbnb}}
+\subsubsection{Lage des Airbnb}\label{lage-des-airbnb}}
 
 \textbf{Hypothesen:}
 
@@ -1560,7 +1278,7 @@ Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}}
 \end{itemize}
 
 \hypertarget{zusammenfassung}{%
-\subsubsection{Zusammenfassung:}\label{zusammenfassung}}
+\subsection{Zusammenfassung:}\label{zusammenfassung}}
 
 \begin{itemize}
 \tightlist
@@ -1581,7 +1299,7 @@ Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}}
 \end{itemize}
 
 \hypertarget{visualisierung-1}{%
-\subsubsection{\texorpdfstring{\textbf{Visualisierung}}{Visualisierung}}\label{visualisierung-1}}
+\subsection{\texorpdfstring{\textbf{Visualisierung}}{Visualisierung}}\label{visualisierung-1}}
 
 Die folgenden Plots zeigen die Korrelationen des Preis pro Person
 (\texttt{price\_per\_person}) in den verschiedenen Städten. Anhand
@@ -1596,15 +1314,29 @@ besser zu verstehen.
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-12-3.pdf}
 
+\hypertarget{lineare-regression-fuxfcr-zuxfcrich}{%
+\subsubsection{Lineare Regression für
+Zürich}\label{lineare-regression-fuxfcr-zuxfcrich}}
+
 \includegraphics{main_files/figure-pdf/unnamed-chunk-13-1.pdf}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-13-2.pdf}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-13-3.pdf}
 
-\hypertarget{lineare-regression-fuxfcr-zuxfcrich}{%
-\paragraph{Lineare Regression für
-Zürich}\label{lineare-regression-fuxfcr-zuxfcrich}}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-13-4.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-13-5.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-13-6.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-13-7.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-13-8.pdf}
+
+\hypertarget{lineare-regression-fuxfcr-vaud}{%
+\subsubsection{Lineare Regression für
+Vaud}\label{lineare-regression-fuxfcr-vaud}}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-14-1.pdf}
 
@@ -1618,13 +1350,9 @@ Zürich}\label{lineare-regression-fuxfcr-zuxfcrich}}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-14-6.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-14-7.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-14-8.pdf}
-
-\hypertarget{lineare-regression-fuxfcr-vaud}{%
-\paragraph{Lineare Regression für
-Vaud}\label{lineare-regression-fuxfcr-vaud}}
+\hypertarget{lineare-regression-fuxfcr-geneva}{%
+\subsubsection{Lineare Regression für
+Geneva}\label{lineare-regression-fuxfcr-geneva}}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-15-1.pdf}
 
@@ -1638,28 +1366,12 @@ Vaud}\label{lineare-regression-fuxfcr-vaud}}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-15-6.pdf}
 
-\hypertarget{lineare-regression-fuxfcr-geneva}{%
-\paragraph{Lineare Regression für
-Geneva}\label{lineare-regression-fuxfcr-geneva}}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-15-7.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-16-1.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-16-2.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-16-3.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-16-4.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-16-5.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-16-6.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-16-7.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-16-8.pdf}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-15-8.pdf}
 
 \hypertarget{schlussfolgerung}{%
-\paragraph{Schlussfolgerung}\label{schlussfolgerung}}
+\subsubsection{Schlussfolgerung}\label{schlussfolgerung}}
 
 Die verschiedenen Grafiken und deren lineare Regressionen liefern
 interessante Einblicke in die Beziehung zwischen den untersuchten
@@ -1676,7 +1388,7 @@ zusätzliche Variablen oder nicht-lineare Modelle konzentrieren, um
 potenzielle Einflussfaktoren besser zu identifizieren.
 
 \hypertarget{predictive-analysis-1}{%
-\subsubsection{Predictive Analysis}\label{predictive-analysis-1}}
+\subsection{Predictive Analysis}\label{predictive-analysis-1}}
 
 Um prädiktive Analysen einzubeziehen, haben wir ein Vorhersagemodell
 entwickelt, um den erzielbaren Preis basierend auf bestimmten Merkmalen
@@ -1734,7 +1446,7 @@ eine deutlich geringere Genauigkeit aufweist und Verbesserungspotenzial
 hat.
 
 \hypertarget{schlussfolgerung-beantwortung-der-frage}{%
-\subsection{7. Schlussfolgerung (Beantwortung der
+\section{Schlussfolgerung (Beantwortung der
 Frage)}\label{schlussfolgerung-beantwortung-der-frage}}
 
 In diesem Kapitel fassen wir die wichtigsten Ergebnisse unserer Analyse
@@ -1743,7 +1455,7 @@ zusammen und beantworten die eingangs gestellte Forschungsfrage:
 ermöglichen es, einen höheren Preis pro Apartment zu erzielen?''
 
 \hypertarget{bewertung-der-airbnb-unterkuxfcnfte-1}{%
-\subsubsection{Bewertung der
+\subsection{Bewertung der
 Airbnb-Unterkünfte}\label{bewertung-der-airbnb-unterkuxfcnfte-1}}
 
 Unsere Analyse zeigte, dass die Sauberkeitsbewertung
@@ -1756,7 +1468,7 @@ Gesamtbewertung (review\_scores\_rating) und die Kommunikationsbewertung
 signifikanten Einfluss auf den Preis.
 
 \hypertarget{gastgeber-der-airbnb-unterkuxfcnfte}{%
-\subsubsection{Gastgeber der
+\subsection{Gastgeber der
 Airbnb-Unterkünfte}\label{gastgeber-der-airbnb-unterkuxfcnfte}}
 
 Die Untersuchung der Gastgebermerkmale ergab, dass in Zürich die Anzahl
@@ -1769,7 +1481,7 @@ Superhost (host\_is\_superhost) und die Verifizierung des Hosts
 signifikanten Einfluss auf den Preis.
 
 \hypertarget{lage-der-airbnb-unterkuxfcnfte}{%
-\subsubsection{Lage der
+\subsection{Lage der
 Airbnb-Unterkünfte}\label{lage-der-airbnb-unterkuxfcnfte}}
 
 Die geografische Analyse zeigte, dass in Vaud der Längengrad (longitude)
@@ -1779,7 +1491,7 @@ und Genf hatten die geografischen Koordinaten jedoch keinen
 signifikanten Einfluss auf den Preis.
 
 \hypertarget{predictive-analysis-2}{%
-\subsubsection{Predictive Analysis}\label{predictive-analysis-2}}
+\subsection{Predictive Analysis}\label{predictive-analysis-2}}
 
 Die prädiktive Analyse hat gezeigt, dass die entwickelten Modelle für
 Zürich und Vaud recht genaue Vorhersagen des Preises pro Person einer
@@ -1789,7 +1501,7 @@ Unterkunft. Diese Faktoren spielen eine entscheidende Rolle bei der
 Preisgestaltung.
 
 Das Modell für Genf hingegen weist eine geringere Genauigkeit auf, was
-auf größere Abweichungen zwischen den vorhergesagten und tatsächlichen
+auf grössere Abweichungen zwischen den vorhergesagten und tatsächlichen
 Preisen hinweist. Dies deutet darauf hin, dass zusätzliche oder andere
 relevante Variablen identifiziert und in das Modell integriert werden
 müssen, um die Vorhersagegenauigkeit zu verbessern.
@@ -1801,7 +1513,7 @@ konzentrieren, die prädiktiven Variablen für Genf weiter zu untersuchen
 und zu optimieren.
 
 \hypertarget{empfehlungen-fuxfcr-gastgeber}{%
-\subsubsection{Empfehlungen für
+\subsection{Empfehlungen für
 Gastgeber}\label{empfehlungen-fuxfcr-gastgeber}}
 
 Auf Basis unserer Ergebnisse können folgende Empfehlungen für Gastgeber
@@ -1827,7 +1539,7 @@ maximieren:
 \end{enumerate}
 
 \hypertarget{beantwortung-der-forschungsfrage}{%
-\subsubsection{Beantwortung der
+\subsection{Beantwortung der
 Forschungsfrage}\label{beantwortung-der-forschungsfrage}}
 
 Zusammenfassend lässt sich sagen, dass die Sauberkeitsbewertung einer
@@ -1837,7 +1549,7 @@ einer Airbnb-Unterkunft beeinflussen. Gastgeber sollten daher auf diese
 Merkmale achten, um ihre Einnahmen zu maximieren.
 
 \hypertarget{weiterfuxfchrende-forschung}{%
-\subsubsection{Weiterführende
+\subsection{Weiterführende
 Forschung}\label{weiterfuxfchrende-forschung}}
 
 Für zukünftige Untersuchungen wäre es sinnvoll, zusätzliche Daten über
@@ -1847,9 +1559,17 @@ maschinelle Lernverfahren eingesetzt werden, um die Komplexität der
 Einflussfaktoren besser abzubilden und genauere Vorhersagen zu
 ermöglichen.
 
+\hypertarget{disclaimer}{%
+\subsection{Disclaimer}\label{disclaimer}}
+
+Die Inhalte dieses Papers wurden eigenständig erarbeitet. Bei der
+Formulierung und Strukturierung bestimmter Textpassagen wurde
+ChatGPT\protect\hyperlink{ref-openai-2022}{{[}3{]}} zur Hilfe genommen,
+um Korrekturen vorzunehmen und die Kohärenz zu verbessern.
+
 \hypertarget{referenzen}{%
-\subsection*{8. Referenzen}\label{referenzen}}
-\addcontentsline{toc}{subsection}{8. Referenzen}
+\section*{Referenzen}\label{referenzen}}
+\addcontentsline{toc}{section}{Referenzen}
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{0}{0}
@@ -1867,6 +1587,11 @@ dictionary for listings.csV detailed file.''} Aug-2022 {[}Online{]}.
 Available:
 \url{https://docs.google.com/spreadsheets/d/1iWCNJcSutYqpULSQHlNyGInUvHg2BoUGoNRIGa6Szc4/edit\#gid=1322284596}.
 {[}Accessed: 30-May-2024{]}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-openai-2022}{}}%
+\CSLLeftMargin{{[}3{]} }%
+\CSLRightInline{OpenAI, {``ChatGPT,''} Nov-2022. {[}Online{]}.
+Available: \url{https://chatgpt.com/}. {[}Accessed: 31-May-2024{]}}
 
 \end{CSLReferences}
 
