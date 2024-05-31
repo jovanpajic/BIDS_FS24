@@ -418,7 +418,7 @@ Die deskriptive Statistik liefert grundlegende Informationen über die Struktur 
 
 -   **Ziel:** Ein grundlegendes Verständnis der Datenstruktur und Verteilung der Variablen zu erlangen.
 
--   **Massnahmen:** Berechnung von Mittelwerten, Mediane, Standardabweichungen und Visualisierung der Datenverteilung durch Histogramme und Boxplots.
+-   **Massnahmen:** Die verschiedenen Statistiken und die verschiedenen Attribute aufzeigen. Berechnung von Mittelwerten, Medianen und Standardabweichungen. Einfache Visualisierung der für die Fragen wichtigsten Attribute.
 
 Kurze Übersicht über die Datensets Zürich, Vaud und Geneva
 
@@ -518,7 +518,7 @@ Die Korrelationsanalyse untersucht die Stärke und Richtung der Beziehung zwisch
 
 -   **Ziel:** Identifikation von Zusammenhängen zwischen den Variablen, insbesondere zwischen den Bewertungen, Host-Informationen, geografischen Daten und dem Preis pro Person.
 
--   **Massnahmen:** Berechnung von Korrelationskoeffizienten und Erstellung von Korrelationsmatrizen.
+-   **Massnahmen:** Korrelationskoeffizienten berechnen und die Top 5 der positiven und negativen Korrelationen angeben.
 
 ```{r correlation, warning=FALSE}
 calculate_correlations <- function(data) {
@@ -625,7 +625,7 @@ Verschiedene Arten von Plots wurden verwendet, um die Ergebnisse der deskriptive
 
 -   **Ziel:** Verständliche Darstellung der Ergebnisse und Identifikation von Mustern in den Daten.
 
--   **Massnahmen:** Erstellung von Scatterplots, Boxplots, Barplots und Heatmaps zur Visualisierung der Beziehungen zwischen den Variablen.
+-   **Massnahmen:** Erstellung von Scatterplots, Boxplots und Aufzeigen der Regressionen zur Visualisierung der Beziehungen zwischen den Variablen.
 
 ```{r}
 # Funktion zur Berechnung der Korrelationen
@@ -863,19 +863,19 @@ Conclusion \[3pt\]
 
 Die Analyse der Korrelationen von `price_per_person` mit verschiedenen Variablen in den Städten Zürich, Vaud und Geneva liefert wertvolle Einblicke in die Faktoren, die den Preis pro Person beeinflussen. Hier sind die ausführlicheren Schlussfolgerungen:
 
--   **Höherer Gesamtpreis (`price_in_usd`)**: In allen drei Städten zeigt sich eine positive Korrelation zwischen dem Gesamtpreis und dem Preis pro Person. Dies bedeutet, dass teurere Unterkünfte auch pro Person mehr kosten. Dies ist intuitiv, da eine höhere Grundmiete oft höhere Pro-Kopf-Kosten nach sich zieht.
+-   **Höherer Gesamtpreis (`price_in_usd`)**: In allen drei Städten besteht ein positiver Zusammenhang zwischen dem Gesamtpreis und dem Preis pro Person. Das bedeutet, dass teurere Wohnungen auch mehr pro Person kosten. Dies ist intuitiv nachvollziehbar, da eine höhere Grundmiete oft auch zu höheren Kosten pro Person führt. Das bedeutet aber auch, dass man, wenn man mit einer grösseren Gruppe reist und eine grössere Unterkunft mietet, pro Person weniger zahlt.
 
 -   **Mehr private Zimmer (`calculated_host_listings_count_private_rooms`)**: Ebenfalls in allen drei Städten korreliert die Anzahl der privaten Zimmer im Angebot des Hosts positiv mit dem Preis pro Person. Dies könnte darauf hinweisen, dass Hosts, die mehr private Zimmer anbieten, tendenziell höhere Preise verlangen, möglicherweise aufgrund der höheren Privatsphäre und Exklusivität.
 
 -   **Kurzfristige und langfristige Verfügbarkeit**: In Geneva und Vaud zeigt die Verfügbarkeit der Unterkunft über verschiedene Zeiträume (30, 60, 90 Tage und das ganze Jahr) eine positive Korrelation mit dem Preis pro Person. Dies deutet darauf hin, dass Unterkünfte, die sowohl kurzfristig als auch langfristig verfügbar sind, tendenziell höher bepreist werden. Es könnte sein, dass diese Unterkünfte eine höhere Nachfrage bedienen oder flexiblere Buchungsoptionen bieten, die höher bewertet werden.
 
--   **Häufigkeit der Bewertungen (`reviews_per_month`, `number_of_reviews_l30d`)**: In Vaud und Geneva gibt es eine negative Korrelation zwischen der Anzahl der Bewertungen pro Monat und dem Preis pro Person. Dies könnte darauf hindeuten, dass Unterkünfte, die häufiger bewertet werden, tendenziell günstiger sind. Diese Unterkünfte könnten eine breitere Zielgruppe ansprechen, einschließlich preisbewusster Reisender, was zu häufigeren Buchungen und somit zu mehr Bewertungen führt.
+-   **Häufigkeit der Bewertungen (`reviews_per_month`, `number_of_reviews_l30d`)**: In Vaud und Geneva gibt es eine negative Korrelation zwischen der Anzahl der Bewertungen pro Monat und dem Preis pro Person. Dies könnte darauf hindeuten, dass Unterkünfte, die häufiger bewertet werden, tendenziell günstiger sind. Diese Unterkünfte könnten eine breitere Zielgruppe ansprechen, einschliesslich preisbewusster Reisender, was zu häufigeren Buchungen und somit zu mehr Bewertungen führt.
 
 -   **Zeit seit der letzten Bewertung (`last_review`)**: In Vaud zeigt sich eine leichte negative Korrelation zwischen der Zeit seit der letzten Bewertung und dem Preis pro Person. Dies könnte darauf hinweisen, dass aktuellere Bewertungen mit höheren Preisen pro Person verbunden sind, möglicherweise weil aktuelle Bewertungen das Vertrauen und die Attraktivität der Unterkunft erhöhen.
 
--   **Anzahl der Listings (`host_listings_count`, `calculated_host_listings_count`, `host_total_listings_count`, `calculated_host_listings_count_entire_homes`)**: In Zürich zeigen mehrere Variablen, die die Anzahl der Listings des Hosts messen, eine negative Korrelation mit dem Preis pro Person. Dies deutet darauf hin, dass Hosts mit vielen Listings ihre Preise wettbewerbsfähiger gestalten müssen, um die Nachfrage zu halten. Größere Host-Operationen könnten Skaleneffekte nutzen, um niedrigere Preise anzubieten.
+-   **Anzahl der Listings (`host_listings_count`, `calculated_host_listings_count`, `host_total_listings_count`, `calculated_host_listings_count_entire_homes`)**: In Zürich zeigen mehrere Variablen, die die Anzahl der Listings des Hosts messen, eine negative Korrelation mit dem Preis pro Person. Dies deutet darauf hin, dass Hosts mit vielen Listings ihre Preise wettbewerbsfähiger gestalten müssen, um die Nachfrage zu halten. Grössere Host-Operationen könnten Skaleneffekte nutzen, um niedrigere Preise anzubieten.
 
--   **Anzahl der Betten und verfügbare Plätze (`beds`, `accommodates`)**: In allen drei Städten zeigen sich negative Korrelationen zwischen der Anzahl der Betten bzw. der verfügbaren Plätze und dem Preis pro Person. Dies weist darauf hin, dass größere Unterkünfte tendenziell niedrigere Pro-Kopf-Kosten haben. Dies könnte auf Skaleneffekte oder die Notwendigkeit, größere Gruppen anzuziehen, zurückzuführen sein.
+-   **Anzahl der Betten und verfügbare Plätze (`beds`, `accommodates`)**: In allen drei Städten zeigen sich negative Korrelationen zwischen der Anzahl der Betten bzw. der verfügbaren Plätze und dem Preis pro Person. Dies weist darauf hin, dass grössere Unterkünfte tendenziell niedrigere Pro-Kopf-Kosten haben. Dies könnte auf Skaleneffekte oder die Notwendigkeit, grössere Gruppen anzuziehen, zurückzuführen sein.
 
 -   **Geografische Koordinaten (`longitude`, `latitude`)**: In Vaud zeigt der Längengrad eine signifikante negative Korrelation mit dem Preis pro Person, was auf eine geografische Preisstruktur hindeuten könnte. Dies könnte bedeuten, dass östlichere Lagen tendenziell günstiger sind. In Zürich und Geneva sind die geografischen Koordinaten nicht signifikant.
 
@@ -1137,7 +1137,7 @@ print(plot_geneva_latitude)
 
 Die verschiedenen Grafiken und deren lineare Regressionen liefern interessante Einblicke in die Beziehung zwischen den untersuchten Variablen und dem Preis pro Person. Allerdings zeigen die Ergebnisse, dass viele der unabhängigen Variablen nur einen geringen Einfluss auf den Preis pro Person haben.
 
-Zusammenfassend lässt sich sagen, dass die meisten untersuchten Variablen keinen starken Einfluss auf den Preis pro Person haben. Dies könnte darauf hindeuten, dass andere, nicht berücksichtigte Faktoren eine größere Rolle spielen oder dass die Märkte in diesen Städten relativ homogen sind. Weitere Untersuchungen könnten sich auf zusätzliche Variablen oder nicht-lineare Modelle konzentrieren, um potenzielle Einflussfaktoren besser zu identifizieren.
+Zusammenfassend lässt sich sagen, dass die meisten untersuchten Variablen keinen starken Einfluss auf den Preis pro Person haben. Dies könnte darauf hindeuten, dass andere, nicht berücksichtigte Faktoren eine grössere Rolle spielen oder dass die Märkte in diesen Städten relativ homogen sind. Weitere Untersuchungen könnten sich auf zusätzliche Variablen oder nicht-lineare Modelle konzentrieren, um potenzielle Einflussfaktoren besser zu identifizieren.
 
 ### Predictive Analysis
 
