@@ -117,38 +117,28 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-% definitions for citeproc citations
-\NewDocumentCommand\citeproctext{}{}
-\NewDocumentCommand\citeproc{mm}{%
-  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
-\makeatletter
- % allow citations to break across lines
- \let\@cite@ofmt\@firstofone
- % avoid brackets around text for \cite:
- \def\@biblabel#1{}
- \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
-\makeatother
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
 \newlength{\csllabelwidth}
 \setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
- {\begin{list}{}{%
-  \setlength{\itemindent}{0pt}
-  \setlength{\leftmargin}{0pt}
-  \setlength{\parsep}{0pt}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
   % turn on hanging indent if param 1 is 1
   \ifodd #1
-   \setlength{\leftmargin}{\cslhangindent}
-   \setlength{\itemindent}{-1\cslhangindent}
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
   \fi
   % set entry spacing
-  \setlength{\itemsep}{#2\baselineskip}}}
- {\end{list}}
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
 \usepackage{calc}
-\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \usepackage{physics}
@@ -156,6 +146,10 @@
 \usepackage{orcidlink}
 \usepackage{float}
 \floatplacement{table}{htb}
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -192,10 +186,18 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \makeatother
 \makeatletter
-\makeatother
-\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
 \makeatother
 \usepackage[skip=2pt,font=footnotesize]{caption}
 %\captionsetup{format=myformat}
@@ -272,8 +274,10 @@ Cedric Gisler \& Jovan Pajic%
 % creates the second title. It will be ignored for other modes.
 % \IEEEpeerreviewmaketitle
 
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, boxrule=0pt, sharp corners, enhanced, breakable, interior hidden, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
-\section{1. Abstrakt}\label{abstrakt}
+\hypertarget{abstrakt}{%
+\subsection{1. Abstrakt}\label{abstrakt}}
 
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
 eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
@@ -289,8 +293,9 @@ aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
 dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
 est Lorem ipsum dolor sit amet.
 
-\section{2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am
-Ende)}\label{einleitung-mit-forschungsfrage-d.h.-geschuxe4ftsfrage-am-ende}
+\hypertarget{einleitung-mit-forschungsfrage-d.h.-geschuxe4ftsfrage-am-ende}{%
+\subsection{2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am
+Ende)}\label{einleitung-mit-forschungsfrage-d.h.-geschuxe4ftsfrage-am-ende}}
 
 In der heutigen, schnelllebigen Welt des Online-Tourismus spielen
 Plattformen wie Airbnb eine zentrale Rolle bei der Art und Weise, wie
@@ -412,17 +417,18 @@ wie verbessert werden müssen, um die Preise pro Person der Unterkunft
 signifikant erhöhen zu können, um einen höheren Preis erzielen zu
 können.
 
-\section{3. Datenquelle (mit Angaben zu Quelle, Qualität und
+\hypertarget{datenquelle-mit-angaben-zu-quelle-qualituxe4t-und-bereinigungsschritten-der-daten}{%
+\subsection{3. Datenquelle (mit Angaben zu Quelle, Qualität und
 Bereinigungsschritten der
-Daten)}\label{datenquelle-mit-angaben-zu-quelle-qualituxe4t-und-bereinigungsschritten-der-daten}
+Daten)}\label{datenquelle-mit-angaben-zu-quelle-qualituxe4t-und-bereinigungsschritten-der-daten}}
 
 Die Daten für diese Analyse stammen von der Inside Airbnb Organisation
-\citeproc{ref-inside-airbnb-2023}{{[}1{]}}, die sich dafür einsetzt,
-ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen
-zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig
-aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen
-auf der Airbnb-Website stammen. Diese Datensätze würden wir als
-Vertrauenswürdig einstufen.
+\protect\hyperlink{ref-inside-airbnb-2023}{{[}1{]}}, die sich dafür
+einsetzt, ihre Gemeinden vor den negativen Auswirkungen von
+Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und
+veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich
+verfügbaren Informationen auf der Airbnb-Website stammen. Diese
+Datensätze würden wir als Vertrauenswürdig einstufen.
 
 Die extrahierten Datensätze umfassen Informationen aus drei bedeutenden
 Regionen in der Schweiz: Zürich (27. Dezember 2023), Genénve (27.
@@ -449,7 +455,8 @@ Review, zu identifizieren.
 
 Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt
 hoch, und die Beschreibung der Datenfelder wird durch das Data
-Dictionary \citeproc{ref-inside-airbnb-2022}{{[}2{]}} gut unterstützt.
+Dictionary \protect\hyperlink{ref-inside-airbnb-2022}{{[}2{]}} gut
+unterstützt.
 
 \textbf{Datenbereinigungsschritte:}
 
@@ -473,12 +480,13 @@ Dictionary \citeproc{ref-inside-airbnb-2022}{{[}2{]}} gut unterstützt.
   Datenintegrität zu gewährleisten.
 \end{enumerate}
 
-\section{4. Datenqualität (Analyse im Hinblick auf
-Datenqualitätsaspekte)}\label{datenqualituxe4t-analyse-im-hinblick-auf-datenqualituxe4tsaspekte}
+\hypertarget{datenqualituxe4t-analyse-im-hinblick-auf-datenqualituxe4tsaspekte}{%
+\subsection{4. Datenqualität (Analyse im Hinblick auf
+Datenqualitätsaspekte)}\label{datenqualituxe4t-analyse-im-hinblick-auf-datenqualituxe4tsaspekte}}
 
-Nachdem wir die Zusammenfassung der Daten betrachtet und eine
-detaillierte Analyse der Dataframes durchgeführt haben, haben wir die
-folgenden Datenanpassungen vorgenommen:
+Nachdem wir die Zusammenfassung der Daten betrachtet und eine Analyse
+der Datensätze durchgeführt haben, haben wir die folgenden
+Datenanpassungen vorgenommen:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -512,9 +520,31 @@ folgenden Datenanpassungen vorgenommen:
   gegebenenfalls.
 \end{enumerate}
 
-Um die Daten nach der Bereinigung zu überprüfen und einen Überblick zu
-erhalten, führen wir eine standardmässige Datenanalysen durch am
-Beispiel \textbf{\texttt{df\_zuerich\_cleanead}} .
+Nach diesen Anpassungen haben wir die Daten weiter analysiert und die
+folgenden Schritte durchgeführt:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Überprüfung auf Duplikate:} Es wurde überprüft, ob es doppelte
+  \textbf{\texttt{id}}s in den Daten gibt.
+\item
+  \textbf{Visualisierung der Verteilungen:} Es wurden Histogramme
+  erstellt, um die Verteilungen der Preise, der Bewertungsscores und der
+  Bewertungen pro Monat zu visualisieren.
+\item
+  \textbf{Analyse von Anomalien und Ausreissern:} Da der Preis stark
+  variiert, analysieren wir die Möglichkeit, den Preis pro Person zu
+  berechnen. Dabei fällt auf, dass der Preis bei ``Entire home/apt'' für
+  die maximale Anzahl der Gäste (\textbf{\texttt{accommodates}})
+  berechnet wird, was sinnvoll ist, da die gesamte Unterkunft gebucht
+  wird. Bei ``Private room'' und ``Shared room'' hingegen wird der Preis
+  mehrheitlich pro Person angegeben. Im Gegensatz dazu ist der Preis bei
+  ``Hotel room'' wieder für die maximale Gästeanzahl festgelegt.
+\item
+  \textbf{Export der Datensätze:} Die drei bereinigten Datensätze wurden
+  in neuen Dateien erstellt und abgespeichert.
+\end{enumerate}
 
 \includegraphics{main_files/figure-pdf/eda-1.pdf}
 
@@ -522,25 +552,31 @@ Beispiel \textbf{\texttt{df\_zuerich\_cleanead}} .
 
 \includegraphics{main_files/figure-pdf/eda-3.pdf}
 
-\section{Beschreibe Eda Prozess!}\label{beschreibe-eda-prozess}
+\begin{verbatim}
+# A tibble: 4 x 2
+  room_type       count
+  <chr>           <int>
+1 Entire home/apt  2119
+2 Private room      670
+3 Shared room        21
+4 Hotel room          9
+\end{verbatim}
 
-Anomalie und Ausreisser analysieren und filtern
+\includegraphics{main_files/figure-pdf/eda price_per_person-1.pdf}
 
-Da der Preis stark variiert, analysieren wir die Möglichkeit, den Preis
-pro Person zu berechnen. Dabei fällt auf, dass der Preis bei ``Entire
-home/apt'' für die maximale Anzahl der Gäste
-(\textbf{\texttt{accommodates}}) berechnet wird, was sinnvoll ist, da
-die gesamte Unterkunft gebucht wird. Bei ``Private room'' und ``Shared
-room'' hingegen wird der Preis mehrheitlich pro Person angegeben. Im
-Gegensatz dazu ist der Preis bei ``Hotel room'' wieder für die maximale
-Gästeanzahl festgelegt.
+Die analysierten Werte zeigen eine ausgeglichene Verteilung ohne
+signifikante Ausreisser oder extreme Werte. Dies deutet darauf hin, dass
+der Datenbereinigungsprozess effektiv war und die Daten konsistent und
+zuverlässig für weitere Analysen vorliegen.
 
-\section{5. Datenanalyse (Informationen zur Datenstruktur, Organisation
-und zu den für die Analyse verwendeten
-Methoden)}\label{datenanalyse-informationen-zur-datenstruktur-organisation-und-zu-den-fuxfcr-die-analyse-verwendeten-methoden}
+\hypertarget{datenanalyse-informationen-zur-datenstruktur-organisation-und-zu-den-fuxfcr-die-analyse-verwendeten-methoden}{%
+\subsection{5. Datenanalyse (Informationen zur Datenstruktur,
+Organisation und zu den für die Analyse verwendeten
+Methoden)}\label{datenanalyse-informationen-zur-datenstruktur-organisation-und-zu-den-fuxfcr-die-analyse-verwendeten-methoden}}
 
-\subsection{Datenstruktur und
-Organisation}\label{datenstruktur-und-organisation}
+\hypertarget{datenstruktur-und-organisation}{%
+\subsubsection{Datenstruktur und
+Organisation}\label{datenstruktur-und-organisation}}
 
 Die vorliegenden bereinigten Datensets besteht aus Informationen zu
 Airbnb-Unterkünften in Zürich, Geneve und Vaud und umfasst 63 Variablen
@@ -572,2449 +608,52 @@ repräsentiert. Die Variablen enthalten diverse Informationen, darunter:
   \texttt{availability\_365}.
 \end{itemize}
 
-\begin{longtable}[]{@{}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0022}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0409}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.2355}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1144}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.4502}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1397}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0104}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0067}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedleft
-No
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Variable
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Stats / Values
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Freqs (\% of Valid)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Graph
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-text.graph
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Valid
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Missing
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-1 & \begin{minipage}[t]{\linewidth}\raggedright
-id\\
-{[}numeric{]}\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-Mean (sd) : 3.787749e+17 (4.293365e+17)\\
-min \textless{} med \textless{} max:\\
-178448 \textless{} 51214232 \textless{} 1.044179e+18\\
-IQR (CV) : 8.455789e+17 (1.1)\strut
-\end{minipage} & 1494 distinct values & &
-\begin{minipage}[t]{\linewidth}\raggedright
-:\\
-:\\
-:\\
-:\\
-: ~~~~~~~~. . . : :\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-1494\\
-(100.0\%)\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-0\\
-(0.0\%)\strut
-\end{minipage} \\
-2 & \begin{minipage}[t]{\linewidth}\raggedright
-listing\_url\\
-{[}character{]}\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-1. https://www.airbnb.com/ro\\
-2. https://www.airbnb.com/ro\\
-3. https://www.airbnb.com/ro\\
-4. https://www.airbnb.com/ro\\
-5. https://www.airbnb.com/ro\\
-6. https://www.airbnb.com/ro\\
-7. https://www.airbnb.com/ro\\
-8. https://www.airbnb.com/ro\\
-9. https://www.airbnb.com/ro\\
-10. https://www.airbnb.com/ro\\
-{[} 1484 others {]}\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\textbackslash1484 (99.3\%)\strut
-\end{minipage} & & \textbackslash{} & & \\
-\end{longtable}
+\textbf{Zusammenfassung Preis pro Person und Bewertung Zürich}
 
-~ ~ ~ ~ ~ ~ ~ ~ ~ IIIIIIIIIIIIIIIIIII \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 3\textbar scrape\_id\\
-{[}numeric{]} \textbar1 distinct value \textbar2.023123e+13 : 1494
-(100.0\%) \textbar{} \textbar IIIIIIIIIIIIIIIIIIII \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 4\textbar last\_scraped\\
-{[}numeric{]} \textbar Min : 19718\\
-Mean : 19718.5\\
-Max : 19719 \textbar19718 : 801 (53.6\%)\\
-19719 : 693 (46.4\%) \textbar{} \textbar IIIIIIIIII ~ IIIIIIIII
-\textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 5\textbar source\\
-{[}character{]} \textbar1. city scrape\\
-2. previous scrape \textbar\textbackslash1406 (94.1\%)\\
-\strut ~ 88 ( 5.9\%) \textbar{} \textbar IIIIIIIIIIIIIIIIII ~ I
-\textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 6\textbar name\\
-{[}character{]} \textbar1. Rental unit in Zürich · 1\\
-2. Rental unit in Zürich · ★\\
-3. Rental unit in Zürich · ★\\
-4. Rental unit in Zürich · S\\
-5. Rental unit in Zürich · 1\\
-6. Rental unit in Zürich · 2\\
-7. Rental unit in Zürich · ★\\
-8. Rental unit in Zürich · ★\\
-9. Rental unit in Zürich · 1\\
-10. Rental unit in Zürich · ★\\
-{[} 802 others {]} \textbar~ 77 ( 5.2\%)\\
-\strut ~ 68 ( 4.6\%)\\
-\strut ~ 22 ( 1.5\%)\\
-\strut ~ 21 ( 1.4\%)\\
-\strut ~ 20 ( 1.3\%)\\
-\strut ~ 19 ( 1.3\%)\\
-\strut ~ 18 ( 1.2\%)\\
-\strut ~ 18 ( 1.2\%)\\
-\strut ~ 18 ( 1.2\%)\\
-\strut ~ 13 ( 0.9\%)\\
-\textbackslash1200 (80.3\%) \textbar{} \textbar I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIII \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 7\textbar picture\_url\\
-{[}character{]} \textbar1. https://a0.muscache.com/p\\
-2. https://a0.muscache.com/p\\
-3. https://a0.muscache.com/p\\
-4. https://a0.muscache.com/p\\
-5. https://a0.muscache.com/p\\
-6. https://a0.muscache.com/p\\
-7. https://a0.muscache.com/p\\
-8. https://a0.muscache.com/p\\
-9. https://a0.muscache.com/p\\
-10. https://a0.muscache.com/p\\
-{[} 1453 others {]} \textbar~ 5 ( 0.3\%)\\
-\strut ~ 4 ( 0.3\%)\\
-\strut ~ 3 ( 0.2\%)\\
-\strut ~ 3 ( 0.2\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\textbackslash1467 (98.2\%) \textbar{} \textbar~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIIIIII \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 8\textbar host\_id\\
-{[}numeric{]} \textbar Mean (sd) : 125130191 (161220331)\\
-min \textless{} med \textless{} max:\\
-21750 \textless{} 37698763 \textless{} 550513324\\
-IQR (CV) : 175405512 (1.3) \textbar734 distinct values \textbar{}
-\textbar:\\
-:\\
-:\\
-:\\
-: : . . . ~~. . . . \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 9\textbar host\_url\\
-{[}character{]} \textbar1. https://www.airbnb.com/us\\
-2. https://www.airbnb.com/us\\
-3. https://www.airbnb.com/us\\
-4. https://www.airbnb.com/us\\
-5. https://www.airbnb.com/us\\
-6. https://www.airbnb.com/us\\
-7. https://www.airbnb.com/us\\
-8. https://www.airbnb.com/us\\
-9. https://www.airbnb.com/us\\
-10. https://www.airbnb.com/us\\
-{[} 724 others {]} \textbar~ 80 ( 5.4\%)\\
-\strut ~ 58 ( 3.9\%)\\
-\strut ~ 49 ( 3.3\%)\\
-\strut ~ 34 ( 2.3\%)\\
-\strut ~ 31 ( 2.1\%)\\
-\strut ~ 30 ( 2.0\%)\\
-\strut ~ 21 ( 1.4\%)\\
-\strut ~ 21 ( 1.4\%)\\
-\strut ~ 19 ( 1.3\%)\\
-\strut ~ 18 ( 1.2\%)\\
-\textbackslash1133 (75.8\%) \textbar{} \textbar I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIII \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 10\textbar host\_name\\
-{[}character{]} \textbar1. Stephanie\\
-2. Dimi\\
-3. Swissstay\\
-4. Christian Robert\\
-5. Blueground\\
-6. Delta Estates\\
-7. Marie\\
-8. Kamila\\
-9. Luca\\
-10. Book A Home AG\\
-{[} 561 others {]} \textbar~ 82 ( 5.5\%)\\
-\strut ~ 58 ( 3.9\%)\\
-\strut ~ 49 ( 3.3\%)\\
-\strut ~ 34 ( 2.3\%)\\
-\strut ~ 31 ( 2.1\%)\\
-\strut ~ 30 ( 2.0\%)\\
-\strut ~ 24 ( 1.6\%)\\
-\strut ~ 21 ( 1.4\%)\\
-\strut ~ 19 ( 1.3\%)\\
-\strut ~ 18 ( 1.2\%)\\
-\textbackslash1128 (75.5\%) \textbar{} \textbar I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIII \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 11\textbar host\_since\\
-{[}numeric{]} \textbar Mean (sd) : 16934.6 (1177.7)\\
-min \textless{} med \textless{} max:\\
-14411 \textless{} 16625 \textless{} 19702\\
-IQR (CV) : 1556.5 (0.1) \textbar667 distinct values \textbar{}
-\textbar~~~~~~:\\
-\strut ~~~~~~:\\
-\strut ~~~~~~: :\\
-\strut ~~. . : : . ~~~~.\\
-\strut ~~: : : : : : : : : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 12\textbar host\_response\_time\\
-{[}character{]} \textbar1. a few days or more\\
-2. within a day\\
-3. within a few hours\\
-4. within an hour \textbar~ 35 ( 2.3\%)\\
-\strut ~214 (14.3\%)\\
-\strut ~220 (14.7\%)\\
-\textbackslash1025 (68.6\%) \textbar{} \textbar~ II ~ II ~ IIIIIIIIIIIII
-\textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 13\textbar host\_is\_superhost\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar\textbackslash1023 (68.5\%)\\
-\strut ~471 (31.5\%) \textbar{} \textbar IIIIIIIIIIIII ~ IIIIII
-\textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 14\textbar host\_thumbnail\_url\\
-{[}character{]} \textbar1. https://a0.muscache.com/i\\
-2. https://a0.muscache.com/i\\
-3. https://a0.muscache.com/i\\
-4. https://a0.muscache.com/i\\
-5. https://a0.muscache.com/i\\
-6. https://a0.muscache.com/i\\
-7. https://a0.muscache.com/i\\
-8. https://a0.muscache.com/i\\
-9. https://a0.muscache.com/i\\
-10. https://a0.muscache.com/i\\
-{[} 712 others {]} \textbar~ 80 ( 5.4\%)\\
-\strut ~ 58 ( 3.9\%)\\
-\strut ~ 49 ( 3.3\%)\\
-\strut ~ 34 ( 2.3\%)\\
-\strut ~ 31 ( 2.1\%)\\
-\strut ~ 30 ( 2.0\%)\\
-\strut ~ 21 ( 1.4\%)\\
-\strut ~ 21 ( 1.4\%)\\
-\strut ~ 19 ( 1.3\%)\\
-\strut ~ 18 ( 1.2\%)\\
-\textbackslash1133 (75.8\%) \textbar{} \textbar I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIII \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 15\textbar host\_picture\_url\\
-{[}character{]} \textbar1. https://a0.muscache.com/i\\
-2. https://a0.muscache.com/i\\
-3. https://a0.muscache.com/i\\
-4. https://a0.muscache.com/i\\
-5. https://a0.muscache.com/i\\
-6. https://a0.muscache.com/i\\
-7. https://a0.muscache.com/i\\
-8. https://a0.muscache.com/i\\
-9. https://a0.muscache.com/i\\
-10. https://a0.muscache.com/i\\
-{[} 712 others {]} \textbar~ 80 ( 5.4\%)\\
-\strut ~ 58 ( 3.9\%)\\
-\strut ~ 49 ( 3.3\%)\\
-\strut ~ 34 ( 2.3\%)\\
-\strut ~ 31 ( 2.1\%)\\
-\strut ~ 30 ( 2.0\%)\\
-\strut ~ 21 ( 1.4\%)\\
-\strut ~ 21 ( 1.4\%)\\
-\strut ~ 19 ( 1.3\%)\\
-\strut ~ 18 ( 1.2\%)\\
-\textbackslash1133 (75.8\%) \textbar{} \textbar I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIII \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 16\textbar host\_listings\_count\\
-{[}numeric{]} \textbar Mean (sd) : 31.2 (62.5)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4 \textless{} 265\\
-IQR (CV) : 33 (2) \textbar34 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . . ~~~~~~~~~~~~. \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 17\textbar host\_total\_listings\_count\\
-{[}numeric{]} \textbar Mean (sd) : 40 (74)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 6 \textless{} 363\\
-IQR (CV) : 37 (1.9) \textbar39 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: ~~. ~~~~. \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 18\textbar host\_has\_profile\_pic\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar~ 14 ( 0.9\%)\\
-\textbackslash1480 (99.1\%) \textbar{} \textbar~ IIIIIIIIIIIIIIIIIII
-\textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 19\textbar host\_identity\_verified\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar~ 41 ( 2.7\%)\\
-\textbackslash1453 (97.3\%) \textbar{} \textbar~ IIIIIIIIIIIIIIIIIII
-\textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 20\textbar neighbourhood\_cleansed\\
-{[}character{]} \textbar1. Langstrasse\\
-2. Rathaus\\
-3. Sihlfeld\\
-4. Altstetten\\
-5. Oerlikon\\
-6. Alt-Wiedikon\\
-7. Hottingen\\
-8. Unterstrass\\
-9. Seefeld\\
-10. Hard\\
-{[} 24 others {]} \textbar\textbackslash110 ( 7.4\%)\\
-\strut ~98 ( 6.6\%)\\
-\strut ~95 ( 6.4\%)\\
-\strut ~92 ( 6.2\%)\\
-\strut ~92 ( 6.2\%)\\
-\strut ~85 ( 5.7\%)\\
-\strut ~68 ( 4.6\%)\\
-\strut ~66 ( 4.4\%)\\
-\strut ~63 ( 4.2\%)\\
-\strut ~56 ( 3.7\%)\\
-\textbackslash669 (44.8\%) \textbar{} \textbar I ~ I ~ I ~ I ~ I ~ I ~ ~
-~ ~ ~ IIIIIIII \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 21\textbar latitude\\
-{[}numeric{]} \textbar Mean (sd) : 47.4 (0)\\
-min \textless{} med \textless{} max:\\
-47.3 \textless{} 47.4 \textless{} 47.4\\
-IQR (CV) : 0 (0) \textbar1253 distinct values \textbar{}
-\textbar~~~~~~~~:\\
-\strut ~~~~~~. : .\\
-\strut ~~~~~~: : :\\
-\strut ~~~~~~: : : ~~.\\
-\strut ~~~~: : : : : : : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 22\textbar longitude\\
-{[}numeric{]} \textbar Mean (sd) : 8.5 (0)\\
-min \textless{} med \textless{} max:\\
-8.5 \textless{} 8.5 \textless{} 8.6\\
-IQR (CV) : 0 (0) \textbar1282 distinct values \textbar{}
-\textbar~~~~~~~~~~:\\
-\strut ~~~~~~. : : .\\
-\strut ~~~~~~: : : :\\
-\strut ~~~~: : : : :\\
-\strut ~~: : : : : : . ~~. \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 23\textbar property\_type\\
-{[}character{]} \textbar1. Entire rental unit\\
-2. Private room in rental un\\
-3. Entire serviced apartment\\
-4. Entire condo\\
-5. Entire loft\\
-6. Room in hotel\\
-7. Private room in home\\
-8. Private room in condo\\
-9. Private room in villa\\
-10. Entire home\\
-{[} 22 others {]} \textbar\textbackslash940 (62.9\%)\\
-\textbackslash235 (15.7\%)\\
-\textbackslash101 ( 6.8\%)\\
-\strut ~45 ( 3.0\%)\\
-\strut ~27 ( 1.8\%)\\
-\strut ~25 ( 1.7\%)\\
-\strut ~21 ( 1.4\%)\\
-\strut ~17 ( 1.1\%)\\
-\strut ~13 ( 0.9\%)\\
-\strut ~10 ( 0.7\%)\\
-\strut ~60 ( 4.0\%) \textbar{} \textbar IIIIIIIIIIII ~ III ~ I ~ ~ ~ ~ ~
-~ ~ ~ \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 24\textbar room\_type\\
-{[}character{]} \textbar1. Entire home/apt\\
-2. Hotel room\\
-3. Private room\\
-4. Shared room \textbar\textbackslash1139 (76.2\%)\\
-\strut ~ 7 ( 0.5\%)\\
-\strut ~340 (22.8\%)\\
-\strut ~ 8 ( 0.5\%) \textbar{} \textbar IIIIIIIIIIIIIII ~ ~ IIII ~
-\textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 25\textbar accommodates\\
-{[}numeric{]} \textbar Mean (sd) : 2.9 (1.6)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 16\\
-IQR (CV) : 2 (0.6) \textbar12 distinct values \textbar{} \textbar:\\
-:\\
-: .\\
-: :\\
-: : . . \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 26\textbar bathrooms\_text\\
-{[}character{]} \textbar1. 1 bath\\
-2. 1 shared bath\\
-3. 1.5 baths\\
-4. 2 baths\\
-5. 1 private bath\\
-6. 1.5 shared baths\\
-7. 2.5 baths\\
-8. 2 shared baths\\
-9. Shared half-bath\\
-10. 2.5 shared baths\\
-{[} 8 others {]} \textbar\textbackslash1002 (67.1\%)\\
-\strut ~162 (10.8\%)\\
-\strut ~109 ( 7.3\%)\\
-\strut ~ 76 ( 5.1\%)\\
-\strut ~ 52 ( 3.5\%)\\
-\strut ~ 39 ( 2.6\%)\\
-\strut ~ 15 ( 1.0\%)\\
-\strut ~ 14 ( 0.9\%)\\
-\strut ~ 7 ( 0.5\%)\\
-\strut ~ 6 ( 0.4\%)\\
-\strut ~ 12 ( 0.8\%) \textbar{} \textbar IIIIIIIIIIIII ~ II ~ I ~ I ~ ~
-~ ~ ~ ~ ~ \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 27\textbar beds\\
-{[}numeric{]} \textbar Mean (sd) : 1.6 (1)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 1 \textless{} 10\\
-IQR (CV) : 1 (0.6) \textbar1 : 906 (60.6\%)\\
-2 : 368 (24.6\%)\\
-3 : 127 ( 8.5\%)\\
-4 : 62 ( 4.1\%)\\
-5 : 15 ( 1.0\%)\\
-6 : 9 ( 0.6\%)\\
-7 : 4 ( 0.3\%)\\
-8 : 2 ( 0.1\%)\\
-10 : 1 ( 0.1\%) \textbar{} \textbar IIIIIIIIIIII ~ IIII ~ I ~ ~ ~ ~ ~ ~
-\textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 28\textbar minimum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 5.1 (12.7)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 360\\
-IQR (CV) : 3 (2.5) \textbar28 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 29\textbar maximum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 578.2 (471.2)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 365 \textless{} 1125\\
-IQR (CV) : 1035 (0.8) \textbar69 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-. ~~~~~~~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: . ~~: ~~~~~~~~~~: \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 30\textbar minimum\_minimum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 4.6 (17.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 360\\
-IQR (CV) : 2 (3.8) \textbar26 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 31\textbar maximum\_minimum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 13.3 (52.5)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 3 \textless{} 366\\
-IQR (CV) : 3 (4) \textbar31 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 32\textbar minimum\_maximum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 623.6 (487.6)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 365 \textless{} 1125\\
-IQR (CV) : 1035 (0.8) \textbar66 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-: ~~~~~~~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: . ~~: ~~~~~~~~~~: \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 33\textbar maximum\_maximum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 10062528 (146699633)\\
-min \textless{} med \textless{} max:\\
-2 \textless{} 1125 \textless{} 2147483647\\
-IQR (CV) : 945 (14.6) \textbar63 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 34\textbar minimum\_nights\_avg\_ntm\\
-{[}numeric{]} \textbar Mean (sd) : 12.3 (51.2)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2.9 \textless{} 360\\
-IQR (CV) : 3.7 (4.2) \textbar145 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 35\textbar maximum\_nights\_avg\_ntm\\
-{[}numeric{]} \textbar Mean (sd) : 23786.3 (337264.4)\\
-min \textless{} med \textless{} max:\\
-1.4 \textless{} 730 \textless{} 4937741\\
-IQR (CV) : 1022.5 (14.2) \textbar160 distinct values \textbar{}
-\textbar:\\
-:\\
-:\\
-:\\
-: \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 36\textbar has\_availability\\
-{[}logical{]} \textbar1. TRUE \textbar\textbackslash1494 (100.0\%)
-\textbar{} \textbar IIIIIIIIIIIIIIIIIIII \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 37\textbar availability\_30\\
-{[}numeric{]} \textbar Mean (sd) : 13.6 (10.9)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 14 \textless{} 30\\
-IQR (CV) : 23 (0.8) \textbar31 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-: ~~~~~~~~~~~~. : :\\
-: : : : : : : : : : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 38\textbar availability\_60\\
-{[}numeric{]} \textbar Mean (sd) : 29.9 (22.1)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 31.5 \textless{} 60\\
-IQR (CV) : 47.8 (0.7) \textbar61 distinct values \textbar{} \textbar:\\
-: ~~~~~~~~~~~~~~~~.\\
-: ~~~~~~~~~~~~~~~~:\\
-: ~~~~. . ~~. . : :\\
-: : : : : : : : : : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 39\textbar availability\_90\\
-{[}numeric{]} \textbar Mean (sd) : 47.8 (33.7)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 54 \textless{} 90\\
-IQR (CV) : 70 (0.7) \textbar91 distinct values \textbar{} \textbar.
-~~~~~~~~~~~~~~:\\
-: ~~~~~~~~~~~~~~:\\
-: ~~~~~~~~~~~~~~:\\
-: ~~. ~~~~. . : :\\
-: : : : : : : : : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 40\textbar availability\_365\\
-{[}numeric{]} \textbar Mean (sd) : 157.7 (132.2)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 125.5 \textless{} 365\\
-IQR (CV) : 259.5 (0.8) \textbar321 distinct values \textbar{}
-\textbar:\\
-:\\
-: :\\
-: : ~~. ~~. : :\\
-: : : : : : : : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 41\textbar calendar\_last\_scraped\\
-{[}numeric{]} \textbar Min : 19718\\
-Mean : 19718.5\\
-Max : 19719 \textbar19718 : 801 (53.6\%)\\
-19719 : 693 (46.4\%) \textbar{} \textbar IIIIIIIIII ~ IIIIIIIII
-\textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 42\textbar number\_of\_reviews\\
-{[}numeric{]} \textbar Mean (sd) : 44.2 (82.3)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 14 \textless{} 1102\\
-IQR (CV) : 42 (1.9) \textbar229 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 43\textbar number\_of\_reviews\_ltm\\
-{[}numeric{]} \textbar Mean (sd) : 15.1 (22.9)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 6 \textless{} 276\\
-IQR (CV) : 17 (1.5) \textbar103 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . . \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 44\textbar number\_of\_reviews\_l30d\\
-{[}numeric{]} \textbar Mean (sd) : 1.1 (2)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 0 \textless{} 13\\
-IQR (CV) : 1 (1.7) \textbar14 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . . . \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 45\textbar first\_review\\
-{[}numeric{]} \textbar Mean (sd) : 18639.3 (1035.6)\\
-min \textless{} med \textless{} max:\\
-15216 \textless{} 19064 \textless{} 19716\\
-IQR (CV) : 1621 (0.1) \textbar1023 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~: :\\
-\strut ~~~~. . . : : : : : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 46\textbar last\_review\\
-{[}numeric{]} \textbar Mean (sd) : 19557.8 (347.8)\\
-min \textless{} med \textless{} max:\\
-16290 \textless{} 19678 \textless{} 19718\\
-IQR (CV) : 113 (0) \textbar381 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 47\textbar review\_scores\_rating\\
-{[}numeric{]} \textbar Mean (sd) : 4.7 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.8 \textless{} 5\\
-IQR (CV) : 0.3 (0.1) \textbar100 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 48\textbar review\_scores\_accuracy\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.3)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.3 (0.1) \textbar89 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 49\textbar review\_scores\_cleanliness\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.3)\\
-min \textless{} med \textless{} max:\\
-2 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.3 (0.1) \textbar98 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~. :\\
-\strut ~~~~~~~~~~~~~~. : : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 50\textbar review\_scores\_checkin\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.3)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.2 (0.1) \textbar76 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 51\textbar review\_scores\_communication\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.3)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.2 (0.1) \textbar80 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 52\textbar review\_scores\_location\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.3)\\
-min \textless{} med \textless{} max:\\
-2 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.3 (0.1) \textbar89 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~: : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 53\textbar review\_scores\_value\\
-{[}numeric{]} \textbar Mean (sd) : 4.6 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.7 \textless{} 5\\
-IQR (CV) : 0.3 (0.1) \textbar111 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. :\\
-\strut ~~~~~~~~~~. : : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 54\textbar instant\_bookable\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar\textbackslash952 (63.7\%)\\
-\textbackslash542 (36.3\%) \textbar{} \textbar IIIIIIIIIIII ~ IIIIIII
-\textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-55\textbar calculated\_host\_listings\_count\\
-{[}numeric{]} \textbar Mean (sd) : 18.4 (29.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 3 \textless{} 105\\
-IQR (CV) : 18 (1.6) \textbar28 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: : . . ~~. ~~~~~~. \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-56\textbar calculated\_host\_listings\_count\_entire\_homes\\
-{[}numeric{]} \textbar Mean (sd) : 17.6 (29.7)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 1 \textless{} 105\\
-IQR (CV) : 18 (1.7) \textbar25 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: : ~~. ~~. ~~~~~~. \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-57\textbar calculated\_host\_listings\_count\_private\_rooms\\
-{[}numeric{]} \textbar Mean (sd) : 0.8 (1.9)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 0 \textless{} 14\\
-IQR (CV) : 1 (2.4) \textbar11 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-58\textbar calculated\_host\_listings\_count\_shared\_rooms\\
-{[}numeric{]} \textbar Mean (sd) : 0 (0.3)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 0 \textless{} 7\\
-IQR (CV) : 0 (14.7) \textbar0 : 1479 (99.0\%)\\
-1 : 12 ( 0.8\%)\\
-7 : 3 ( 0.2\%) \textbar{} \textbar IIIIIIIIIIIIIIIIIII ~ ~
-\textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 59\textbar reviews\_per\_month\\
-{[}numeric{]} \textbar Mean (sd) : 1.5 (1.9)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 0.8 \textless{} 10.9\\
-IQR (CV) : 1.7 (1.2) \textbar451 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-: .\\
-: : . . . \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-60\textbar host\_response\_rate\_in\_percent\\
-{[}integer{]} \textbar Mean (sd) : 95.8 (14.8)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 100 \textless{} 100\\
-IQR (CV) : 0 (0.2) \textbar33 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~. : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-61\textbar host\_acceptance\_rate\_in\_percent\\
-{[}integer{]} \textbar Mean (sd) : 83.3 (24.4)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 97 \textless{} 100\\
-IQR (CV) : 24 (0.3) \textbar87 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~. . ~~. . : : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 62\textbar price\_in\_usd\\
-{[}numeric{]} \textbar Mean (sd) : 156.4 (105)\\
-min \textless{} med \textless{} max:\\
-20 \textless{} 133 \textless{} 990\\
-IQR (CV) : 89 (0.7) \textbar316 distinct values \textbar{} \textbar: :\\
-: :\\
-: :\\
-: :\\
-: : : . \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 63\textbar price\_per\_person\\
-{[}numeric{]} \textbar Mean (sd) : 68.8 (49.1)\\
-min \textless{} med \textless{} max:\\
-12.8 \textless{} 56.5 \textless{} 676\\
-IQR (CV) : 37.9 (0.7) \textbar480 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-: .\\
-: : \textbar1494\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{}
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  12.75   42.50   56.50   68.79   80.38  676.00 
+\end{verbatim}
 
-\begin{longtable}[]{@{}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0022}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0406}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.2341}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1137}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.4535}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1388}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0103}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0066}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedleft
-No
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Variable
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Stats / Values
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Freqs (\% of Valid)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Graph
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-text.graph
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Valid
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Missing
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-1 & \begin{minipage}[t]{\linewidth}\raggedright
-id\\
-{[}numeric{]}\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-Mean (sd) : 3.652045e+17 (4.397029e+17)\\
-min \textless{} med \textless{} max:\\
-7381 \textless{} 50058110 \textless{} 1.140739e+18\\
-IQR (CV) : 8.252078e+17 (1.2)\strut
-\end{minipage} & 2715 distinct values & &
-\begin{minipage}[t]{\linewidth}\raggedright
-:\\
-:\\
-:\\
-:\\
-: ~~~~~~~~. . . : :\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-2715\\
-(100.0\%)\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-0\\
-(0.0\%)\strut
-\end{minipage} \\
-2 & \begin{minipage}[t]{\linewidth}\raggedright
-listing\_url\\
-{[}character{]}\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-1. https://www.airbnb.com/ro\\
-2. https://www.airbnb.com/ro\\
-3. https://www.airbnb.com/ro\\
-4. https://www.airbnb.com/ro\\
-5. https://www.airbnb.com/ro\\
-6. https://www.airbnb.com/ro\\
-7. https://www.airbnb.com/ro\\
-8. https://www.airbnb.com/ro\\
-9. https://www.airbnb.com/ro\\
-10. https://www.airbnb.com/ro\\
-{[} 2705 others {]}\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-~ 1 ( 0.0\%)\\
-\strut ~ 1 ( 0.0\%)\\
-\strut ~ 1 ( 0.0\%)\\
-\strut ~ 1 ( 0.0\%)\\
-\strut ~ 1 ( 0.0\%)\\
-\strut ~ 1 ( 0.0\%)\\
-\strut ~ 1 ( 0.0\%)\\
-\strut ~ 1 ( 0.0\%)\\
-\strut ~ 1 ( 0.0\%)\\
-\strut ~ 1 ( 0.0\%)\\
-\textbackslash2705 (99.6\%)\strut
-\end{minipage} & & \textbackslash{} & & \\
-\end{longtable}
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.000   4.660   4.850   4.749   5.000   5.000 
+\end{verbatim}
 
-~ ~ ~ ~ ~ ~ ~ ~ ~ IIIIIIIIIIIIIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 3\textbar scrape\_id\\
-{[}numeric{]} \textbar1 distinct value \textbar2.02405e+13 : 2715
-(100.0\%) \textbar{} \textbar IIIIIIIIIIIIIIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 4\textbar last\_scraped\\
-{[}numeric{]} \textbar Min : 19846\\
-Mean : 19846.3\\
-Max : 19847 \textbar19846 : 1816 (66.9\%)\\
-19847 : 899 (33.1\%) \textbar{} \textbar IIIIIIIIIIIII ~ IIIIII
-\textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 5\textbar source\\
-{[}character{]} \textbar1. city scrape \textbar\textbackslash2715
-(100.0\%) \textbar{} \textbar IIIIIIIIIIIIIIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 6\textbar name\\
-{[}character{]} \textbar1. Cosy private room in Laus\\
-2. Cosy private room at Laus\\
-3. Appartement\\
-4. HÔTEL RESTAURANT FRENCH75\\
-5. Swiss Wine Hotel - séjour\\
-6. 1 jolie chambre à Lausann\\
-7. Appartement 1 chambre\\
-8. Appartement de vacances\\
-9. Appartement proche de la\\
-10. Beautiful apartment in th\\
-{[} 2667 others {]} \textbar~ 6 ( 0.2\%)\\
-\strut ~ 4 ( 0.1\%)\\
-\strut ~ 3 ( 0.1\%)\\
-\strut ~ 3 ( 0.1\%)\\
-\strut ~ 3 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\textbackslash2686 (98.9\%) \textbar{} \textbar~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 7\textbar picture\_url\\
-{[}character{]} \textbar1. https://a0.muscache.com/p\\
-2. https://a0.muscache.com/p\\
-3. https://a0.muscache.com/p\\
-4. https://a0.muscache.com/p\\
-5. https://a0.muscache.com/p\\
-6. https://a0.muscache.com/p\\
-7. https://a0.muscache.com/p\\
-8. https://a0.muscache.com/p\\
-9. https://a0.muscache.com/p\\
-10. https://a0.muscache.com/p\\
-{[} 2670 others {]} \textbar~ 5 ( 0.2\%)\\
-\strut ~ 3 ( 0.1\%)\\
-\strut ~ 3 ( 0.1\%)\\
-\strut ~ 3 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\textbackslash2689 (99.0\%) \textbar{} \textbar~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 8\textbar host\_id\\
-{[}numeric{]} \textbar Mean (sd) : 163568824 (166767944)\\
-min \textless{} med \textless{} max:\\
-19480 \textless{} 101615341 \textless{} 573160805\\
-IQR (CV) : 230612684 (1) \textbar1748 distinct values \textbar{}
-\textbar:\\
-:\\
-: .\\
-: : .\\
-: : : . . . . : . . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 9\textbar host\_url\\
-{[}character{]} \textbar1. https://www.airbnb.com/us\\
-2. https://www.airbnb.com/us\\
-3. https://www.airbnb.com/us\\
-4. https://www.airbnb.com/us\\
-5. https://www.airbnb.com/us\\
-6. https://www.airbnb.com/us\\
-7. https://www.airbnb.com/us\\
-8. https://www.airbnb.com/us\\
-9. https://www.airbnb.com/us\\
-10. https://www.airbnb.com/us\\
-{[} 1738 others {]} \textbar~105 ( 3.9\%)\\
-\strut ~ 67 ( 2.5\%)\\
-\strut ~ 30 ( 1.1\%)\\
-\strut ~ 29 ( 1.1\%)\\
-\strut ~ 21 ( 0.8\%)\\
-\strut ~ 20 ( 0.7\%)\\
-\strut ~ 19 ( 0.7\%)\\
-\strut ~ 16 ( 0.6\%)\\
-\strut ~ 16 ( 0.6\%)\\
-\strut ~ 15 ( 0.6\%)\\
-\textbackslash2377 (87.6\%) \textbar{} \textbar~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 10\textbar host\_name\\
-{[}character{]} \textbar1. Melinda - Interhome Group\\
-2. CoucouNCo\\
-3. Roman\\
-4. Bomood\\
-5. Christine\\
-6. Jorge\\
-7. Nadia - Interhome Group\\
-8. Simplon 10\\
-9. Lausanne Rentals\\
-10. Nicolas\\
-{[} 1141 others {]} \textbar~105 ( 3.9\%)\\
-\strut ~ 67 ( 2.5\%)\\
-\strut ~ 30 ( 1.1\%)\\
-\strut ~ 29 ( 1.1\%)\\
-\strut ~ 21 ( 0.8\%)\\
-\strut ~ 21 ( 0.8\%)\\
-\strut ~ 21 ( 0.8\%)\\
-\strut ~ 20 ( 0.7\%)\\
-\strut ~ 17 ( 0.6\%)\\
-\strut ~ 17 ( 0.6\%)\\
-\textbackslash2367 (87.2\%) \textbar{} \textbar~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 11\textbar host\_since\\
-{[}numeric{]} \textbar Mean (sd) : 17292.2 (1133)\\
-min \textless{} med \textless{} max:\\
-14395 \textless{} 17102 \textless{} 19832\\
-IQR (CV) : 1518.5 (0.1) \textbar1400 distinct values \textbar{}
-\textbar~~~~~~~~:\\
-\strut ~~~~~~~~: .\\
-\strut ~~~~~~: : :\\
-\strut ~~~~: : : : . . . .\\
-\strut ~~. : : : : : : : : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 12\textbar host\_response\_time\\
-{[}character{]} \textbar1. a few days or more\\
-2. within a day\\
-3. within a few hours\\
-4. within an hour \textbar~ 71 ( 2.6\%)\\
-\strut ~341 (12.6\%)\\
-\strut ~561 (20.7\%)\\
-\textbackslash1742 (64.2\%) \textbar{} \textbar~ II ~ IIII ~
-IIIIIIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 13\textbar host\_is\_superhost\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar\textbackslash1878 (69.2\%)\\
-\strut ~837 (30.8\%) \textbar{} \textbar IIIIIIIIIIIII ~ IIIIII
-\textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 14\textbar host\_thumbnail\_url\\
-{[}character{]} \textbar1. https://a0.muscache.com/i\\
-2. https://a0.muscache.com/d\\
-3. https://a0.muscache.com/i\\
-4. https://a0.muscache.com/i\\
-5. https://a0.muscache.com/i\\
-6. https://a0.muscache.com/i\\
-7. https://a0.muscache.com/i\\
-8. https://a0.muscache.com/i\\
-9. https://a0.muscache.com/i\\
-10. https://a0.muscache.com/i\\
-{[} 1668 others {]} \textbar~105 ( 3.9\%)\\
-\strut ~ 76 ( 2.8\%)\\
-\strut ~ 67 ( 2.5\%)\\
-\strut ~ 30 ( 1.1\%)\\
-\strut ~ 29 ( 1.1\%)\\
-\strut ~ 21 ( 0.8\%)\\
-\strut ~ 20 ( 0.7\%)\\
-\strut ~ 19 ( 0.7\%)\\
-\strut ~ 16 ( 0.6\%)\\
-\strut ~ 16 ( 0.6\%)\\
-\textbackslash2316 (85.3\%) \textbar{} \textbar~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 15\textbar host\_picture\_url\\
-{[}character{]} \textbar1. https://a0.muscache.com/i\\
-2. https://a0.muscache.com/d\\
-3. https://a0.muscache.com/i\\
-4. https://a0.muscache.com/i\\
-5. https://a0.muscache.com/i\\
-6. https://a0.muscache.com/i\\
-7. https://a0.muscache.com/i\\
-8. https://a0.muscache.com/i\\
-9. https://a0.muscache.com/i\\
-10. https://a0.muscache.com/i\\
-{[} 1668 others {]} \textbar~105 ( 3.9\%)\\
-\strut ~ 76 ( 2.8\%)\\
-\strut ~ 67 ( 2.5\%)\\
-\strut ~ 30 ( 1.1\%)\\
-\strut ~ 29 ( 1.1\%)\\
-\strut ~ 21 ( 0.8\%)\\
-\strut ~ 20 ( 0.7\%)\\
-\strut ~ 19 ( 0.7\%)\\
-\strut ~ 16 ( 0.6\%)\\
-\strut ~ 16 ( 0.6\%)\\
-\textbackslash2316 (85.3\%) \textbar{} \textbar~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 16\textbar host\_listings\_count\\
-{[}numeric{]} \textbar Mean (sd) : 21.3 (72.5)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 1321\\
-IQR (CV) : 5 (3.4) \textbar42 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 17\textbar host\_total\_listings\_count\\
-{[}numeric{]} \textbar Mean (sd) : 35.5 (179.8)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 3 \textless{} 5335\\
-IQR (CV) : 7 (5.1) \textbar44 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 18\textbar host\_has\_profile\_pic\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar~ 76 ( 2.8\%)\\
-\textbackslash2639 (97.2\%) \textbar{} \textbar~ IIIIIIIIIIIIIIIIIII
-\textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 19\textbar host\_identity\_verified\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar~ 95 ( 3.5\%)\\
-\textbackslash2620 (96.5\%) \textbar{} \textbar~ IIIIIIIIIIIIIIIIIII
-\textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 20\textbar neighbourhood\_cleansed\\
-{[}character{]} \textbar1. Lausanne\\
-2. Montreux\\
-3. Ollon\\
-4. Leysin\\
-5. Gryon\\
-6. Ormont-Dessus\\
-7. Aigle\\
-8. Château-d'Oex\\
-9. Nyon\\
-10. Lutry\\
-{[} 192 others {]} \textbar~585 (21.5\%)\\
-\strut ~233 ( 8.6\%)\\
-\strut ~230 ( 8.5\%)\\
-\strut ~109 ( 4.0\%)\\
-\strut ~ 95 ( 3.5\%)\\
-\strut ~ 66 ( 2.4\%)\\
-\strut ~ 64 ( 2.4\%)\\
-\strut ~ 61 ( 2.2\%)\\
-\strut ~ 45 ( 1.7\%)\\
-\strut ~ 44 ( 1.6\%)\\
-\textbackslash1183 (43.6\%) \textbar{} \textbar IIII ~ I ~ I ~ ~ ~ ~ ~ ~
-~ ~ IIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 21\textbar latitude\\
-{[}numeric{]} \textbar Mean (sd) : 46.5 (0.1)\\
-min \textless{} med \textless{} max:\\
-46.2 \textless{} 46.5 \textless{} 47\\
-IQR (CV) : 0.1 (0) \textbar2553 distinct values \textbar{}
-\textbar~~~~~~~~:\\
-\strut ~~~~~~. :\\
-\strut ~~: ~~: :\\
-\strut ~~: . : :\\
-. : : : : . . . . . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 22\textbar longitude\\
-{[}numeric{]} \textbar Mean (sd) : 6.8 (0.3)\\
-min \textless{} med \textless{} max:\\
-6.1 \textless{} 6.7 \textless{} 7.2\\
-IQR (CV) : 0.4 (0) \textbar2595 distinct values \textbar{}
-\textbar~~~~~~~~:\\
-\strut ~~~~~~~~: ~~~~~~.\\
-\strut ~~~~~~~~: ~~~~. :\\
-\strut ~~~~~~~~: . ~~: :\\
-. : . : : : : : : : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 23\textbar property\_type\\
-{[}character{]} \textbar1. Entire rental unit\\
-2. Private room in rental un\\
-3. Entire condo\\
-4. Entire chalet\\
-5. Entire home\\
-6. Private room in bed and b\\
-7. Private room in home\\
-8. Private room in villa\\
-9. Entire villa\\
-10. Entire loft\\
-{[} 45 others {]} \textbar\textbackslash1314 (48.4\%)\\
-\strut ~302 (11.1\%)\\
-\strut ~203 ( 7.5\%)\\
-\strut ~160 ( 5.9\%)\\
-\strut ~140 ( 5.2\%)\\
-\strut ~122 ( 4.5\%)\\
-\strut ~ 98 ( 3.6\%)\\
-\strut ~ 36 ( 1.3\%)\\
-\strut ~ 34 ( 1.3\%)\\
-\strut ~ 28 ( 1.0\%)\\
-\strut ~278 (10.2\%) \textbar{} \textbar IIIIIIIII ~ II ~ I ~ I ~ I ~ ~
-~ ~ ~ ~ II \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 24\textbar room\_type\\
-{[}character{]} \textbar1. Entire home/apt\\
-2. Hotel room\\
-3. Private room\\
-4. Shared room \textbar\textbackslash2019 (74.4\%)\\
-\strut ~ 8 ( 0.3\%)\\
-\strut ~671 (24.7\%)\\
-\strut ~ 17 ( 0.6\%) \textbar{} \textbar IIIIIIIIIIIIII ~ ~ IIII ~
-\textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 25\textbar accommodates\\
-{[}numeric{]} \textbar Mean (sd) : 3.7 (2.3)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 3 \textless{} 16\\
-IQR (CV) : 3 (0.6) \textbar16 distinct values \textbar{} \textbar:\\
-:\\
-: :\\
-: : ~~.\\
-: : . : . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 26\textbar bathrooms\_text\\
-{[}character{]} \textbar1. 1 bath\\
-2. 2 baths\\
-3. 1 shared bath\\
-4. 1.5 baths\\
-5. 1 private bath\\
-6. 2.5 baths\\
-7. 3 baths\\
-8. 1.5 shared baths\\
-9. 3.5 baths\\
-10. Half-bath\\
-{[} 13 others {]} \textbar\textbackslash1393 (51.3\%)\\
-\strut ~317 (11.7\%)\\
-\strut ~291 (10.7\%)\\
-\strut ~212 ( 7.8\%)\\
-\strut ~165 ( 6.1\%)\\
-\strut ~ 79 ( 2.9\%)\\
-\strut ~ 73 ( 2.7\%)\\
-\strut ~ 66 ( 2.4\%)\\
-\strut ~ 18 ( 0.7\%)\\
-\strut ~ 18 ( 0.7\%)\\
-\strut ~ 83 ( 3.1\%) \textbar{} \textbar IIIIIIIIII ~ II ~ II ~ I ~ I ~
-~ ~ ~ ~ ~ \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 27\textbar beds\\
-{[}numeric{]} \textbar Mean (sd) : 2.3 (2.3)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 2 \textless{} 47\\
-IQR (CV) : 2 (1) \textbar20 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 28\textbar minimum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 3.8 (8.6)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 180\\
-IQR (CV) : 2 (2.2) \textbar28 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 29\textbar maximum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 550.3 (476.6)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 365 \textless{} 1125\\
-IQR (CV) : 1065 (0.9) \textbar87 distinct values \textbar{} \textbar.
-~~~~~~~~~~~~~~~~:\\
-: ~~~~~~~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: . ~~: ~~~~~~~~~~: \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 30\textbar minimum\_minimum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 3.4 (7.5)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 180\\
-IQR (CV) : 2 (2.2) \textbar27 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 31\textbar maximum\_minimum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 5 (10.2)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 3 \textless{} 180\\
-IQR (CV) : 3 (2) \textbar33 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 32\textbar minimum\_maximum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 571.8 (490)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 365 \textless{} 1125\\
-IQR (CV) : 1094 (0.9) \textbar78 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-: ~~~~~~~~~~~~~~~~:\\
-: ~~~~. ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~: \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 33\textbar maximum\_maximum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 678.8 (478.3)\\
-min \textless{} med \textless{} max:\\
-2 \textless{} 1125 \textless{} 1125\\
-IQR (CV) : 975 (0.7) \textbar76 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-. ~~~~~~~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~: \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 34\textbar minimum\_nights\_avg\_ntm\\
-{[}numeric{]} \textbar Mean (sd) : 4.1 (8.8)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 180\\
-IQR (CV) : 2.9 (2.1) \textbar111 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 35\textbar maximum\_nights\_avg\_ntm\\
-{[}numeric{]} \textbar Mean (sd) : 619.7 (466.5)\\
-min \textless{} med \textless{} max:\\
-2 \textless{} 365 \textless{} 1125\\
-IQR (CV) : 1005 (0.8) \textbar278 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-: ~~~~. ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: . ~~: ~~~~~~~~~~: \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 36\textbar has\_availability\\
-{[}logical{]} \textbar1. TRUE \textbar\textbackslash2715 (100.0\%)
-\textbar{} \textbar IIIIIIIIIIIIIIIIIIII \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 37\textbar availability\_30\\
-{[}numeric{]} \textbar Mean (sd) : 13.9 (10.9)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 14 \textless{} 30\\
-IQR (CV) : 22 (0.8) \textbar31 distinct values \textbar{} \textbar:\\
-:\\
-: ~~~~~~~~~~~~~~~~.\\
-: ~~~~~~~~~~~~. . :\\
-: : : : : : : : : : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 38\textbar availability\_60\\
-{[}numeric{]} \textbar Mean (sd) : 31.2 (20.8)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 33 \textless{} 60\\
-IQR (CV) : 40 (0.7) \textbar61 distinct values \textbar{} \textbar:\\
-: ~~~~~~~~~~~~~~~~:\\
-: ~~~~~~~~~~~~~~. :\\
-: ~~. . : : . : : :\\
-: : : : : : : : : : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 39\textbar availability\_90\\
-{[}numeric{]} \textbar Mean (sd) : 48.1 (28.6)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 51 \textless{} 90\\
-IQR (CV) : 48 (0.6) \textbar91 distinct values \textbar{} \textbar.
-~~~~~~~~~~~~~~~~:\\
-: ~~~~. ~~~~: ~~. :\\
-: ~~~~: . . : . : :\\
-: : : : : : : : : :\\
-: : : : : : : : : : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 40\textbar availability\_365\\
-{[}numeric{]} \textbar Mean (sd) : 207.2 (111.9)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 229 \textless{} 365\\
-IQR (CV) : 201 (0.5) \textbar365 distinct values \textbar{}
-\textbar~~~~~~~~~~. :\\
-\strut ~~. ~~~~~~: :\\
-: : : . : : : .\\
-: : : : : : : :\\
-: : : : : : : : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 41\textbar calendar\_last\_scraped\\
-{[}numeric{]} \textbar Min : 19846\\
-Mean : 19846.3\\
-Max : 19847 \textbar19846 : 1816 (66.9\%)\\
-19847 : 899 (33.1\%) \textbar{} \textbar IIIIIIIIIIIII ~ IIIIII
-\textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 42\textbar number\_of\_reviews\\
-{[}numeric{]} \textbar Mean (sd) : 32.3 (51.3)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 13 \textless{} 656\\
-IQR (CV) : 34.5 (1.6) \textbar226 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 43\textbar number\_of\_reviews\_ltm\\
-{[}numeric{]} \textbar Mean (sd) : 9.2 (13.4)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 4 \textless{} 115\\
-IQR (CV) : 10 (1.5) \textbar86 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: : . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 44\textbar number\_of\_reviews\_l30d\\
-{[}numeric{]} \textbar Mean (sd) : 0.7 (1.5)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 0 \textless{} 13\\
-IQR (CV) : 1 (2.1) \textbar13 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 45\textbar first\_review\\
-{[}numeric{]} \textbar Mean (sd) : 18696.8 (972.3)\\
-min \textless{} med \textless{} max:\\
-15407 \textless{} 18994 \textless{} 19845\\
-IQR (CV) : 1458 (0.1) \textbar1557 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~: :\\
-\strut ~~~~~~~~. . : : : :\\
-\strut ~~~~. : : : : : : : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 46\textbar last\_review\\
-{[}numeric{]} \textbar Mean (sd) : 19644.6 (343.8)\\
-min \textless{} med \textless{} max:\\
-16922 \textless{} 19776 \textless{} 19846\\
-IQR (CV) : 219 (0) \textbar601 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~. . : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 47\textbar review\_scores\_rating\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.3 (0.1) \textbar107 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 48\textbar review\_scores\_accuracy\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.3 (0.1) \textbar100 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 49\textbar review\_scores\_cleanliness\\
-{[}numeric{]} \textbar Mean (sd) : 4.7 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.8 \textless{} 5\\
-IQR (CV) : 0.4 (0.1) \textbar114 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~. . : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 50\textbar review\_scores\_checkin\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.2 (0.1) \textbar91 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 51\textbar review\_scores\_communication\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.3)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.2 (0.1) \textbar93 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 52\textbar review\_scores\_location\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.3)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.3 (0.1) \textbar99 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 53\textbar review\_scores\_value\\
-{[}numeric{]} \textbar Mean (sd) : 4.6 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.7 \textless{} 5\\
-IQR (CV) : 0.4 (0.1) \textbar124 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. :\\
-\strut ~~~~~~~~~~. : : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 54\textbar instant\_bookable\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar\textbackslash1812 (66.7\%)\\
-\strut ~903 (33.3\%) \textbar{} \textbar IIIIIIIIIIIII ~ IIIIII
-\textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-55\textbar calculated\_host\_listings\_count\\
-{[}numeric{]} \textbar Mean (sd) : 11.3 (28.1)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 134\\
-IQR (CV) : 4 (2.5) \textbar27 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-56\textbar calculated\_host\_listings\_count\_entire\_homes\\
-{[}numeric{]} \textbar Mean (sd) : 10.4 (28)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 1 \textless{} 134\\
-IQR (CV) : 2 (2.7) \textbar24 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-57\textbar calculated\_host\_listings\_count\_private\_rooms\\
-{[}numeric{]} \textbar Mean (sd) : 0.9 (2)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 0 \textless{} 16\\
-IQR (CV) : 1 (2.3) \textbar12 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-58\textbar calculated\_host\_listings\_count\_shared\_rooms\\
-{[}numeric{]} \textbar Mean (sd) : 0 (0.5)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 0 \textless{} 15\\
-IQR (CV) : 0 (17.3) \textbar0 : 2685 (98.9\%)\\
-1 : 22 ( 0.8\%)\\
-3 : 5 ( 0.2\%)\\
-15 : 3 ( 0.1\%) \textbar{} \textbar IIIIIIIIIIIIIIIIIII ~ ~ ~
-\textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 59\textbar reviews\_per\_month\\
-{[}numeric{]} \textbar Mean (sd) : 1 (1.2)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 0.6 \textless{} 13\\
-IQR (CV) : 1.1 (1.2) \textbar427 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: : . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-60\textbar host\_response\_rate\_in\_percent\\
-{[}integer{]} \textbar Mean (sd) : 95 (15.7)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 100 \textless{} 100\\
-IQR (CV) : 0 (0.2) \textbar46 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~. : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-61\textbar host\_acceptance\_rate\_in\_percent\\
-{[}integer{]} \textbar Mean (sd) : 84.4 (23.4)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 96 \textless{} 100\\
-IQR (CV) : 22 (0.3) \textbar89 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~. . . . : : \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 62\textbar price\_in\_usd\\
-{[}numeric{]} \textbar Mean (sd) : 155.1 (124.3)\\
-min \textless{} med \textless{} max:\\
-15 \textless{} 120 \textless{} 975\\
-IQR (CV) : 102 (0.8) \textbar400 distinct values \textbar{} \textbar:\\
-: .\\
-: :\\
-: :\\
-: : : . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 63\textbar price\_per\_person\\
-{[}numeric{]} \textbar Mean (sd) : 53 (28.4)\\
-min \textless{} med \textless{} max:\\
-3.8 \textless{} 47.5 \textless{} 310.5\\
-IQR (CV) : 30.7 (0.5) \textbar640 distinct values \textbar{}
-\textbar~~:\\
-\strut ~~:\\
-. :\\
-: : .\\
-: : : . \textbar2715\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{}
+\textbf{Zusammenfassung Preis pro Person und Bewertung Vaud}
 
-\begin{longtable}[]{@{}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0022}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0399}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.2302}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1227}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.4517}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1365}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0102}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0065}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedleft
-No
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Variable
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Stats / Values
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Freqs (\% of Valid)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Graph
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-text.graph
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Valid
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Missing
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-1 & \begin{minipage}[t]{\linewidth}\raggedright
-id\\
-{[}numeric{]}\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-Mean (sd) : 3.609771e+17 (4.226861e+17)\\
-min \textless{} med \textless{} max:\\
-42515 \textless{} 50696807 \textless{} 1.042916e+18\\
-IQR (CV) : 8.312927e+17 (1.2)\strut
-\end{minipage} & 1427 distinct values & &
-\begin{minipage}[t]{\linewidth}\raggedright
-:\\
-:\\
-:\\
-: ~~~~~~~~~~~~~~.\\
-: ~~~~~~~~. . . : :\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-1427\\
-(100.0\%)\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-0\\
-(0.0\%)\strut
-\end{minipage} \\
-2 & \begin{minipage}[t]{\linewidth}\raggedright
-listing\_url\\
-{[}character{]}\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-1. https://www.airbnb.com/ro\\
-2. https://www.airbnb.com/ro\\
-3. https://www.airbnb.com/ro\\
-4. https://www.airbnb.com/ro\\
-5. https://www.airbnb.com/ro\\
-6. https://www.airbnb.com/ro\\
-7. https://www.airbnb.com/ro\\
-8. https://www.airbnb.com/ro\\
-9. https://www.airbnb.com/ro\\
-10. https://www.airbnb.com/ro\\
-{[} 1417 others {]}\strut
-\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
-~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\strut ~ 1 ( 0.1\%)\\
-\textbackslash1417 (99.3\%)\strut
-\end{minipage} & & \textbackslash{} & & \\
-\end{longtable}
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   3.75   34.29   47.50   52.96   65.00  310.50 
+\end{verbatim}
 
-~ ~ ~ ~ ~ ~ ~ ~ ~ IIIIIIIIIIIIIIIIIII \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 3\textbar scrape\_id\\
-{[}numeric{]} \textbar1 distinct value \textbar2.023123e+13 : 1427
-(100.0\%) \textbar{} \textbar IIIIIIIIIIIIIIIIIIII \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 4\textbar last\_scraped\\
-{[}numeric{]} \textbar1 distinct value \textbar19718 : 1427 (100.0\%)
-\textbar{} \textbar IIIIIIIIIIIIIIIIIIII \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 5\textbar source\\
-{[}character{]} \textbar1. city scrape\\
-2. previous scrape \textbar\textbackslash1328 (93.1\%)\\
-\strut ~ 99 ( 6.9\%) \textbar{} \textbar IIIIIIIIIIIIIIIIII ~ I
-\textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 6\textbar name\\
-{[}character{]} \textbar1. Rental unit in Genève · ★\\
-2. Rental unit in Genève · 1\\
-3. Rental unit in Genève · ★\\
-4. Rental unit in Genève · ★\\
-5. Rental unit in Genève · ★\\
-6. Rental unit in Genève · ★\\
-7. Rental unit in Genève · 2\\
-8. Rental unit in Genève · ★\\
-9. Rental unit in Genève · ★\\
-10. Rental unit in Genève · ★\\
-{[} 988 others {]} \textbar~ 43 ( 3.0\%)\\
-\strut ~ 37 ( 2.6\%)\\
-\strut ~ 12 ( 0.8\%)\\
-\strut ~ 12 ( 0.8\%)\\
-\strut ~ 11 ( 0.8\%)\\
-\strut ~ 10 ( 0.7\%)\\
-\strut ~ 10 ( 0.7\%)\\
-\strut ~ 9 ( 0.6\%)\\
-\strut ~ 9 ( 0.6\%)\\
-\strut ~ 9 ( 0.6\%)\\
-\textbackslash1265 (88.6\%) \textbar{} \textbar~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIIII \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 7\textbar picture\_url\\
-{[}character{]} \textbar1. https://a0.muscache.com/p\\
-2. https://a0.muscache.com/p\\
-3. https://a0.muscache.com/p\\
-4. https://a0.muscache.com/p\\
-5. https://a0.muscache.com/p\\
-6. https://a0.muscache.com/p\\
-7. https://a0.muscache.com/p\\
-8. https://a0.muscache.com/p\\
-9. https://a0.muscache.com/p\\
-10. https://a0.muscache.com/p\\
-{[} 1382 others {]} \textbar~ 6 ( 0.4\%)\\
-\strut ~ 3 ( 0.2\%)\\
-\strut ~ 3 ( 0.2\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\strut ~ 2 ( 0.1\%)\\
-\textbackslash1401 (98.2\%) \textbar{} \textbar~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIIIIII \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 8\textbar host\_id\\
-{[}numeric{]} \textbar Mean (sd) : 149032546 (171587796)\\
-min \textless{} med \textless{} max:\\
-93463 \textless{} 53473765 \textless{} 548952264\\
-IQR (CV) : 235798336 (1.2) \textbar914 distinct values \textbar{}
-\textbar:\\
-:\\
-:\\
-:\\
-: : . . . ~~. . . . \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 9\textbar host\_url\\
-{[}character{]} \textbar1. https://www.airbnb.com/us\\
-2. https://www.airbnb.com/us\\
-3. https://www.airbnb.com/us\\
-4. https://www.airbnb.com/us\\
-5. https://www.airbnb.com/us\\
-6. https://www.airbnb.com/us\\
-7. https://www.airbnb.com/us\\
-8. https://www.airbnb.com/us\\
-9. https://www.airbnb.com/us\\
-10. https://www.airbnb.com/us\\
-{[} 904 others {]} \textbar~ 72 ( 5.0\%)\\
-\strut ~ 31 ( 2.2\%)\\
-\strut ~ 25 ( 1.8\%)\\
-\strut ~ 23 ( 1.6\%)\\
-\strut ~ 18 ( 1.3\%)\\
-\strut ~ 15 ( 1.1\%)\\
-\strut ~ 14 ( 1.0\%)\\
-\strut ~ 10 ( 0.7\%)\\
-\strut ~ 9 ( 0.6\%)\\
-\strut ~ 8 ( 0.6\%)\\
-\textbackslash1202 (84.2\%) \textbar{} \textbar I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIII \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 10\textbar host\_name\\
-{[}character{]} \textbar1. Marc\\
-2. Philippe\\
-3. David\\
-4. Fassbindhotels\\
-5. Valentino\\
-6. Marie Et Jules\\
-7. Bilel\\
-8. Christine\\
-9. Gaël\\
-10. Hl\\
-{[} 713 others {]} \textbar~ 78 ( 5.5\%)\\
-\strut ~ 65 ( 4.6\%)\\
-\strut ~ 28 ( 2.0\%)\\
-\strut ~ 19 ( 1.3\%)\\
-\strut ~ 18 ( 1.3\%)\\
-\strut ~ 15 ( 1.1\%)\\
-\strut ~ 14 ( 1.0\%)\\
-\strut ~ 12 ( 0.8\%)\\
-\strut ~ 11 ( 0.8\%)\\
-\strut ~ 11 ( 0.8\%)\\
-\textbackslash1156 (81.0\%) \textbar{} \textbar I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIII \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 11\textbar host\_since\\
-{[}numeric{]} \textbar Mean (sd) : 17114.6 (1226.8)\\
-min \textless{} med \textless{} max:\\
-14683 \textless{} 16805 \textless{} 19692\\
-IQR (CV) : 1851 (0.1) \textbar801 distinct values \textbar{}
-\textbar~~~~~~~~:\\
-\strut ~~. : : :\\
-\strut ~~: : : : . . ~~~~.\\
-\strut ~~: : : : : : . : :\\
-\strut ~~: : : : : : : : : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 12\textbar host\_response\_time\\
-{[}character{]} \textbar1. a few days or more\\
-2. within a day\\
-3. within a few hours\\
-4. within an hour \textbar~71 ( 5.0\%)\\
-\textbackslash237 (16.6\%)\\
-\textbackslash286 (20.0\%)\\
-\textbackslash833 (58.4\%) \textbar{} \textbar~ III ~ IIII ~ IIIIIIIIIII
-\textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 13\textbar host\_is\_superhost\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar\textbackslash1018 (71.3\%)\\
-\strut ~409 (28.7\%) \textbar{} \textbar IIIIIIIIIIIIII ~ IIIII
-\textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 14\textbar host\_thumbnail\_url\\
-{[}character{]} \textbar1. https://a0.muscache.com/i\\
-2. https://a0.muscache.com/d\\
-3. https://a0.muscache.com/i\\
-4. https://a0.muscache.com/i\\
-5. https://a0.muscache.com/i\\
-6. https://a0.muscache.com/i\\
-7. https://a0.muscache.com/i\\
-8. https://a0.muscache.com/i\\
-9. https://a0.muscache.com/i\\
-10. https://a0.muscache.com/i\\
-{[} 871 others {]} \textbar~ 72 ( 5.0\%)\\
-\strut ~ 37 ( 2.6\%)\\
-\strut ~ 31 ( 2.2\%)\\
-\strut ~ 25 ( 1.8\%)\\
-\strut ~ 23 ( 1.6\%)\\
-\strut ~ 18 ( 1.3\%)\\
-\strut ~ 15 ( 1.1\%)\\
-\strut ~ 14 ( 1.0\%)\\
-\strut ~ 10 ( 0.7\%)\\
-\strut ~ 9 ( 0.6\%)\\
-\textbackslash1173 (82.2\%) \textbar{} \textbar I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIII \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 15\textbar host\_picture\_url\\
-{[}character{]} \textbar1. https://a0.muscache.com/i\\
-2. https://a0.muscache.com/d\\
-3. https://a0.muscache.com/i\\
-4. https://a0.muscache.com/i\\
-5. https://a0.muscache.com/i\\
-6. https://a0.muscache.com/i\\
-7. https://a0.muscache.com/i\\
-8. https://a0.muscache.com/i\\
-9. https://a0.muscache.com/i\\
-10. https://a0.muscache.com/i\\
-{[} 871 others {]} \textbar~ 72 ( 5.0\%)\\
-\strut ~ 37 ( 2.6\%)\\
-\strut ~ 31 ( 2.2\%)\\
-\strut ~ 25 ( 1.8\%)\\
-\strut ~ 23 ( 1.6\%)\\
-\strut ~ 18 ( 1.3\%)\\
-\strut ~ 15 ( 1.1\%)\\
-\strut ~ 14 ( 1.0\%)\\
-\strut ~ 10 ( 0.7\%)\\
-\strut ~ 9 ( 0.6\%)\\
-\textbackslash1173 (82.2\%) \textbar{} \textbar I ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IIIIIIIIIIIIIIII \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 16\textbar host\_listings\_count\\
-{[}numeric{]} \textbar Mean (sd) : 13.7 (34.2)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 194\\
-IQR (CV) : 5 (2.5) \textbar27 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . ~~~~~~~~~~. \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 17\textbar host\_total\_listings\_count\\
-{[}numeric{]} \textbar Mean (sd) : 27.3 (80.6)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 3 \textless{} 363\\
-IQR (CV) : 7 (2.9) \textbar34 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: ~~~~~~~~~~~~. \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 18\textbar host\_has\_profile\_pic\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar~ 37 ( 2.6\%)\\
-\textbackslash1390 (97.4\%) \textbar{} \textbar~ IIIIIIIIIIIIIIIIIII
-\textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 19\textbar host\_identity\_verified\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar~ 46 ( 3.2\%)\\
-\textbackslash1381 (96.8\%) \textbar{} \textbar~ IIIIIIIIIIIIIIIIIII
-\textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 20\textbar neighbourhood\_cleansed\\
-{[}character{]} \textbar1. Commune de Genève\\
-2. Vernier\\
-3. Grand-Saconnex\\
-4. Carouge\\
-5. Lancy\\
-6. Meyrin\\
-7. Chêne-Bougeries\\
-8. Thônex\\
-9. Versoix\\
-10. Cologny\\
-{[} 24 others {]} \textbar\textbackslash1078 (75.5\%)\\
-\strut ~ 48 ( 3.4\%)\\
-\strut ~ 42 ( 2.9\%)\\
-\strut ~ 37 ( 2.6\%)\\
-\strut ~ 29 ( 2.0\%)\\
-\strut ~ 25 ( 1.8\%)\\
-\strut ~ 24 ( 1.7\%)\\
-\strut ~ 23 ( 1.6\%)\\
-\strut ~ 22 ( 1.5\%)\\
-\strut ~ 13 ( 0.9\%)\\
-\strut ~ 86 ( 6.0\%) \textbar{} \textbar IIIIIIIIIIIIIII ~ ~ ~ ~ ~ ~ ~ ~
-~ ~ I \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 21\textbar latitude\\
-{[}numeric{]} \textbar Mean (sd) : 46.2 (0)\\
-min \textless{} med \textless{} max:\\
-46.1 \textless{} 46.2 \textless{} 46.4\\
-IQR (CV) : 0 (0) \textbar1268 distinct values \textbar{} \textbar~~~~:
-.\\
-\strut ~~~~: :\\
-\strut ~~~~: :\\
-\strut ~~~~: :\\
-\strut ~~. : : . \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 22\textbar longitude\\
-{[}numeric{]} \textbar Mean (sd) : 6.1 (0)\\
-min \textless{} med \textless{} max:\\
-6 \textless{} 6.1 \textless{} 6.3\\
-IQR (CV) : 0 (0) \textbar1310 distinct values \textbar{}
-\textbar~~~~~~~~~~:\\
-\strut ~~~~~~~~~~:\\
-\strut ~~~~~~~~~~:\\
-\strut ~~~~~~~~~~: :\\
-\strut ~~~~~~. . : : . \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 23\textbar property\_type\\
-{[}character{]} \textbar1. Entire rental unit\\
-2. Private room in rental un\\
-3. Entire condo\\
-4. Private room in bed and b\\
-5. Private room in home\\
-6. Room in hotel\\
-7. Entire home\\
-8. Private room in condo\\
-9. Entire loft\\
-10. Entire serviced apartment\\
-{[} 25 others {]} \textbar\textbackslash818 (57.3\%)\\
-\textbackslash236 (16.5\%)\\
-\strut ~88 ( 6.2\%)\\
-\strut ~51 ( 3.6\%)\\
-\strut ~51 ( 3.6\%)\\
-\strut ~33 ( 2.3\%)\\
-\strut ~22 ( 1.5\%)\\
-\strut ~18 ( 1.3\%)\\
-\strut ~13 ( 0.9\%)\\
-\strut ~13 ( 0.9\%)\\
-\strut ~84 ( 5.9\%) \textbar{} \textbar IIIIIIIIIII ~ III ~ I ~ ~ ~ ~ ~
-~ ~ ~ I \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 24\textbar room\_type\\
-{[}character{]} \textbar1. Entire home/apt\\
-2. Hotel room\\
-3. Private room\\
-4. Shared room \textbar\textbackslash989 (69.3\%)\\
-\strut ~ 4 ( 0.3\%)\\
-\textbackslash430 (30.1\%)\\
-\strut ~ 4 ( 0.3\%) \textbar{} \textbar IIIIIIIIIIIII ~ ~ IIIIII ~
-\textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 25\textbar accommodates\\
-{[}numeric{]} \textbar Mean (sd) : 2.7 (1.5)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 15\\
-IQR (CV) : 2 (0.6) \textbar12 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-: ~~:\\
-: : : . \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 26\textbar bathrooms\_text\\
-{[}character{]} \textbar1. 1 bath\\
-2. 1 shared bath\\
-3. 1.5 baths\\
-4. 1 private bath\\
-5. 2 baths\\
-6. 1.5 shared baths\\
-7. 2.5 baths\\
-8. 2 shared baths\\
-9. 3 baths\\
-10. Half-bath\\
-{[} 7 others {]} \textbar\textbackslash827 (58.0\%)\\
-\textbackslash166 (11.6\%)\\
-\textbackslash149 (10.4\%)\\
-\strut ~75 ( 5.3\%)\\
-\strut ~72 ( 5.0\%)\\
-\strut ~60 ( 4.2\%)\\
-\strut ~37 ( 2.6\%)\\
-\strut ~14 ( 1.0\%)\\
-\strut ~10 ( 0.7\%)\\
-\strut ~ 4 ( 0.3\%)\\
-\strut ~13 ( 0.9\%) \textbar{} \textbar IIIIIIIIIII ~ II ~ II ~ I ~ I ~
-~ ~ ~ ~ ~ \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 27\textbar beds\\
-{[}numeric{]} \textbar Mean (sd) : 1.6 (1.1)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 1 \textless{} 10\\
-IQR (CV) : 1 (0.6) \textbar1 : 889 (62.3\%)\\
-2 : 341 (23.9\%)\\
-3 : 114 ( 8.0\%)\\
-4 : 45 ( 3.2\%)\\
-5 : 23 ( 1.6\%)\\
-6 : 9 ( 0.6\%)\\
-7 : 1 ( 0.1\%)\\
-8 : 3 ( 0.2\%)\\
-9 : 1 ( 0.1\%)\\
-10 : 1 ( 0.1\%) \textbar{} \textbar IIIIIIIIIIII ~ IIII ~ I ~ ~ ~ ~ ~ ~
-~ \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 28\textbar minimum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 5.8 (17.8)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 365\\
-IQR (CV) : 3 (3.1) \textbar27 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 29\textbar maximum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 525.4 (464.1)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 365 \textless{} 1125\\
-IQR (CV) : 1065 (0.9) \textbar73 distinct values \textbar{} \textbar.
-~~~~~~~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: . ~~: ~~~~~~~~~~: \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 30\textbar minimum\_minimum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 5.1 (14.6)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 360\\
-IQR (CV) : 3 (2.9) \textbar27 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 31\textbar maximum\_minimum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 6 (15.6)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 360\\
-IQR (CV) : 4 (2.6) \textbar33 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 32\textbar minimum\_maximum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 651.4 (474.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 365 \textless{} 1125\\
-IQR (CV) : 975 (0.7) \textbar65 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-. ~~~~. ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~: \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 33\textbar maximum\_maximum\_nights\\
-{[}numeric{]} \textbar Mean (sd) : 660.4 (472.9)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 730 \textless{} 1125\\
-IQR (CV) : 945 (0.7) \textbar63 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-. ~~~~. ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~: \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 34\textbar minimum\_nights\_avg\_ntm\\
-{[}numeric{]} \textbar Mean (sd) : 5.6 (15)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 360\\
-IQR (CV) : 3 (2.7) \textbar88 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 35\textbar maximum\_nights\_avg\_ntm\\
-{[}numeric{]} \textbar Mean (sd) : 656.3 (472.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 544.7 \textless{} 1125\\
-IQR (CV) : 945 (0.7) \textbar74 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-. ~~~~. ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~:\\
-: ~~~~: ~~~~~~~~~~: \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 36\textbar has\_availability\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar~ 3 ( 0.2\%)\\
-\textbackslash1424 (99.8\%) \textbar{} \textbar~ IIIIIIIIIIIIIIIIIII
-\textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 37\textbar availability\_30\\
-{[}numeric{]} \textbar Mean (sd) : 13.7 (11.5)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 13 \textless{} 30\\
-IQR (CV) : 25 (0.8) \textbar31 distinct values \textbar{} \textbar:\\
-:\\
-: ~~~~~~~~~~~~~~~~:\\
-: ~~~~~~~~~~~~~~. :\\
-: : : : . : : : : : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 38\textbar availability\_60\\
-{[}numeric{]} \textbar Mean (sd) : 29.8 (22.9)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 30 \textless{} 60\\
-IQR (CV) : 49 (0.8) \textbar61 distinct values \textbar{} \textbar:
-~~~~~~~~~~~~~~~~.\\
-: ~~~~~~~~~~~~~~~~:\\
-: ~~~~~~~~~~~~~~~~:\\
-: ~~~~~~. ~~~~~~. :\\
-: : . : : : : : : : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 39\textbar availability\_90\\
-{[}numeric{]} \textbar Mean (sd) : 47.2 (33.8)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 53 \textless{} 90\\
-IQR (CV) : 72 (0.7) \textbar91 distinct values \textbar{} \textbar.
-~~~~~~~~~~~~~~:\\
-: ~~~~~~~~~~~~~~:\\
-: ~~~~~~~~~~~~~~:\\
-: ~~~~~~~~. ~~. :\\
-: : : : : : : : : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 40\textbar availability\_365\\
-{[}numeric{]} \textbar Mean (sd) : 170.8 (130.5)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 152 \textless{} 365\\
-IQR (CV) : 251 (0.8) \textbar326 distinct values \textbar{} \textbar:\\
-: .\\
-: : ~~~~~~~~. .\\
-: : . . . : : :\\
-: : : : : : : : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 41\textbar calendar\_last\_scraped\\
-{[}numeric{]} \textbar1 distinct value \textbar19718 : 1427 (100.0\%)
-\textbar{} \textbar IIIIIIIIIIIIIIIIIIII \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 42\textbar number\_of\_reviews\\
-{[}numeric{]} \textbar Mean (sd) : 35.1 (60.7)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 13 \textless{} 748\\
-IQR (CV) : 36 (1.7) \textbar187 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 43\textbar number\_of\_reviews\_ltm\\
-{[}numeric{]} \textbar Mean (sd) : 11.6 (17.6)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 5 \textless{} 153\\
-IQR (CV) : 14 (1.5) \textbar84 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: : . \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 44\textbar number\_of\_reviews\_l30d\\
-{[}numeric{]} \textbar Mean (sd) : 0.8 (1.5)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 0 \textless{} 13\\
-IQR (CV) : 1 (1.8) \textbar13 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . . \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 45\textbar first\_review\\
-{[}numeric{]} \textbar Mean (sd) : 18588.8 (1047.7)\\
-min \textless{} med \textless{} max:\\
-15109 \textless{} 18992 \textless{} 19714\\
-IQR (CV) : 1599 (0.1) \textbar1000 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~. :\\
-\strut ~~~~~~~~~~~~. ~~: :\\
-\strut ~~~~. . : : : : : : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 46\textbar last\_review\\
-{[}numeric{]} \textbar Mean (sd) : 19497 (436.6)\\
-min \textless{} med \textless{} max:\\
-16578 \textless{} 19659 \textless{} 19717\\
-IQR (CV) : 157.5 (0) \textbar451 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~. : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 47\textbar review\_scores\_rating\\
-{[}numeric{]} \textbar Mean (sd) : 4.7 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.8 \textless{} 5\\
-IQR (CV) : 0.4 (0.1) \textbar103 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~: : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 48\textbar review\_scores\_accuracy\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.3 (0.1) \textbar96 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 49\textbar review\_scores\_cleanliness\\
-{[}numeric{]} \textbar Mean (sd) : 4.7 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.8 \textless{} 5\\
-IQR (CV) : 0.4 (0.1) \textbar108 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~. : : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 50\textbar review\_scores\_checkin\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.2 (0.1) \textbar85 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 51\textbar review\_scores\_communication\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.4)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.2 (0.1) \textbar98 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 52\textbar review\_scores\_location\\
-{[}numeric{]} \textbar Mean (sd) : 4.8 (0.3)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.9 \textless{} 5\\
-IQR (CV) : 0.3 (0.1) \textbar88 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 53\textbar review\_scores\_value\\
-{[}numeric{]} \textbar Mean (sd) : 4.6 (0.5)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 4.7 \textless{} 5\\
-IQR (CV) : 0.4 (0.1) \textbar115 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~. :\\
-\strut ~~~~~~~~~~. : : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 54\textbar instant\_bookable\\
-{[}logical{]} \textbar1. FALSE\\
-2. TRUE \textbar\textbackslash1102 (77.2\%)\\
-\strut ~325 (22.8\%) \textbar{} \textbar IIIIIIIIIIIIIII ~ IIII
-\textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-55\textbar calculated\_host\_listings\_count\\
-{[}numeric{]} \textbar Mean (sd) : 8.8 (19.3)\\
-min \textless{} med \textless{} max:\\
-1 \textless{} 2 \textless{} 86\\
-IQR (CV) : 4 (2.2) \textbar19 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . ~~~~~~~~~~~~. \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-56\textbar calculated\_host\_listings\_count\_entire\_homes\\
-{[}numeric{]} \textbar Mean (sd) : 7.3 (17.6)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 1 \textless{} 77\\
-IQR (CV) : 2 (2.4) \textbar16 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: ~~~~~~~~~~~~~~~~. \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-57\textbar calculated\_host\_listings\_count\_private\_rooms\\
-{[}numeric{]} \textbar Mean (sd) : 1.4 (2.5)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 0 \textless{} 10\\
-IQR (CV) : 2 (1.8) \textbar11 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: . ~~~~~~~~. \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-58\textbar calculated\_host\_listings\_count\_shared\_rooms\\
-{[}numeric{]} \textbar Min : 0\\
-Mean : 0\\
-Max : 1 \textbar0 : 1418 (99.4\%)\\
-1 : 9 ( 0.6\%) \textbar{} \textbar IIIIIIIIIIIIIIIIIII ~ \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 59\textbar reviews\_per\_month\\
-{[}numeric{]} \textbar Mean (sd) : 1.3 (1.6)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 0.7 \textless{} 12.7\\
-IQR (CV) : 1.3 (1.3) \textbar382 distinct values \textbar{} \textbar:\\
-:\\
-:\\
-:\\
-: : . \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-60\textbar host\_response\_rate\_in\_percent\\
-{[}integer{]} \textbar Mean (sd) : 91.7 (20.9)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 100 \textless{} 100\\
-IQR (CV) : 2 (0.2) \textbar39 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~. : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{}
-61\textbar host\_acceptance\_rate\_in\_percent\\
-{[}integer{]} \textbar Mean (sd) : 80.1 (25.1)\\
-min \textless{} med \textless{} max:\\
-0 \textless{} 90 \textless{} 100\\
-IQR (CV) : 29 (0.3) \textbar90 distinct values \textbar{}
-\textbar~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~~~:\\
-\strut ~~~~~~~~~~~~~~~~. :\\
-. ~~~~~~. . . : : : \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 62\textbar price\_in\_usd\\
-{[}numeric{]} \textbar Mean (sd) : 137.6 (100.2)\\
-min \textless{} med \textless{} max:\\
-19 \textless{} 111 \textless{} 886\\
-IQR (CV) : 72 (0.7) \textbar262 distinct values \textbar{} \textbar: :\\
-: :\\
-: :\\
-: :\\
-: : : . \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{} \textbar{} 63\textbar price\_per\_person\\
-{[}numeric{]} \textbar Mean (sd) : 64.5 (37.3)\\
-min \textless{} med \textless{} max:\\
-13.8 \textless{} 57 \textless{} 410\\
-IQR (CV) : 34 (0.6) \textbar366 distinct values \textbar{} \textbar. :\\
-: :\\
-: :\\
-: :\\
-: : . \textbar1427\\
-(100.0\%) \textbar0\\
-(0.0\%) \textbar{}
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.000   4.670   4.860   4.752   5.000   5.000 
+\end{verbatim}
 
-\subsection{Methoden der Datenanalyse}\label{methoden-der-datenanalyse}
+\textbf{Zusammenfassung Preis pro Person und Bewertung Genf}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  13.75   41.50   57.00   64.46   75.50  410.00 
+\end{verbatim}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    4.60    4.82    4.71    5.00    5.00 
+\end{verbatim}
+
+\hypertarget{methoden-der-datenanalyse}{%
+\subsubsection{Methoden der
+Datenanalyse}\label{methoden-der-datenanalyse}}
 
 Um die Forschungsfragen zu beantworten und die Hypothesen zu testen,
 wurden verschiedene statistische Methoden und Verfahren angewendet:
 
-\subsubsection{\texorpdfstring{\textbf{Deskriptive
-Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik}
+\hypertarget{deskriptive-statistik}{%
+\paragraph{\texorpdfstring{\textbf{Deskriptive
+Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik}}
 
 Die deskriptive Statistik liefert grundlegende Informationen über die
 Struktur und Verteilung der Daten. Ziel ist es, einen Überblick über die
@@ -3031,63 +670,34 @@ erkennen.
   Histogramme und Boxplots.
 \end{itemize}
 
-Kurze Übersicht über die Datensets Zürich, Vaud und Gemeva
+Kurze Übersicht über die Datensets Zürich, Vaud und Geneva
 
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  12.75   42.50   56.50   68.79   80.38  676.00 
-\end{verbatim}
+\includegraphics{main_files/figure-pdf/descriptive zurich-1.pdf}
 
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  1.000   4.660   4.850   4.749   5.000   5.000 
-\end{verbatim}
+\includegraphics{main_files/figure-pdf/descriptive zurich-2.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-8-1.pdf}
+\includegraphics{main_files/figure-pdf/descriptive zurich-3.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-8-2.pdf}
+\includegraphics{main_files/figure-pdf/descriptive zurich-4.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-8-3.pdf}
+\includegraphics{main_files/figure-pdf/descriptive vaud-1.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-8-4.pdf}
+\includegraphics{main_files/figure-pdf/descriptive vaud-2.pdf}
 
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   3.75   34.29   47.50   52.96   65.00  310.50 
-\end{verbatim}
+\includegraphics{main_files/figure-pdf/descriptive vaud-3.pdf}
 
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  1.000   4.670   4.860   4.752   5.000   5.000 
-\end{verbatim}
+\includegraphics{main_files/figure-pdf/descriptive vaud-4.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-9-1.pdf}
+\includegraphics{main_files/figure-pdf/descriptive geneva-1.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-9-2.pdf}
+\includegraphics{main_files/figure-pdf/descriptive geneva-2.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-9-3.pdf}
+\includegraphics{main_files/figure-pdf/descriptive geneva-3.pdf}
 
-\includegraphics{main_files/figure-pdf/unnamed-chunk-9-4.pdf}
+\includegraphics{main_files/figure-pdf/descriptive geneva-4.pdf}
 
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  13.75   41.50   57.00   64.46   75.50  410.00 
-\end{verbatim}
-
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   1.00    4.60    4.82    4.71    5.00    5.00 
-\end{verbatim}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-10-1.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-10-2.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-10-3.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-10-4.pdf}
-
-\subsubsection{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse}
+\hypertarget{korrelationsanalyse}{%
+\paragraph{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse}}
 
 Die Korrelationsanalyse untersucht die Stärke und Richtung der Beziehung
 zwischen verschiedenen numerischen Variablen.
@@ -3105,82 +715,26 @@ quantifizieren, wie stark zwei Variablen miteinander variieren.
 \end{itemize}
 
 \begin{verbatim}
-                                                                                 Variable
-price_in_usd                                                                 price_in_usd
-calculated_host_listings_count_private_rooms calculated_host_listings_count_private_rooms
-maximum_maximum_nights                                             maximum_maximum_nights
-maximum_nights_avg_ntm                                             maximum_nights_avg_ntm
-availability_365                                                         availability_365
-host_listings_count                                                   host_listings_count
-calculated_host_listings_count                             calculated_host_listings_count
-host_total_listings_count                                       host_total_listings_count
-calculated_host_listings_count_entire_homes   calculated_host_listings_count_entire_homes
-accommodates                                                                 accommodates
-                                             Correlation
-price_in_usd                                   0.4542442
-calculated_host_listings_count_private_rooms   0.2535651
-maximum_maximum_nights                         0.1956353
-maximum_nights_avg_ntm                         0.1956247
-availability_365                               0.1921820
-host_listings_count                           -0.1772248
-calculated_host_listings_count                -0.1908500
-host_total_listings_count                     -0.2005601
-calculated_host_listings_count_entire_homes   -0.2062654
-accommodates                                  -0.2531237
+Zürich Korrelation:
+Variable, Korrelation
+calculated_host_listings_count_private_rooms, 0.253565066328496 maximum_maximum_nights, 0.195635271579062 maximum_nights_avg_ntm, 0.195624702040738 availability_365, 0.192181973701716 availability_60, 0.163404536927597 host_listings_count, -0.17722483465637 calculated_host_listings_count, -0.190850048279143 host_total_listings_count, -0.200560106198026 calculated_host_listings_count_entire_homes, -0.206265379711724 accommodates, -0.253123725042676 
 \end{verbatim}
 
 \begin{verbatim}
-                                                                                 Variable
-price_in_usd                                                                 price_in_usd
-calculated_host_listings_count_private_rooms calculated_host_listings_count_private_rooms
-availability_90                                                           availability_90
-availability_365                                                         availability_365
-availability_30                                                           availability_30
-last_review                                                                   last_review
-reviews_per_month                                                       reviews_per_month
-longitude                                                                       longitude
-beds                                                                                 beds
-accommodates                                                                 accommodates
-                                             Correlation
-price_in_usd                                  0.23693392
-calculated_host_listings_count_private_rooms  0.16544766
-availability_90                               0.11326407
-availability_365                              0.09965564
-availability_30                               0.08908862
-last_review                                  -0.08200293
-reviews_per_month                            -0.10425461
-longitude                                    -0.13489130
-beds                                         -0.20903491
-accommodates                                 -0.31302499
+Vaud Korrelation:
+Variable, Korrelation
+calculated_host_listings_count_private_rooms, 0.165447661476355 availability_90, 0.113264068034377 availability_365, 0.0996556377020256 availability_30, 0.0890886238281305 availability_60, 0.0856515555553216 last_review, -0.0820029273703782 reviews_per_month, -0.10425461403753 longitude, -0.134891304054868 beds, -0.209034912637666 accommodates, -0.313024987926205 
 \end{verbatim}
 
 \begin{verbatim}
-                                                                                 Variable
-price_in_usd                                                                 price_in_usd
-calculated_host_listings_count_private_rooms calculated_host_listings_count_private_rooms
-availability_30                                                           availability_30
-availability_60                                                           availability_60
-availability_90                                                           availability_90
-maximum_minimum_nights                                             maximum_minimum_nights
-number_of_reviews_l30d                                             number_of_reviews_l30d
-minimum_maximum_nights                                             minimum_maximum_nights
-reviews_per_month                                                       reviews_per_month
-accommodates                                                                 accommodates
-                                             Correlation
-price_in_usd                                  0.39023328
-calculated_host_listings_count_private_rooms  0.26617718
-availability_30                               0.22458686
-availability_60                               0.21839815
-availability_90                               0.19910964
-maximum_minimum_nights                       -0.09071858
-number_of_reviews_l30d                       -0.09567412
-minimum_maximum_nights                       -0.09659685
-reviews_per_month                            -0.09755197
-accommodates                                 -0.21850008
+Genf Korrelation:
+Variable, Korrelation
+calculated_host_listings_count_private_rooms, 0.266177175365051 availability_30, 0.224586863850008 availability_60, 0.218398150123264 availability_90, 0.199109639561717 availability_365, 0.108812882482396 maximum_minimum_nights, -0.090718578179851 number_of_reviews_l30d, -0.0956741175177178 minimum_maximum_nights, -0.0965968512310472 reviews_per_month, -0.0975519654054198 accommodates, -0.21850008000739 
 \end{verbatim}
 
-\subsubsection{\texorpdfstring{\textbf{Lineare
-Regression}}{Lineare Regression}}\label{lineare-regression}
+\hypertarget{lineare-regression}{%
+\paragraph{\texorpdfstring{\textbf{Lineare
+Regression}}{Lineare Regression}}\label{lineare-regression}}
 
 Die lineare Regression wurde verwendet, um die Beziehung zwischen einer
 abhängigen Variable (Preis pro Person) und einer oder mehreren
@@ -3401,7 +955,8 @@ Multiple R-squared:  0.0007315, Adjusted R-squared:  -0.000672
 F-statistic: 0.5212 on 2 and 1424 DF,  p-value: 0.5939
 \end{verbatim}
 
-\subsubsection{\texorpdfstring{\textbf{Visualisierung}}{Visualisierung}}\label{visualisierung}
+\hypertarget{visualisierung}{%
+\paragraph{\texorpdfstring{\textbf{Visualisierung}}{Visualisierung}}\label{visualisierung}}
 
 Visualisierungen sind ein wesentliches Werkzeug, um Datenmuster und
 Zusammenhänge intuitiv darzustellen und zu verstehen. Verschiedene Arten
@@ -3419,14 +974,16 @@ visualisieren.
   Variablen.
 \end{itemize}
 
-\subsubsection{Predictive Analysis}\label{predictive-analysis}
+\hypertarget{predictive-analysis}{%
+\paragraph{Predictive Analysis}\label{predictive-analysis}}
 
 Zusätzlich zu den deskriptiven und inferenziellen Analysen wurde eine
 prädiktive Analyse durchgeführt, um den Preis pro Person basierend auf
 den verfügbaren Merkmalen vorherzusagen. Hierfür wurde ein
 Regressionsmodell mit mehreren Prädiktoren erstellt und evaluiert.
 
-\subsubsection{Datenvorbereitung}\label{datenvorbereitung}
+\hypertarget{datenvorbereitung}{%
+\paragraph{Datenvorbereitung}\label{datenvorbereitung}}
 
 \begin{itemize}
 \item
@@ -3438,8 +995,9 @@ Regressionsmodell mit mehreren Prädiktoren erstellt und evaluiert.
   Testdatensätze, um die Modellleistung zu evaluieren.
 \end{itemize}
 
-\subsubsection{Modelltraining und
--evaluation}\label{modelltraining-und--evaluation}
+\hypertarget{modelltraining-und--evaluation}{%
+\paragraph{Modelltraining und
+-evaluation}\label{modelltraining-und--evaluation}}
 
 \begin{itemize}
 \item
@@ -3453,15 +1011,19 @@ Regressionsmodell mit mehreren Prädiktoren erstellt und evaluiert.
 \begin{verbatim}
 \end{verbatim}
 
-\section{6. Ergebnisse (statistische Ergebnisse, Zahlen,
-Diagramme)}\label{ergebnisse-statistische-ergebnisse-zahlen-diagramme}
+\hypertarget{ergebnisse-statistische-ergebnisse-zahlen-diagramme}{%
+\subsection{6. Ergebnisse (statistische Ergebnisse, Zahlen,
+Diagramme)}\label{ergebnisse-statistische-ergebnisse-zahlen-diagramme}}
 
-\subsection{\texorpdfstring{\textbf{Deskriptive
-Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik-1}
+\hypertarget{deskriptive-statistik-1}{%
+\subsubsection{\texorpdfstring{\textbf{Deskriptive
+Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik-1}}
 
-\subsection{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse-1}
+\hypertarget{korrelationsanalyse-1}{%
+\subsubsection{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse-1}}
 
-\subsubsection{Zürich}\label{zuxfcrich}
+\hypertarget{zuxfcrich}{%
+\paragraph{Zürich}\label{zuxfcrich}}
 
 \begin{itemize}
 \item
@@ -3500,7 +1062,8 @@ Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik-1}
   \end{itemize}
 \end{itemize}
 
-\subsubsection{Vaud}\label{vaud}
+\hypertarget{vaud}{%
+\paragraph{Vaud}\label{vaud}}
 
 \begin{itemize}
 \item
@@ -3539,7 +1102,8 @@ Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik-1}
   \end{itemize}
 \end{itemize}
 
-\subsubsection{Geneva}\label{geneva}
+\hypertarget{geneva}{%
+\paragraph{Geneva}\label{geneva}}
 
 \begin{itemize}
 \item
@@ -3581,7 +1145,8 @@ Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik-1}
   \end{itemize}
 \end{itemize}
 
-\subsubsection{Gesamtschlussfolgerungen}\label{gesamtschlussfolgerungen}
+\hypertarget{gesamtschlussfolgerungen}{%
+\paragraph{Gesamtschlussfolgerungen}\label{gesamtschlussfolgerungen}}
 
 Die Analyse der Korrelationen von \texttt{price\_per\_person} mit
 verschiedenen Variablen in den Städten Zürich, Vaud und Geneva liefert
@@ -3656,11 +1221,13 @@ beeinflussen. Hier sind die ausführlicheren Schlussfolgerungen:
   sind die geografischen Koordinaten nicht signifikant.
 \end{itemize}
 
-\subsection{\texorpdfstring{\textbf{Lineare
-Regression}}{Lineare Regression}}\label{lineare-regression-1}
+\hypertarget{lineare-regression-1}{%
+\subsubsection{\texorpdfstring{\textbf{Lineare
+Regression}}{Lineare Regression}}\label{lineare-regression-1}}
 
-\subsubsection{Bewertung der
-Airbnb-Unterkünfte}\label{bewertung-der-airbnb-unterkuxfcnfte}
+\hypertarget{bewertung-der-airbnb-unterkuxfcnfte}{%
+\paragraph{Bewertung der
+Airbnb-Unterkünfte}\label{bewertung-der-airbnb-unterkuxfcnfte}}
 
 \textbf{Hypothesen:}
 
@@ -3730,8 +1297,9 @@ Airbnb-Unterkünfte}\label{bewertung-der-airbnb-unterkuxfcnfte}
   Kommunikationsbewertung ist grenzwertig signifikant negativ.
 \end{itemize}
 
-\subsubsection{Gastgeber der
-Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}
+\hypertarget{gastgeber-der-airbnb-unterkunft}{%
+\paragraph{Gastgeber der
+Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}}
 
 \textbf{Hypothesen:}
 
@@ -3799,7 +1367,8 @@ Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}
   signifikanten Einfluss auf den Preis pro Person.
 \end{itemize}
 
-\subsubsection{Lage des Airbnb}\label{lage-des-airbnb}
+\hypertarget{lage-des-airbnb}{%
+\paragraph{Lage des Airbnb}\label{lage-des-airbnb}}
 
 \textbf{Hypothesen:}
 
@@ -3855,7 +1424,8 @@ Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}
   keinen signifikanten Einfluss auf den Preis pro Person.
 \end{itemize}
 
-\subsection{Zusammenfassung:}\label{zusammenfassung}
+\hypertarget{zusammenfassung}{%
+\subsubsection{Zusammenfassung:}\label{zusammenfassung}}
 
 \begin{itemize}
 \tightlist
@@ -3875,7 +1445,8 @@ Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}
   haben die geografischen Koordinaten keinen signifikanten Einfluss.
 \end{itemize}
 
-\subsection{\texorpdfstring{\textbf{Visualisierung}}{Visualisierung}}\label{visualisierung-1}
+\hypertarget{visualisierung-1}{%
+\subsubsection{\texorpdfstring{\textbf{Visualisierung}}{Visualisierung}}\label{visualisierung-1}}
 
 Die folgenden Plots zeigen die Korrelationen des Preis pro Person
 (\texttt{price\_per\_person}) in den verschiedenen Städten. Anhand
@@ -3884,14 +1455,51 @@ viel stärker positiv oder negativ ausfallen. Diese starken Korrelationen
 sollten genauer untersucht werden, um ihre Ursachen und Auswirkungen
 besser zu verstehen.
 
+\includegraphics{main_files/figure-pdf/unnamed-chunk-13-1.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-13-2.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-13-3.pdf}
+
+\hypertarget{lineare-regression-fuxfcr-zuxfcrich}{%
+\paragraph{Lineare Regression für
+Zürich}\label{lineare-regression-fuxfcr-zuxfcrich}}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-14-1.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-14-2.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-14-3.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-14-4.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-14-5.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-14-6.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-14-7.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-14-8.pdf}
+
+\hypertarget{lineare-regression-fuxfcr-vaud}{%
+\paragraph{Lineare Regression für
+Vaud}\label{lineare-regression-fuxfcr-vaud}}
+
 \includegraphics{main_files/figure-pdf/unnamed-chunk-15-1.pdf}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-15-2.pdf}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-15-3.pdf}
 
-\subsubsection{Lineare Regression für
-Zürich}\label{lineare-regression-fuxfcr-zuxfcrich}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-15-4.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-15-5.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-15-6.pdf}
+
+\hypertarget{lineare-regression-fuxfcr-geneva}{%
+\paragraph{Lineare Regression für
+Geneva}\label{lineare-regression-fuxfcr-geneva}}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-16-1.pdf}
 
@@ -3909,41 +1517,8 @@ Zürich}\label{lineare-regression-fuxfcr-zuxfcrich}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-16-8.pdf}
 
-\subsubsection{Lineare Regression für
-Vaud}\label{lineare-regression-fuxfcr-vaud}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-17-1.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-17-2.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-17-3.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-17-4.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-17-5.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-17-6.pdf}
-
-\subsubsection{Lineare Regression für
-Geneva}\label{lineare-regression-fuxfcr-geneva}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-18-1.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-18-2.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-18-3.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-18-4.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-18-5.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-18-6.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-18-7.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-18-8.pdf}
-
-\subsubsection{Schlussfolgerung}\label{schlussfolgerung}
+\hypertarget{schlussfolgerung}{%
+\paragraph{Schlussfolgerung}\label{schlussfolgerung}}
 
 Die verschiedenen Grafiken und deren lineare Regressionen liefern
 interessante Einblicke in die Beziehung zwischen den untersuchten
@@ -3959,7 +1534,8 @@ relativ homogen sind. Weitere Untersuchungen könnten sich auf
 zusätzliche Variablen oder nicht-lineare Modelle konzentrieren, um
 potenzielle Einflussfaktoren besser zu identifizieren.
 
-\subsection{Predictive Analysis}\label{predictive-analysis-1}
+\hypertarget{predictive-analysis-1}{%
+\subsubsection{Predictive Analysis}\label{predictive-analysis-1}}
 
 \begin{verbatim}
 Error: <text>:1:15: unerwartetes Symbol
@@ -3998,16 +1574,18 @@ Unterkunft (IncNodePurity = 488147.3). Dies zeigt, dass die
 Verfügbarkeit der Unterkunft, die Anzahl der Bewertungen und die
 Bewertungen selbst wesentliche Faktoren bei der Preisgestaltung sind.
 
-\section{7. Schlussfolgerung (Beantwortung der
-Frage)}\label{schlussfolgerung-beantwortung-der-frage}
+\hypertarget{schlussfolgerung-beantwortung-der-frage}{%
+\subsection{7. Schlussfolgerung (Beantwortung der
+Frage)}\label{schlussfolgerung-beantwortung-der-frage}}
 
 In diesem Kapitel fassen wir die wichtigsten Ergebnisse unserer Analyse
 zusammen und beantworten die eingangs gestellte Forschungsfrage:
 ``Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und
 ermöglichen es, einen höheren Preis pro Apartment zu erzielen?''
 
-\subsection{Bewertung der
-Airbnb-Unterkünfte}\label{bewertung-der-airbnb-unterkuxfcnfte-1}
+\hypertarget{bewertung-der-airbnb-unterkuxfcnfte-1}{%
+\subsubsection{Bewertung der
+Airbnb-Unterkünfte}\label{bewertung-der-airbnb-unterkuxfcnfte-1}}
 
 Unsere Analyse zeigte, dass die Sauberkeitsbewertung
 (review\_scores\_cleanliness) einen signifikanten positiven Einfluss auf
@@ -4018,8 +1596,9 @@ Gesamtbewertung (review\_scores\_rating) und die Kommunikationsbewertung
 (review\_scores\_communication) hatten hingegen keinen einheitlich
 signifikanten Einfluss auf den Preis.
 
-\subsection{Gastgeber der
-Airbnb-Unterkünfte}\label{gastgeber-der-airbnb-unterkuxfcnfte}
+\hypertarget{gastgeber-der-airbnb-unterkuxfcnfte}{%
+\subsubsection{Gastgeber der
+Airbnb-Unterkünfte}\label{gastgeber-der-airbnb-unterkuxfcnfte}}
 
 Die Untersuchung der Gastgebermerkmale ergab, dass in Zürich die Anzahl
 der Listings eines Hosts (host\_listings\_count) einen signifikant
@@ -4030,8 +1609,9 @@ Superhost (host\_is\_superhost) und die Verifizierung des Hosts
 (host\_identity\_verified) hatten hingegen keinen konsistenten
 signifikanten Einfluss auf den Preis.
 
-\subsection{Lage der
-Airbnb-Unterkünfte}\label{lage-der-airbnb-unterkuxfcnfte}
+\hypertarget{lage-der-airbnb-unterkuxfcnfte}{%
+\subsubsection{Lage der
+Airbnb-Unterkünfte}\label{lage-der-airbnb-unterkuxfcnfte}}
 
 Die geografische Analyse zeigte, dass in Vaud der Längengrad (longitude)
 einen signifikant negativen Einfluss auf den Preis pro Person hat. Dies
@@ -4039,7 +1619,8 @@ könnte auf spezifische regionale Preisunterschiede hinweisen. In Zürich
 und Genf hatten die geografischen Koordinaten jedoch keinen
 signifikanten Einfluss auf den Preis.
 
-\subsection{Predictive Analysis}\label{predictive-analysis-2}
+\hypertarget{predictive-analysis-2}{%
+\subsubsection{Predictive Analysis}\label{predictive-analysis-2}}
 
 NOCH ERLEDIGEN
 
@@ -4053,8 +1634,9 @@ Einflussfaktoren des Preises hinweist.
 
 NOCH ERLEDIGEN
 
-\subsection{Empfehlungen für
-Gastgeber}\label{empfehlungen-fuxfcr-gastgeber}
+\hypertarget{empfehlungen-fuxfcr-gastgeber}{%
+\subsubsection{Empfehlungen für
+Gastgeber}\label{empfehlungen-fuxfcr-gastgeber}}
 
 Auf Basis unserer Ergebnisse können folgende Empfehlungen für Gastgeber
 abgeleitet werden, um den Preis pro Person ihrer Unterkünfte zu
@@ -4078,8 +1660,9 @@ maximieren:
   berücksichtigen und ihre Preise entsprechend anpassen.
 \end{enumerate}
 
-\subsection{Beantwortung der
-Forschungsfrage}\label{beantwortung-der-forschungsfrage}
+\hypertarget{beantwortung-der-forschungsfrage}{%
+\subsubsection{Beantwortung der
+Forschungsfrage}\label{beantwortung-der-forschungsfrage}}
 
 Zusammenfassend lässt sich sagen, dass die Sauberkeitsbewertung einer
 Unterkunft, die Verfügbarkeit der Unterkunft und die Anzahl der Listings
@@ -4087,7 +1670,9 @@ eines Hosts die wichtigsten Faktoren sind, die den Preis pro Person
 einer Airbnb-Unterkunft beeinflussen. Gastgeber sollten daher auf diese
 Merkmale achten, um ihre Einnahmen zu maximieren.
 
-\subsection{Weiterführende Forschung}\label{weiterfuxfchrende-forschung}
+\hypertarget{weiterfuxfchrende-forschung}{%
+\subsubsection{Weiterführende
+Forschung}\label{weiterfuxfchrende-forschung}}
 
 Für zukünftige Untersuchungen wäre es sinnvoll, zusätzliche Daten über
 längere Zeiträume zu sammeln, um den Einfluss saisonaler Ereignisse und
@@ -4096,19 +1681,20 @@ maschinelle Lernverfahren eingesetzt werden, um die Komplexität der
 Einflussfaktoren besser abzubilden und genauere Vorhersagen zu
 ermöglichen.
 
-\section*{8. Referenzen}\label{referenzen}
-\addcontentsline{toc}{section}{8. Referenzen}
+\hypertarget{referenzen}{%
+\subsection*{8. Referenzen}\label{referenzen}}
+\addcontentsline{toc}{subsection}{8. Referenzen}
 
-\phantomsection\label{refs}
+\hypertarget{refs}{}
 \begin{CSLReferences}{0}{0}
-\bibitem[\citeproctext]{ref-inside-airbnb-2023}
+\leavevmode\vadjust pre{\hypertarget{ref-inside-airbnb-2023}{}}%
 \CSLLeftMargin{{[}1{]} }%
 \CSLRightInline{Inside Airbnb, {``Inside airbnb: Adding data to the
 debate,''} 27-Dec-2023. {[}Online{]}. Available:
 \url{https://insideairbnb.com/get-the-data/}. {[}Accessed:
 30-May-2024{]}}
 
-\bibitem[\citeproctext]{ref-inside-airbnb-2022}
+\leavevmode\vadjust pre{\hypertarget{ref-inside-airbnb-2022}{}}%
 \CSLLeftMargin{{[}2{]} }%
 \CSLRightInline{Inside Airbnb, {``Inside airbnb data dictionary: Data
 dictionary for listings.csV detailed file.''} Aug-2022 {[}Online{]}.
