@@ -274,7 +274,7 @@ Cedric Gisler \& Jovan Pajic%
 % creates the second title. It will be ignored for other modes.
 % \IEEEpeerreviewmaketitle
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced, sharp corners, frame hidden, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable, frame hidden, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \hypertarget{abstrakt}{%
 \section{Abstrakt}\label{abstrakt}}
@@ -597,42 +597,6 @@ repräsentiert. Die Variablen enthalten diverse Informationen, darunter:
   \texttt{availability\_365}.
 \end{itemize}
 
-\textbf{Zusammenfassung Preis pro Person und Bewertung Zürich}
-
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  12.75   42.50   56.50   68.79   80.38  676.00 
-\end{verbatim}
-
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  1.000   4.660   4.850   4.749   5.000   5.000 
-\end{verbatim}
-
-\textbf{Zusammenfassung Preis pro Person und Bewertung Vaud}
-
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   3.75   34.29   47.50   52.96   65.00  310.50 
-\end{verbatim}
-
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  1.000   4.670   4.860   4.752   5.000   5.000 
-\end{verbatim}
-
-\textbf{Zusammenfassung Preis pro Person und Bewertung Genf}
-
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  13.75   41.50   57.00   64.46   75.50  410.00 
-\end{verbatim}
-
-\begin{verbatim}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   1.00    4.60    4.82    4.71    5.00    5.00 
-\end{verbatim}
-
 \hypertarget{methoden-der-datenanalyse}{%
 \subsection{Methoden der Datenanalyse}\label{methoden-der-datenanalyse}}
 
@@ -652,29 +616,13 @@ untersuchen wir die Attribute Preis pro Person und Bewertung.
 
 Kurze Übersicht über die Datensets Zürich, Vaud und Geneva:
 
-\includegraphics{main_files/figure-pdf/descriptive zurich-1.pdf}
+\includegraphics{main_files/figure-pdf/descriptive-1.pdf}
 
-\includegraphics{main_files/figure-pdf/descriptive zurich-2.pdf}
+\includegraphics{main_files/figure-pdf/descriptive-2.pdf}
 
-\includegraphics{main_files/figure-pdf/descriptive zurich-3.pdf}
+\includegraphics{main_files/figure-pdf/descriptive-3.pdf}
 
-\includegraphics{main_files/figure-pdf/descriptive zurich-4.pdf}
-
-\includegraphics{main_files/figure-pdf/descriptive vaud-1.pdf}
-
-\includegraphics{main_files/figure-pdf/descriptive vaud-2.pdf}
-
-\includegraphics{main_files/figure-pdf/descriptive vaud-3.pdf}
-
-\includegraphics{main_files/figure-pdf/descriptive vaud-4.pdf}
-
-\includegraphics{main_files/figure-pdf/descriptive geneva-1.pdf}
-
-\includegraphics{main_files/figure-pdf/descriptive geneva-2.pdf}
-
-\includegraphics{main_files/figure-pdf/descriptive geneva-3.pdf}
-
-\includegraphics{main_files/figure-pdf/descriptive geneva-4.pdf}
+\includegraphics{main_files/figure-pdf/descriptive-4.pdf}
 
 \hypertarget{korrelationsanalyse}{%
 \subsubsection{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse}}
@@ -870,134 +818,88 @@ Diagramme)}\label{ergebnisse-statistische-ergebnisse-zahlen-diagramme}}
 \subsection{\texorpdfstring{\textbf{Deskriptive
 Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik-1}}
 
+Die deskriptive Analyse der Airbnb-Daten aus Zürich, Vaud und Genf zeigt
+signifikante Unterschiede in der Verteilung der Preise pro Person und
+der Bewertungsscores in den drei Städten.
+
+\begin{itemize}
+\item
+  \textbf{Preis pro Person}: In allen drei Städten zeigt sich eine
+  breite Preisverteilung, wobei die meisten Preise pro Person im Bereich
+  von 50 bis 150 USD liegen. Vaud weist tendenziell geringfügig
+  niedrigere Preise pro Person auf als Zürich und Genf.
+\item
+  \textbf{Bewertungen}: Die Bewertungen der Unterkünfte sind insgesamt
+  sehr hoch, meist im Bereich von 80 bis 100 Punkten. Zürich und Genf
+  zeigen ähnliche Bewertungsverteilungen, während Vaud etwas variablere
+  Bewertungen aufweist.
+\item
+  \textbf{Ausreisser und Anomalien}: Es gibt einige Ausreisser in den
+  Preisdaten, insbesondere in den höheren Preisbereichen. Diese könnten
+  auf besonders luxuriöse oder grossräumige Unterkünfte hinweisen. Die
+  Bewertungsscores zeigen weniger Ausreisser, was auf eine allgemein
+  hohe Zufriedenheit der Gäste hinweist.
+\end{itemize}
+
+\begin{verbatim}
+Preis pro Person in Zurich 
+\end{verbatim}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  12.75   42.50   56.50   68.79   80.38  676.00 
+\end{verbatim}
+
+\begin{verbatim}
+
+ Bewertung in Zurich 
+\end{verbatim}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.000   4.660   4.850   4.749   5.000   5.000 
+\end{verbatim}
+
+\begin{verbatim}
+Preis pro Person in Vaud 
+\end{verbatim}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   3.75   34.29   47.50   52.96   65.00  310.50 
+\end{verbatim}
+
+\begin{verbatim}
+
+ Bewertung in Vaud 
+\end{verbatim}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.000   4.670   4.860   4.752   5.000   5.000 
+\end{verbatim}
+
+\begin{verbatim}
+Preis pro Person in Geneva 
+\end{verbatim}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  13.75   41.50   57.00   64.46   75.50  410.00 
+\end{verbatim}
+
+\begin{verbatim}
+
+ Bewertung in Geneva 
+\end{verbatim}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    4.60    4.82    4.71    5.00    5.00 
+\end{verbatim}
+
 \hypertarget{korrelationsanalyse-1}{%
 \subsection{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse-1}}
-
-\hypertarget{zuxfcrich}{%
-\subsubsection{Zürich}\label{zuxfcrich}}
-
-\begin{itemize}
-\item
-  \textbf{Positive Korrelationen:}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{\texttt{price\_in\_usd} (0.4542):} Höherer Gesamtpreis →
-    höherer Preis pro Person.
-  \item
-    \textbf{\texttt{calculated\_host\_listings\_count\_private\_rooms}
-    (0.2536):} Mehr private Zimmer → höherer Preis pro Person.
-  \item
-    \textbf{\texttt{maximum\_maximum\_nights} (0.1956) \&
-    \texttt{maximum\_nights\_avg\_ntm} (0.1956):} Längere maximale
-    Aufenthaltsdauer → höherer Preis pro Person.
-  \item
-    \textbf{\texttt{availability\_365} (0.1922):} Ganzjährige
-    Verfügbarkeit → höherer Preis pro Person.
-  \end{itemize}
-\item
-  \textbf{Negative Korrelationen:}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{\texttt{host\_listings\_count} (-0.1772),
-    \texttt{calculated\_host\_listings\_count} (-0.1909),
-    \texttt{host\_total\_listings\_count} (-0.2006),
-    \texttt{calculated\_host\_listings\_count\_entire\_homes}
-    (-0.2063):} Mehr Listings → niedrigerer Preis pro Person.
-  \item
-    \textbf{\texttt{accommodates} (-0.2531):} Mehr Plätze/Betten →
-    niedrigerer Preis pro Person.
-  \end{itemize}
-\end{itemize}
-
-\hypertarget{vaud}{%
-\subsubsection{Vaud}\label{vaud}}
-
-\begin{itemize}
-\item
-  \textbf{Positive Korrelationen:}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{\texttt{price\_in\_usd} (0.2369):} Höherer Gesamtpreis →
-    höherer Preis pro Person.
-  \item
-    \textbf{\texttt{calculated\_host\_listings\_count\_private\_rooms}
-    (0.1654):} Mehr private Zimmer → höherer Preis pro Person.
-  \item
-    \textbf{\texttt{availability\_90} (0.1133),
-    \texttt{availability\_365} (0.0997), \texttt{availability\_30}
-    (0.0891):} Höhere Verfügbarkeit → höherer Preis pro Person.
-  \end{itemize}
-\item
-  \textbf{Negative Korrelationen:}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{\texttt{last\_review} (-0.0820):} Länger zurückliegende
-    letzte Bewertung → niedrigerer Preis pro Person.
-  \item
-    \textbf{\texttt{reviews\_per\_month} (-0.1043):} Mehr Bewertungen
-    pro Monat → niedrigerer Preis pro Person.
-  \item
-    \textbf{\texttt{longitude} (-0.1349):} Östlichere Längengrade →
-    niedrigerer Preis pro Person.
-  \item
-    \textbf{\texttt{beds} (-0.2090) \& \texttt{accommodates} (-0.3130):}
-    Mehr Betten/Plätze → niedrigerer Preis pro Person.
-  \end{itemize}
-\end{itemize}
-
-\hypertarget{geneva}{%
-\subsubsection{Geneva}\label{geneva}}
-
-\begin{itemize}
-\item
-  \textbf{Positive Korrelationen:}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{\texttt{price\_in\_usd} (0.3902):} Höherer Gesamtpreis →
-    höherer Preis pro Person.
-  \item
-    \textbf{\texttt{calculated\_host\_listings\_count\_private\_rooms}
-    (0.2662):} Mehr private Zimmer → höherer Preis pro Person.
-  \item
-    \textbf{\texttt{availability\_30} (0.2246),
-    \texttt{availability\_60} (0.2184), \texttt{availability\_90}
-    (0.1991):} Höhere Verfügbarkeit → höherer Preis pro Person.
-  \end{itemize}
-\item
-  \textbf{Negative Korrelationen:}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{\texttt{maximum\_minimum\_nights} (-0.0907):} Höhere
-    minimale Aufenthaltsdauer → niedrigerer Preis pro Person.
-  \item
-    \textbf{\texttt{number\_of\_reviews\_l30d} (-0.0957):} Mehr
-    Bewertungen in den letzten 30 Tagen → niedrigerer Preis pro Person.
-  \item
-    \textbf{\texttt{minimum\_maximum\_nights} (-0.0966):} Höhere
-    minimale maximale Aufenthaltsdauer → niedrigerer Preis pro Person.
-  \item
-    \textbf{\texttt{reviews\_per\_month} (-0.0976):} Mehr Bewertungen
-    pro Monat → niedrigerer Preis pro Person.
-  \item
-    \textbf{\texttt{accommodates} (-0.2185):} Mehr Plätze/Betten →
-    niedrigerer Preis pro Person.
-  \end{itemize}
-\end{itemize}
-
-\hypertarget{gesamtschlussfolgerungen}{%
-\subsubsection{Gesamtschlussfolgerungen}\label{gesamtschlussfolgerungen}}
 
 Die Analyse der Korrelationen von \texttt{price\_per\_person} mit
 verschiedenen Variablen in den Städten Zürich, Vaud und Geneva liefert
@@ -1077,6 +979,9 @@ beeinflussen. Hier sind die ausführlicheren Schlussfolgerungen:
 \hypertarget{lineare-regression-1}{%
 \subsection{\texorpdfstring{\textbf{Lineare
 Regression}}{Lineare Regression}}\label{lineare-regression-1}}
+
+Mithilfe der linearen Regression sollen die Hypothesen beantwortet
+werden, die wir zu Beginn aufgestellt haben.
 
 \hypertarget{bewertung-der-airbnb-unterkuxfcnfte}{%
 \subsubsection{Bewertung der
@@ -1314,9 +1219,9 @@ besser zu verstehen.
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-12-3.pdf}
 
-\hypertarget{lineare-regression-fuxfcr-zuxfcrich}{%
-\subsubsection{Lineare Regression für
-Zürich}\label{lineare-regression-fuxfcr-zuxfcrich}}
+\hypertarget{lineare-regression-fuxfcr-zuxfcrich-vaud-und-geneva}{%
+\subsubsection{Lineare Regression für Zürich, Vaud und
+Geneva}\label{lineare-regression-fuxfcr-zuxfcrich-vaud-und-geneva}}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-13-1.pdf}
 
@@ -1334,41 +1239,7 @@ Zürich}\label{lineare-regression-fuxfcr-zuxfcrich}}
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-13-8.pdf}
 
-\hypertarget{lineare-regression-fuxfcr-vaud}{%
-\subsubsection{Lineare Regression für
-Vaud}\label{lineare-regression-fuxfcr-vaud}}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-14-1.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-14-2.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-14-3.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-14-4.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-14-5.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-14-6.pdf}
-
-\hypertarget{lineare-regression-fuxfcr-geneva}{%
-\subsubsection{Lineare Regression für
-Geneva}\label{lineare-regression-fuxfcr-geneva}}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-15-1.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-15-2.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-15-3.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-15-4.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-15-5.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-15-6.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-15-7.pdf}
-
-\includegraphics{main_files/figure-pdf/unnamed-chunk-15-8.pdf}
+\includegraphics{main_files/figure-pdf/unnamed-chunk-13-9.pdf}
 
 \hypertarget{schlussfolgerung}{%
 \subsubsection{Schlussfolgerung}\label{schlussfolgerung}}
@@ -1377,15 +1248,11 @@ Die verschiedenen Grafiken und deren lineare Regressionen liefern
 interessante Einblicke in die Beziehung zwischen den untersuchten
 Variablen und dem Preis pro Person. Allerdings zeigen die Ergebnisse,
 dass viele der unabhängigen Variablen nur einen geringen Einfluss auf
-den Preis pro Person haben.
-
-Zusammenfassend lässt sich sagen, dass die meisten untersuchten
-Variablen keinen starken Einfluss auf den Preis pro Person haben. Dies
-könnte darauf hindeuten, dass andere, nicht berücksichtigte Faktoren
-eine grössere Rolle spielen oder dass die Märkte in diesen Städten
-relativ homogen sind. Weitere Untersuchungen könnten sich auf
-zusätzliche Variablen oder nicht-lineare Modelle konzentrieren, um
-potenzielle Einflussfaktoren besser zu identifizieren.
+den Preis pro Person haben. Dies könnte darauf hindeuten, dass andere,
+nicht berücksichtigte Faktoren eine grössere Rolle spielen oder dass die
+Märkte in diesen Städten relativ homogen sind. Weitere Untersuchungen
+könnten sich auf zusätzliche Variablen oder nicht-lineare Modelle
+konzentrieren, um potenzielle Einflussfaktoren besser zu identifizieren.
 
 \hypertarget{predictive-analysis-1}{%
 \subsection{Predictive Analysis}\label{predictive-analysis-1}}

@@ -331,94 +331,62 @@ Die deskriptive Statistik liefert grundlegende Informationen über die Struktur 
 
 Kurze Übersicht über die Datensets Zürich, Vaud und Geneva:
 
-```{r descriptive zurich, results = FALSE}
+```{r descriptive, results='hide'}
+
+
+# Daten kombinieren
+combined_data <- bind_rows(
+  mutate(df_zuerich_cleaned, location = "Zurich"),
+  mutate(df_vaud_cleaned, location = "Vaud"),
+  mutate(df_geneva_cleaned, location = "Geneva")
+)
+
 # Deskriptive Statistik für numerische Variablen
-summary(df_zuerich_cleaned$price_per_person)
-summary(df_zuerich_cleaned$review_scores_rating)
+summary_price <- combined_data %>%
+  group_by(location) %>%
+  summarise(mean_price = mean(price_per_person), median_price = median(price_per_person))
+
+summary_rating <- combined_data %>%
+  group_by(location) %>%
+  summarise(mean_rating = mean(review_scores_rating), median_rating = median(review_scores_rating))
+
+print(summary_price)
+print(summary_rating)
 
 # Histogramm für die Verteilung des Preises pro Person
-ggplot(df_zuerich_cleaned, aes(x = price_per_person)) +
-  geom_histogram(binwidth = 10, fill = "blue", color = "black", alpha = 0.7) +
+histogram_price <- ggplot(combined_data, aes(x = price_per_person, fill = location)) +
+  geom_histogram(binwidth = 10, color = "black", alpha = 0.7, position = "dodge") + # color = NA, um den schwarzen Rand zu entfernen
+  labs(title = "Verteilung des Preises pro Person", x = "Preis pro Person", y = "Häufigkeit") +
   theme_minimal() +
-  labs(title = "Verteilung des Preises pro Person in Zürich", x = "Preis pro Person", y = "Häufigkeit")
-
-# Boxplot für den Preis pro Person
-ggplot(df_zuerich_cleaned, aes(y = price_per_person)) +
-  geom_boxplot(fill = "orange", color = "black", alpha = 0.7) +
-  theme_minimal() +
-  labs(title = "Boxplot des Preises pro Person in Zürich", y = "Preis pro Person")
+  facet_wrap(~location) +
+  xlim(0, 300)  # Begrenzung der x-Achse auf maximal 300
 
 # Histogramm für die Verteilung der Bewertung
-ggplot(df_zuerich_cleaned, aes(x = review_scores_rating)) +
-  geom_histogram(binwidth = 1, fill = "green", color = "black", alpha = 0.7) +
+histogram_rating <- ggplot(combined_data, aes(x = review_scores_rating, fill = location)) +
+  geom_histogram(binwidth = 1, color = "black", alpha = 0.7, position = "dodge") +
+  labs(title = "Verteilung der Bewertung", x = "Bewertung", y = "Häufigkeit") +
   theme_minimal() +
-  labs(title = "Verteilung der Bewertung in Zürich", x = "Bewertung", y = "Häufigkeit")
-
-# Boxplot für die Bewertung
-ggplot(df_zuerich_cleaned, aes(y = review_scores_rating)) +
-  geom_boxplot(fill = "purple", color = "black", alpha = 0.7) +
-  theme_minimal() +
-  labs(title = "Boxplot der Bewertung in Zürich", y = "Bewertung")
-```
-
-```{r descriptive vaud, results = FALSE}
-# Deskriptive Statistik für numerische Variablen
-summary(df_vaud_cleaned$price_per_person)
-summary(df_vaud_cleaned$review_scores_rating)
-
-# Histogramm für die Verteilung des Preises pro Person
-ggplot(df_vaud_cleaned, aes(x = price_per_person)) +
-  geom_histogram(binwidth = 10, fill = "blue", color = "black", alpha = 0.7) +
-  theme_minimal() +
-  labs(title = "Verteilung des Preises pro Person in Vaud", x = "Preis pro Person", y = "Häufigkeit")
+  facet_wrap(~location)
 
 # Boxplot für den Preis pro Person
-ggplot(df_vaud_cleaned, aes(y = price_per_person)) +
-  geom_boxplot(fill = "orange", color = "black", alpha = 0.7) +
+boxplot_price <- ggplot(combined_data, aes(x = location, y = price_per_person, fill = location)) +
+  geom_boxplot() +
+  labs(title = "Boxplot des Preises pro Person", x = "Ortschaft", y = "Preis pro Person") +
   theme_minimal() +
-  labs(title = "Boxplot des Preises pro Person in Vaud", y = "Preis pro Person")
-
-# Histogramm für die Verteilung der Bewertung
-ggplot(df_vaud_cleaned, aes(x = review_scores_rating)) +
-  geom_histogram(binwidth = 1, fill = "green", color = "black", alpha = 0.7) +
-  theme_minimal() +
-  labs(title = "Verteilung der Bewertung in Vaud", x = "Bewertung", y = "Häufigkeit")
+  ylim(0, 500)
 
 # Boxplot für die Bewertung
-ggplot(df_vaud_cleaned, aes(y = review_scores_rating)) +
-  geom_boxplot(fill = "purple", color = "black", alpha = 0.7) +
+boxplot_rating <- ggplot(combined_data, aes(x = location, y = review_scores_rating, fill = location)) +
+  geom_boxplot() +
+  labs(title = "Boxplot der Bewertung", x = "Ortschaft", y = "Bewertung") +
   theme_minimal() +
-  labs(title = "Boxplot der Bewertung in Vaud", y = "Bewertung")
-```
+  ylim(2, 5)
 
-```{r descriptive geneva, results = FALSE}
-# Deskriptive Statistik für numerische Variablen
-summary(df_geneva_cleaned$price_per_person)
-summary(df_geneva_cleaned$review_scores_rating)
-
-# Histogramm für die Verteilung des Preises pro Person
-ggplot(df_geneva_cleaned, aes(x = price_per_person)) +
-  geom_histogram(binwidth = 10, fill = "blue", color = "black", alpha = 0.7) +
-  theme_minimal() +
-  labs(title = "Verteilung des Preises pro Person in Geneva", x = "Preis pro Person", y = "Häufigkeit")
-
-# Boxplot für den Preis pro Person
-ggplot(df_geneva_cleaned, aes(y = price_per_person)) +
-  geom_boxplot(fill = "orange", color = "black", alpha = 0.7) +
-  theme_minimal() +
-  labs(title = "Boxplot des Preises pro Person in Geneva", y = "Preis pro Person")
-
-# Histogramm für die Verteilung der Bewertung
-ggplot(df_geneva_cleaned, aes(x = review_scores_rating)) +
-  geom_histogram(binwidth = 1, fill = "green", color = "black", alpha = 0.7) +
-  theme_minimal() +
-  labs(title = "Verteilung der Bewertung in Geneva", x = "Bewertung", y = "Häufigkeit")
-
-# Boxplot für die Bewertung
-ggplot(df_zuerich_cleaned, aes(y = review_scores_rating)) +
-  geom_boxplot(fill = "purple", color = "black", alpha = 0.7) +
-  theme_minimal() +
-  labs(title = "Boxplot der Bewertung in Geneva", y = "Bewertung")
+# Anzeigen der Grafiken
+print(histogram_price)
+print(histogram_rating)
+print(boxplot_price)
+print(boxplot_rating)
 ```
 
 ### **Korrelationsanalyse**
