@@ -2,7 +2,7 @@
 title: "Optimierung der Preisstrategien bei Airbnb: Eine Analyse zur Maximierung der Einnahmen"
 subtitle: "Eine datengetriebene Untersuchung der Faktoren, die zu höheren Buchungspreisen führen"
 author: "Cedric Gisler & Jovan Pajic"
-date: "`r format(Sys.Date(), '%B %d, %Y')`"
+date: "31.05.2024"
 execute:
   error: true
   echo: false
@@ -17,9 +17,6 @@ bibliography: references.bib
 ```{=html}
 <!--
 
-Bei allen 3 regionen correlation matrix der Variablen vergleichen -\> Die mit einer Correlation filtern
-
-Dozent fragen ob 2 oder 3 Methoden (Descriptive, Predictive, Prescriptive) umgesetzt werden muss
 
 Eda beschreibe welche für uns relevant sind und erfrosche diese daten. Methode von eda durchführen
 
@@ -107,6 +104,8 @@ Comprises the data set a resonable amount of observations to answer the BI quest
 Bring the additional data set new information to the basic data set? \[1pt\] -\> Yes
 
 Are all data set accessible linked in documentation? \[0.5pt\] -\> Yes
+
+
 -->
 ```
 Die Daten für diese Analyse stammen von der Inside Airbnb Organisation [@inside-airbnb-2023], die sich dafür einsetzt, ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen auf der Airbnb-Website stammen. Diese Datensätze würden wir als Vertrauenswürdig einstufen.
@@ -153,7 +152,8 @@ library(tidyverse)
 library(broom)
 library(caret)
 library(randomForest)
-library(summarytools)
+library(knitr)
+library(corrplot)
 ```
 
 ```{r import}
@@ -170,7 +170,7 @@ df_geneva <- read_csv(here::here("dataSource/Geneva/listings_long.csv/listings.c
 #summary(df_zuerich)
 ```
 
-Nachdem wir die Zusammenfassung der Daten betrachtet und eine detaillierte Analyse der Dataframes durchgeführt haben, haben wir die folgenden Datenanpassungen vorgenommen:
+Nachdem wir die Zusammenfassung der Daten betrachtet und eine Analyse der Datensätze durchgeführt haben, haben wir die folgenden Datenanpassungen vorgenommen:
 
 1.  Konvertiere **`host_response_rate`** von Zeichenfolge (chr) in Ganzzahl (integer), wobei "N/A" durch NA ersetzt wird. Entferne das Prozentzeichen (%) und benenne die Spalte in **`host_response_rate_in_%`** um.
 
@@ -220,7 +220,7 @@ df_vaud_cleanead <- df_vaud %>%
          host_acceptance_rate_in_percent = as.integer(gsub("%", "", na_if(host_acceptance_rate, "N/A"))),
          price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), "N/A"))
          ) %>%
-  #filter(!is.na(price_in_usd)) %>%
+  filter(!is.na(price_in_usd)) %>%
   select(-description, 
          -neighborhood_overview, 
          -host_location, 
@@ -251,7 +251,7 @@ df_geneva_cleanead <- df_geneva %>%
          host_acceptance_rate_in_percent = as.integer(gsub("%", "", na_if(host_acceptance_rate, "N/A"))),
          price_in_usd = as.numeric(ifelse(grepl("\\$[0-9.]+", price), gsub("\\$", "", price), "N/A"))
          ) %>%
-  #filter(!is.na(price_in_usd)) %>%
+  filter(!is.na(price_in_usd)) %>%
   select(-description, 
          -neighborhood_overview, 
          -host_location, 
@@ -279,68 +279,75 @@ df_geneva_cleanead <- df_geneva_cleanead %>%
 colnames(df_zuerich_cleanead)
 ```
 
-Um die Daten nach der Bereinigung zu überprüfen und einen Überblick zu erhalten, führen wir eine standardmässige Datenanalysen durch am Beispiel **`df_zuerich_cleanead`** .
+Nach diesen Anpassungen haben wir die Daten weiter analysiert und die folgenden Schritte durchgeführt:
+
+1.  **Überprüfung auf Duplikate:** Es wurde überprüft, ob es doppelte **`id`**s in den Daten gibt.
+
+2.  **Visualisierung der Verteilungen:** Es wurden Histogramme erstellt, um die Verteilungen der Preise, der Bewertungsscores und der Bewertungen pro Monat zu visualisieren.
+
+3.  **Analyse von Anomalien und Ausreissern:** Da der Preis stark variiert, analysieren wir die Möglichkeit, den Preis pro Person zu berechnen. Dabei fällt auf, dass der Preis bei "Entire home/apt" für die maximale Anzahl der Gäste (**`accommodates`**) berechnet wird, was sinnvoll ist, da die gesamte Unterkunft gebucht wird. Bei "Private room" und "Shared room" hingegen wird der Preis mehrheitlich pro Person angegeben. Im Gegensatz dazu ist der Preis bei "Hotel room" wieder für die maximale Gästeanzahl festgelegt.
+
+4.  **Export der Datensätze:** Die drei bereinigten Datensätze wurden in neuen Dateien erstellt und abgespeichert.
 
 ```{r eda}
 
-# Check for duplicates by id
 duplicated_ids <- df_zuerich_cleanead %>% 
   group_by(id)  %>% 
   filter(n() > 1)
 
-# Visualize the distributions
 ggplot(df_zuerich_cleanead, aes(x = price_in_usd)) +
-  geom_histogram(binwidth = 50, fill = "skyblue", color = "black") +
-  labs(title = "Distribution of Price in USD")
+  geom_histogram(binwidth = 10, fill = "skyblue", color = "black") +
+  labs(title = "Verteilung des Preises in USD")
 
 ggplot(df_zuerich_cleanead, aes(x = review_scores_rating)) +
   geom_histogram(binwidth = 0.25, fill = "lightgreen", color = "black") +
-  labs(title = "Distribution of Review Scores Rating")
+  labs(title = "Verteilung der Bewertung")
 
 ggplot(df_zuerich_cleanead, aes(x = reviews_per_month)) +
-  geom_histogram(binwidth = 0.5, fill = "orange", color = "black") +
-  labs(title = "Distribution of Reviews per Month")
+  geom_histogram(binwidth = 1, fill = "orange", color = "black") +
+  labs(title = "Verteilung von anzahl Bewertung pro Monat")
 
 
 ```
 
-## Beschreibe Eda Prozess!
-
-Anomalie und Ausreisser analysieren und filtern
-
-Da der Preis stark variiert, analysieren wir die Möglichkeit, den Preis pro Person zu berechnen. Dabei fällt auf, dass der Preis bei "Entire home/apt" für die maximale Anzahl der Gäste (**`accommodates`**) berechnet wird, was sinnvoll ist, da die gesamte Unterkunft gebucht wird. Bei "Private room" und "Shared room" hingegen wird der Preis mehrheitlich pro Person angegeben. Im Gegensatz dazu ist der Preis bei "Hotel room" wieder für die maximale Gästeanzahl festgelegt.
-
-````{=html}
-<!--
 ```{r}
 df_zuerich %>%
   group_by(room_type) %>%
   summarise(count = n()) %>%
-  arrange(desc(count))
+  arrange(desc(count)) %>%
+  print()
 ```
--->
-````
 
 ```{r price_per_person}
 df_geneva_cleanead <- df_geneva_cleanead %>%
   mutate(price_per_person = ifelse(room_type %in% c("Entire home/apt", "Hotel room"), 
                                    price_in_usd / accommodates, 
                                    price_in_usd)) %>%
+  select(-price_in_usd) %>%
   na.omit()
 
 df_zuerich_cleanead <- df_zuerich_cleanead %>%
   mutate(price_per_person = ifelse(room_type %in% c("Entire home/apt", "Hotel room"), 
                                    price_in_usd / accommodates, 
                                    price_in_usd)) %>%
+  select(-price_in_usd) %>%
   na.omit()
 
 df_vaud_cleanead <- df_vaud_cleanead %>%
   mutate(price_per_person = ifelse(room_type %in% c("Entire home/apt", "Hotel room"), 
                                    price_in_usd / accommodates, 
                                    price_in_usd)) %>%
+  select(-price_in_usd) %>%
   na.omit()
-
 ```
+
+```{r eda price_per_person}
+ggplot(df_zuerich_cleanead, aes(x = price_per_person)) +
+  geom_histogram(binwidth = 10, fill = "yellow", color = "black") +
+  labs(title = "Verteilung des Preises pro person in USD")
+```
+
+Die analysierten Werte zeigen eine ausgeglichene Verteilung ohne signifikante Ausreisser oder extreme Werte. Dies deutet darauf hin, dass der Datenbereinigungsprozess effektiv war und die Daten konsistent und zuverlässig für weitere Analysen vorliegen.
 
 ```{r, results = FALSE}
 sum(is.na(df_zuerich_cleanead))
@@ -383,16 +390,25 @@ Die vorliegenden bereinigten Datensets besteht aus Informationen zu Airbnb-Unter
 
 -   **Verfügbarkeitsdaten:** `availability_30`, `availability_60`, `availability_90`, `availability_365`.
 
-```{r}
-dfSummary(df_zuerich_cleanead)
-```
+**Zusammenfassung Preis pro Person und Bewertung Zürich**
 
 ```{r}
-dfSummary(df_vaud_cleanead)
+summary(df_zuerich_cleanead$price_per_person)
+summary(df_zuerich_cleanead$review_scores_rating)
 ```
 
+**Zusammenfassung Preis pro Person und Bewertung Vaud**
+
 ```{r}
-dfSummary(df_geneva_cleanead)
+summary(df_vaud_cleanead$price_per_person)
+summary(df_vaud_cleanead$review_scores_rating)
+```
+
+**Zusammenfassung Preis pro Person und Bewertung Genf**
+
+```{r}
+summary(df_geneva_cleanead$price_per_person)
+summary(df_geneva_cleanead$review_scores_rating)
 ```
 
 ### Methoden der Datenanalyse
@@ -407,9 +423,9 @@ Die deskriptive Statistik liefert grundlegende Informationen über die Struktur 
 
 -   **Massnahmen:** Berechnung von Mittelwerten, Mediane, Standardabweichungen und Visualisierung der Datenverteilung durch Histogramme und Boxplots.
 
-Kurze Übersicht über die Datensets Zürich, Vaud und Gemeva
+Kurze Übersicht über die Datensets Zürich, Vaud und Geneva
 
-```{r}
+```{r descriptive zurich, results = FALSE}
 # Deskriptive Statistik für numerische Variablen
 summary(df_zuerich_cleanead$price_per_person)
 summary(df_zuerich_cleanead$review_scores_rating)
@@ -439,7 +455,7 @@ ggplot(df_zuerich_cleanead, aes(y = review_scores_rating)) +
   labs(title = "Boxplot der Bewertung in Zürich", y = "Bewertung")
 ```
 
-```{r}
+```{r descriptive vaud, results = FALSE}
 # Deskriptive Statistik für numerische Variablen
 summary(df_vaud_cleanead$price_per_person)
 summary(df_vaud_cleanead$review_scores_rating)
@@ -469,7 +485,7 @@ ggplot(df_vaud_cleanead, aes(y = review_scores_rating)) +
   labs(title = "Boxplot der Bewertung in Vaud", y = "Bewertung")
 ```
 
-```{r}
+```{r descriptive geneva, results = FALSE}
 # Deskriptive Statistik für numerische Variablen
 summary(df_geneva_cleanead$price_per_person)
 summary(df_geneva_cleanead$review_scores_rating)
@@ -507,7 +523,7 @@ Die Korrelationsanalyse untersucht die Stärke und Richtung der Beziehung zwisch
 
 -   **Massnahmen:** Berechnung von Korrelationskoeffizienten und Erstellung von Korrelationsmatrizen.
 
-```{r}
+```{r correlation, warning=FALSE}
 calculate_correlations <- function(data) {
   # Filter für die jeweilige Stadt
   
@@ -540,11 +556,18 @@ calculate_correlations <- function(data) {
   # Ausgabe der Ergebnisse
   return(result)
 }
+
+```
+
+```{r, results='hide'}
 #Korrelation für Zuerich
+print("Zuerich Korrelation:")
 print(calculate_correlations(df_zuerich_cleanead))
 #Korrelation für Vaud
+print("Vaud Korrelation:")
 print(calculate_correlations(df_vaud_cleanead))
 #Korrelation für Geneva
+print("Genf Korrelation:")
 print(calculate_correlations(df_geneva_cleanead))
 ```
 
