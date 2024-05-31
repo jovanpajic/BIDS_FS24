@@ -36,17 +36,7 @@ Hide plots: fig.show='hide'
 ```
 # 1. Abstrakt
 
-```{=html}
-<!--
-
-Document Abstract \[1pt\]
-
--   Does it provide a comprehensible glipse of the project? \[0.5pt\]
-
--   Is the outcome teased? \[0.5pt\]
--->
-```
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+In der heutigen dynamischen Welt des Online-Tourismus ist Airbnb eine zentrale Plattform für die Buchung von Unterkünften. Diese Arbeit untersucht die Faktoren, die den Preis pro Person einer Airbnb-Unterkunft beeinflussen, um Gastgebern datenbasierte Empfehlungen zur Optimierung ihrer Preisstrategien zu geben. Mithilfe von deskriptiver Statistik, Korrelationsanalysen und linearen Regressionsmodellen analysieren wir die Daten von Airbnb-Unterkünften in Zürich, Vaud und Genf. Die Ergebnisse zeigen, dass die Sauberkeitsbewertung der Unterkünfte, die Anzahl der Listings eines Hosts sowie die Verfügbarkeit wesentliche Einflussfaktoren sind. Basierend auf diesen Erkenntnissen entwickeln wir prädiktive Modelle zur Vorhersage des Preises pro Person. Unsere Analyse bietet Einblicke für Gastgeber, die ihre Preisstrategien verbessern und ihre Einnahmen maximieren möchten.
 
 # 2. Einleitung (mit Forschungsfrage (d.h. Geschäftsfrage) am Ende)
 
