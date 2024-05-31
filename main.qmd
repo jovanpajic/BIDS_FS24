@@ -351,27 +351,6 @@ Die vorliegenden bereinigten Datensets besteht aus Informationen zu Airbnb-Unter
 
 -   **Verfügbarkeitsdaten:** `availability_30`, `availability_60`, `availability_90`, `availability_365`.
 
-**Zusammenfassung Preis pro Person und Bewertung Zürich**
-
-```{r}
-summary(df_zuerich_cleaned$price_per_person)
-summary(df_zuerich_cleaned$review_scores_rating)
-```
-
-**Zusammenfassung Preis pro Person und Bewertung Vaud**
-
-```{r}
-summary(df_vaud_cleaned$price_per_person)
-summary(df_vaud_cleaned$review_scores_rating)
-```
-
-**Zusammenfassung Preis pro Person und Bewertung Genf**
-
-```{r}
-summary(df_geneva_cleaned$price_per_person)
-summary(df_geneva_cleaned$review_scores_rating)
-```
-
 ## Methoden der Datenanalyse
 
 Um die Forschungsfragen zu beantworten und die Hypothesen zu testen, wurden verschiedene statistische Methoden und Verfahren angewendet:
@@ -664,7 +643,7 @@ Die Modellbewertung zeigt folgende Ergebnisse:
 
 -   **MAE: 8.352074** – Der mittlere absolute Fehler beträgt 8.35 USD, was ebenfalls auf geringe Abweichungen hinweist.
 
--   **R²: 0.7960764** – Ein R²-Wert von 0.80 deutet darauf hin, dass das Modell die Variation des Preises pro Person gut erklärt und einen großen Teil der Variabilität im Preis vorhersagen kann.
+-   **R²: 0.7960764** – Ein R²-Wert von 0.80 deutet darauf hin, dass das Modell die Variation des Preises pro Person gut erklärt und einen grossen Teil der Variabilität im Preis vorhersagen kann.
 
 Die Merkmalswichtigkeit zeigt, dass der Preis in USD (IncNodePurity = 1279516.0) der wichtigste Prädiktor ist, gefolgt von der Anzahl der privaten Zimmer in den Angeboten des Gastgebers (IncNodePurity = 416287.9) und der Anzahl der Personen, die die Unterkunft aufnehmen kann (IncNodePurity = 420585.7). Andere wichtige Merkmale sind die Verfügbarkeit über 365 Tage (IncNodePurity = 321470.4), die Gesamtanzahl der Angebote des Gastgebers (IncNodePurity = 234611.4), und die durchschnittliche maximale Aufenthaltsdauer (IncNodePurity = 188941.3). Dies zeigt, dass der Preis in USD, die Anzahl der privaten Zimmer, die Kapazität der Unterkunft und die Verfügbarkeit wesentliche Faktoren bei der Preisgestaltung sind.
 
@@ -702,7 +681,7 @@ Die Modellbewertung zeigt folgende Ergebnisse:
 
 -   **MAE: 6.181381** – Der mittlere absolute Fehler beträgt 6.18 USD, was ebenfalls auf geringe Abweichungen hinweist.
 
--   **R²: 0.7177398** – Ein R²-Wert von 0.72 deutet darauf hin, dass das Modell die Variation des Preises pro Person gut erklärt und einen großen Teil der Variabilität im Preis vorhersagen kann.
+-   **R²: 0.7177398** – Ein R²-Wert von 0.72 deutet darauf hin, dass das Modell die Variation des Preises pro Person gut erklärt und einen grossen Teil der Variabilität im Preis vorhersagen kann.
 
 Die Merkmalswichtigkeit zeigt, dass der Preis in USD (IncNodePurity = 671102.83) der wichtigste Prädiktor ist, gefolgt von der Anzahl der privaten Zimmer in den Angeboten des Gastgebers (IncNodePurity = 231015.26) und der Kapazität der Unterkunft (IncNodePurity = 315227.40). Andere wichtige Merkmale sind die Verfügbarkeit über 90 Tage (IncNodePurity = 125946.08), die geographische Länge (IncNodePurity = 176045.99) und die Anzahl der Betten (IncNodePurity = 95966.35). Dies zeigt, dass der Preis in USD, die Anzahl der privaten Zimmer, die Kapazität der Unterkunft und die Verfügbarkeit wesentliche Faktoren bei der Preisgestaltung sind.
 
@@ -760,7 +739,38 @@ Conclusion \[3pt\]
 ```
 ## **Deskriptive Statistik**
 
+Die deskriptive Analyse der Airbnb-Daten aus Zürich, Vaud und Genf zeigt signifikante Unterschiede in der Verteilung der Preise pro Person und der Bewertungsscores in den drei Städten.
+
+-   **Preis pro Person**: In allen drei Städten zeigt sich eine breite Preisverteilung, wobei die meisten Preise pro Person im Bereich von 50 bis 150 USD liegen. Vaud weist tendenziell geringfügig niedrigere Preise pro Person auf als Zürich und Genf.
+
+-   **Bewertungen**: Die Bewertungen der Unterkünfte sind insgesamt sehr hoch, meist im Bereich von 80 bis 100 Punkten. Zürich und Genf zeigen ähnliche Bewertungsverteilungen, während Vaud etwas variablere Bewertungen aufweist.
+
+-   **Ausreisser und Anomalien**: Es gibt einige Ausreisser in den Preisdaten, insbesondere in den höheren Preisbereichen. Diese könnten auf besonders luxuriöse oder grossräumige Unterkünfte hinweisen. Die Bewertungsscores zeigen weniger Ausreisser, was auf eine allgemein hohe Zufriedenheit der Gäste hinweist.
+
+```{r}
+cat("Preis pro Person in Zurich \n")
+summary(df_zuerich_cleaned$price_per_person)
+cat("\n Bewertung in Zurich \n")
+summary(df_zuerich_cleaned$review_scores_rating)
+```
+
+```{r}
+cat("Preis pro Person in Vaud \n")
+summary(df_vaud_cleaned$price_per_person)
+cat("\n Bewertung in Vaud \n")
+summary(df_vaud_cleaned$review_scores_rating)
+```
+
+```{r}
+cat("Preis pro Person in Geneva \n")
+summary(df_geneva_cleaned$price_per_person) 
+cat("\n Bewertung in Geneva \n")
+summary(df_geneva_cleaned$review_scores_rating)
+```
+
 ## **Korrelationsanalyse**
+
+Anschliessend zeigen wir die verschiedenen Korrelationen auf, die zum Preis pro Person bestehen. Diese Analyse hilft dabei, die Attribute zu identifizieren, die besonders beachtet werden müssen.
 
 ### Zürich
 
@@ -828,6 +838,8 @@ Die Analyse der Korrelationen von `price_per_person` mit verschiedenen Variablen
 -   **Geografische Koordinaten (`longitude`, `latitude`)**: In Vaud zeigt der Längengrad eine signifikante negative Korrelation mit dem Preis pro Person, was auf eine geografische Preisstruktur hindeuten könnte. Dies könnte bedeuten, dass östlichere Lagen tendenziell günstiger sind. In Zürich und Geneva sind die geografischen Koordinaten nicht signifikant.
 
 ## **Lineare Regression**
+
+Mithilfe der linearen Regression sollen die Hypothesen beantwortet werden, die wir zu Beginn aufgestellt haben.
 
 ### Bewertung der Airbnb-Unterkünfte
 
@@ -1062,9 +1074,7 @@ print(plot_geneva_latitude)
 
 ### Schlussfolgerung
 
-Die verschiedenen Grafiken und deren lineare Regressionen liefern interessante Einblicke in die Beziehung zwischen den untersuchten Variablen und dem Preis pro Person. Allerdings zeigen die Ergebnisse, dass viele der unabhängigen Variablen nur einen geringen Einfluss auf den Preis pro Person haben.
-
-Zusammenfassend lässt sich sagen, dass die meisten untersuchten Variablen keinen starken Einfluss auf den Preis pro Person haben. Dies könnte darauf hindeuten, dass andere, nicht berücksichtigte Faktoren eine grössere Rolle spielen oder dass die Märkte in diesen Städten relativ homogen sind. Weitere Untersuchungen könnten sich auf zusätzliche Variablen oder nicht-lineare Modelle konzentrieren, um potenzielle Einflussfaktoren besser zu identifizieren.
+Die verschiedenen Grafiken und deren lineare Regressionen liefern interessante Einblicke in die Beziehung zwischen den untersuchten Variablen und dem Preis pro Person. Allerdings zeigen die Ergebnisse, dass viele der unabhängigen Variablen nur einen geringen Einfluss auf den Preis pro Person haben. Dies könnte darauf hindeuten, dass andere, nicht berücksichtigte Faktoren eine grössere Rolle spielen oder dass die Märkte in diesen Städten relativ homogen sind. Weitere Untersuchungen könnten sich auf zusätzliche Variablen oder nicht-lineare Modelle konzentrieren, um potenzielle Einflussfaktoren besser zu identifizieren.
 
 ## Predictive Analysis
 
@@ -1130,7 +1140,7 @@ Die geografische Analyse zeigte, dass in Vaud der Längengrad (longitude) einen 
 
 Die prädiktive Analyse hat gezeigt, dass die entwickelten Modelle für Zürich und Vaud recht genaue Vorhersagen des Preises pro Person einer Unterkunft liefern. Die wichtigsten Prädiktoren in diesen Regionen sind der Preis in USD, die Anzahl der privaten Zimmer und die Kapazität der Unterkunft. Diese Faktoren spielen eine entscheidende Rolle bei der Preisgestaltung.
 
-Das Modell für Genf hingegen weist eine geringere Genauigkeit auf, was auf größere Abweichungen zwischen den vorhergesagten und tatsächlichen Preisen hinweist. Dies deutet darauf hin, dass zusätzliche oder andere relevante Variablen identifiziert und in das Modell integriert werden müssen, um die Vorhersagegenauigkeit zu verbessern.
+Das Modell für Genf hingegen weist eine geringere Genauigkeit auf, was auf grössere Abweichungen zwischen den vorhergesagten und tatsächlichen Preisen hinweist. Dies deutet darauf hin, dass zusätzliche oder andere relevante Variablen identifiziert und in das Modell integriert werden müssen, um die Vorhersagegenauigkeit zu verbessern.
 
 Zusammenfassend lässt sich sagen, dass die Modelle für Zürich und Vaud vielversprechend sind, während das Modell für Genf noch Verbesserungspotenzial hat. Zukünftige Analysen sollten sich darauf konzentrieren, die prädiktiven Variablen für Genf weiter zu untersuchen und zu optimieren.
 
