@@ -405,7 +405,7 @@ Die deskriptive Statistik liefert grundlegende Informationen über die Struktur 
 
 -   **Ziel:** Ein grundlegendes Verständnis der Datenstruktur und Verteilung der Variablen zu erlangen.
 
--   **Massnahmen:** Berechnung von Mittelwerten, Mediane, Standardabweichungen und Visualisierung der Datenverteilung durch Histogramme und Boxplots.
+-   **Massnahmen:** Die verschiedenen Statistiken und die verschiedenen Attribute aufzeigen. Berechnung von Mittelwerten, Medianen und Standardabweichungen. Einfache Visualisierung der für die Fragen wichtigsten Attribute.
 
 Kurze Übersicht über die Datensets Zürich, Vaud und Gemeva
 
@@ -505,7 +505,7 @@ Die Korrelationsanalyse untersucht die Stärke und Richtung der Beziehung zwisch
 
 -   **Ziel:** Identifikation von Zusammenhängen zwischen den Variablen, insbesondere zwischen den Bewertungen, Host-Informationen, geografischen Daten und dem Preis pro Person.
 
--   **Massnahmen:** Berechnung von Korrelationskoeffizienten und Erstellung von Korrelationsmatrizen.
+-   **Massnahmen:** Korrelationskoeffizienten berechnen und die Top 5 der positiven und negativen Korrelationen angeben.
 
 ```{r}
 calculate_correlations <- function(data) {
@@ -605,7 +605,7 @@ Visualisierungen sind ein wesentliches Werkzeug, um Datenmuster und Zusammenhän
 
 -   **Ziel:** Verständliche Darstellung der Ergebnisse und Identifikation von Mustern in den Daten.
 
--   **Massnahmen:** Erstellung von Scatterplots, Boxplots, Barplots und Heatmaps zur Visualisierung der Beziehungen zwischen den Variablen.
+-   **Massnahmen:** Erstellung von Scatterplots, Boxplots und Aufzeigen der Regressionen zur Visualisierung der Beziehungen zwischen den Variablen.
 
 ```{r}
 # Funktion zur Berechnung der Korrelationen

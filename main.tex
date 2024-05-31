@@ -3013,8 +3013,8 @@ IQR (CV) : 34 (0.6) \textbar366 distinct values \textbar{} \textbar. :\\
 Um die Forschungsfragen zu beantworten und die Hypothesen zu testen,
 wurden verschiedene statistische Methoden und Verfahren angewendet:
 
-\subsubsection{\texorpdfstring{1. \textbf{Deskriptive
-Statistik}}{1. Deskriptive Statistik}}\label{deskriptive-statistik}
+\subsubsection{\texorpdfstring{\textbf{Deskriptive
+Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik}
 
 Die deskriptive Statistik liefert grundlegende Informationen über die
 Struktur und Verteilung der Daten. Ziel ist es, einen Überblick über die
@@ -3087,8 +3087,7 @@ Kurze Übersicht über die Datensets Zürich, Vaud und Gemeva
 
 \includegraphics{main_files/figure-pdf/unnamed-chunk-10-4.pdf}
 
-\subsubsection{\texorpdfstring{2.
-\textbf{Korrelationsanalyse}}{2. Korrelationsanalyse}}\label{korrelationsanalyse}
+\subsubsection{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse}
 
 Die Korrelationsanalyse untersucht die Stärke und Richtung der Beziehung
 zwischen verschiedenen numerischen Variablen.
@@ -3105,8 +3104,83 @@ quantifizieren, wie stark zwei Variablen miteinander variieren.
   Erstellung von Korrelationsmatrizen.
 \end{itemize}
 
-\subsubsection{\texorpdfstring{3. \textbf{Lineare
-Regression}}{3. Lineare Regression}}\label{lineare-regression}
+\begin{verbatim}
+                                                                                 Variable
+price_in_usd                                                                 price_in_usd
+calculated_host_listings_count_private_rooms calculated_host_listings_count_private_rooms
+maximum_maximum_nights                                             maximum_maximum_nights
+maximum_nights_avg_ntm                                             maximum_nights_avg_ntm
+availability_365                                                         availability_365
+host_listings_count                                                   host_listings_count
+calculated_host_listings_count                             calculated_host_listings_count
+host_total_listings_count                                       host_total_listings_count
+calculated_host_listings_count_entire_homes   calculated_host_listings_count_entire_homes
+accommodates                                                                 accommodates
+                                             Correlation
+price_in_usd                                   0.4542442
+calculated_host_listings_count_private_rooms   0.2535651
+maximum_maximum_nights                         0.1956353
+maximum_nights_avg_ntm                         0.1956247
+availability_365                               0.1921820
+host_listings_count                           -0.1772248
+calculated_host_listings_count                -0.1908500
+host_total_listings_count                     -0.2005601
+calculated_host_listings_count_entire_homes   -0.2062654
+accommodates                                  -0.2531237
+\end{verbatim}
+
+\begin{verbatim}
+                                                                                 Variable
+price_in_usd                                                                 price_in_usd
+calculated_host_listings_count_private_rooms calculated_host_listings_count_private_rooms
+availability_90                                                           availability_90
+availability_365                                                         availability_365
+availability_30                                                           availability_30
+last_review                                                                   last_review
+reviews_per_month                                                       reviews_per_month
+longitude                                                                       longitude
+beds                                                                                 beds
+accommodates                                                                 accommodates
+                                             Correlation
+price_in_usd                                  0.23693392
+calculated_host_listings_count_private_rooms  0.16544766
+availability_90                               0.11326407
+availability_365                              0.09965564
+availability_30                               0.08908862
+last_review                                  -0.08200293
+reviews_per_month                            -0.10425461
+longitude                                    -0.13489130
+beds                                         -0.20903491
+accommodates                                 -0.31302499
+\end{verbatim}
+
+\begin{verbatim}
+                                                                                 Variable
+price_in_usd                                                                 price_in_usd
+calculated_host_listings_count_private_rooms calculated_host_listings_count_private_rooms
+availability_30                                                           availability_30
+availability_60                                                           availability_60
+availability_90                                                           availability_90
+maximum_minimum_nights                                             maximum_minimum_nights
+number_of_reviews_l30d                                             number_of_reviews_l30d
+minimum_maximum_nights                                             minimum_maximum_nights
+reviews_per_month                                                       reviews_per_month
+accommodates                                                                 accommodates
+                                             Correlation
+price_in_usd                                  0.39023328
+calculated_host_listings_count_private_rooms  0.26617718
+availability_30                               0.22458686
+availability_60                               0.21839815
+availability_90                               0.19910964
+maximum_minimum_nights                       -0.09071858
+number_of_reviews_l30d                       -0.09567412
+minimum_maximum_nights                       -0.09659685
+reviews_per_month                            -0.09755197
+accommodates                                 -0.21850008
+\end{verbatim}
+
+\subsubsection{\texorpdfstring{\textbf{Lineare
+Regression}}{Lineare Regression}}\label{lineare-regression}
 
 Die lineare Regression wurde verwendet, um die Beziehung zwischen einer
 abhängigen Variable (Preis pro Person) und einer oder mehreren
@@ -3327,8 +3401,7 @@ Multiple R-squared:  0.0007315, Adjusted R-squared:  -0.000672
 F-statistic: 0.5212 on 2 and 1424 DF,  p-value: 0.5939
 \end{verbatim}
 
-\subsubsection{\texorpdfstring{4.
-\textbf{Visualisierung}}{4. Visualisierung}}\label{visualisierung}
+\subsubsection{\texorpdfstring{\textbf{Visualisierung}}{Visualisierung}}\label{visualisierung}
 
 Visualisierungen sind ein wesentliches Werkzeug, um Datenmuster und
 Zusammenhänge intuitiv darzustellen und zu verstehen. Verschiedene Arten
@@ -3346,14 +3419,14 @@ visualisieren.
   Variablen.
 \end{itemize}
 
-\subsubsection{5. Predictive Analysis}\label{predictive-analysis}
+\subsubsection{Predictive Analysis}\label{predictive-analysis}
 
 Zusätzlich zu den deskriptiven und inferenziellen Analysen wurde eine
 prädiktive Analyse durchgeführt, um den Preis pro Person basierend auf
 den verfügbaren Merkmalen vorherzusagen. Hierfür wurde ein
 Regressionsmodell mit mehreren Prädiktoren erstellt und evaluiert.
 
-\subsubsection{5.1 Datenvorbereitung}\label{datenvorbereitung}
+\subsubsection{Datenvorbereitung}\label{datenvorbereitung}
 
 \begin{itemize}
 \item
@@ -3365,7 +3438,7 @@ Regressionsmodell mit mehreren Prädiktoren erstellt und evaluiert.
   Testdatensätze, um die Modellleistung zu evaluieren.
 \end{itemize}
 
-\subsubsection{5.2 Modelltraining und
+\subsubsection{Modelltraining und
 -evaluation}\label{modelltraining-und--evaluation}
 
 \begin{itemize}
@@ -3386,536 +3459,207 @@ Diagramme)}\label{ergebnisse-statistische-ergebnisse-zahlen-diagramme}
 \subsection{\texorpdfstring{\textbf{Deskriptive
 Statistik}}{Deskriptive Statistik}}\label{deskriptive-statistik-1}
 
-\subsection{\texorpdfstring{\textbf{Korrelationsanalyse für
-Zürich}}{Korrelationsanalyse für Zürich}}\label{korrelationsanalyse-fuxfcr-zuxfcrich}
+\subsection{\texorpdfstring{\textbf{Korrelationsanalyse}}{Korrelationsanalyse}}\label{korrelationsanalyse-1}
 
-\begin{verbatim}
-                                                                                 Variable
-price_in_usd                                                                 price_in_usd
-calculated_host_listings_count_private_rooms calculated_host_listings_count_private_rooms
-maximum_maximum_nights                                             maximum_maximum_nights
-maximum_nights_avg_ntm                                             maximum_nights_avg_ntm
-availability_365                                                         availability_365
-host_listings_count                                                   host_listings_count
-calculated_host_listings_count                             calculated_host_listings_count
-host_total_listings_count                                       host_total_listings_count
-calculated_host_listings_count_entire_homes   calculated_host_listings_count_entire_homes
-accommodates                                                                 accommodates
-                                             Correlation
-price_in_usd                                   0.4542442
-calculated_host_listings_count_private_rooms   0.2535651
-maximum_maximum_nights                         0.1956353
-maximum_nights_avg_ntm                         0.1956247
-availability_365                               0.1921820
-host_listings_count                           -0.1772248
-calculated_host_listings_count                -0.1908500
-host_total_listings_count                     -0.2005601
-calculated_host_listings_count_entire_homes   -0.2062654
-accommodates                                  -0.2531237
-\end{verbatim}
-
-Die Korrelationen von \texttt{price\_per\_person} mit verschiedenen
-Variablen geben Einblicke in die Faktoren, die den Preis pro Person in
-Zürich beeinflussen. Hier sind die wichtigsten Schlussfolgerungen:
-
-\subsubsection{Positive Korrelationen}\label{positive-korrelationen}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{\texttt{price\_in\_usd} (0.4542)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Ein höherer Gesamtpreis
-    (\texttt{price\_in\_usd}) führt tendenziell zu einem höheren Preis
-    pro Person. Dies ist zu erwarten, da teurere Unterkünfte auch pro
-    Person mehr kosten.
-  \end{itemize}
-\item
-  \textbf{\texttt{calculated\_host\_listings\_count\_private\_rooms}
-  (0.2536)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr private Zimmer im Angebot des Hosts
-    stehen im Zusammenhang mit einem höheren Preis pro Person. Dies
-    könnte darauf hinweisen, dass Hosts mit mehr privaten Zimmern
-    tendenziell höhere Preise verlangen.
-  \end{itemize}
-\item
-  \textbf{\texttt{maximum\_maximum\_nights} (0.1956)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Längere maximale Aufenthaltsdauer steht
-    im Zusammenhang mit einem höheren Preis pro Person. Dies könnte
-    darauf hindeuten, dass Unterkünfte, die längere Aufenthalte
-    erlauben, tendenziell höher bepreist sind.
-  \end{itemize}
-\item
-  \textbf{\texttt{maximum\_nights\_avg\_ntm} (0.1956)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Eine höhere durchschnittliche maximale
-    Aufenthaltsdauer im Monat steht im Zusammenhang mit einem höheren
-    Preis pro Person, was ähnliche Gründe wie bei
-    \texttt{maximum\_maximum\_nights} haben könnte.
-  \end{itemize}
-\item
-  \textbf{\texttt{availability\_365} (0.1922)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Höhere Verfügbarkeit über das ganze Jahr
-    steht im Zusammenhang mit einem höheren Preis pro Person. Dies
-    könnte darauf hindeuten, dass Unterkünfte, die ganzjährig verfügbar
-    sind, tendenziell höhere Preise verlangen.
-  \end{itemize}
-\end{enumerate}
-
-\subsubsection{Negative Korrelationen}\label{negative-korrelationen}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{\texttt{host\_listings\_count} (-0.1772)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Hosts mit mehr Listings haben tendenziell
-    niedrigere Preise pro Person. Dies könnte darauf hinweisen, dass
-    Hosts mit vielen Listings ihre Preise wettbewerbsfähiger gestalten
-    müssen.
-  \end{itemize}
-\item
-  \textbf{\texttt{calculated\_host\_listings\_count} (-0.1909)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Eine höhere Gesamtzahl von Listings des
-    Hosts steht im Zusammenhang mit einem niedrigeren Preis pro Person.
-    Auch hier könnte Wettbewerb eine Rolle spielen.
-  \end{itemize}
-\item
-  \textbf{\texttt{host\_total\_listings\_count} (-0.2006)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr Listings des Hosts insgesamt stehen
-    im Zusammenhang mit einem niedrigeren Preis pro Person, was die
-    obigen Schlussfolgerungen weiter unterstützt.
-  \end{itemize}
-\item
-  \textbf{\texttt{calculated\_host\_listings\_count\_entire\_homes}
-  (-0.2063)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr ganze Wohnungen im Angebot des Hosts
-    stehen im Zusammenhang mit einem niedrigeren Preis pro Person. Dies
-    könnte darauf hindeuten, dass Hosts, die viele ganze Wohnungen
-    anbieten, ihre Preise wettbewerbsfähiger gestalten.
-  \end{itemize}
-\item
-  \textbf{\texttt{accommodates} (-0.2531)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr verfügbare Plätze/Betten stehen im
-    Zusammenhang mit einem niedrigeren Preis pro Person. Dies deutet
-    darauf hin, dass größere Unterkünfte tendenziell weniger pro Person
-    kosten, möglicherweise wegen der Skaleneffekte oder der
-    Notwendigkeit, größere Gruppen anzuziehen.
-  \end{itemize}
-\end{enumerate}
-
-\subsection{Gesamtfazit}\label{gesamtfazit}
-
-In Zürich zeigt sich eine deutliche Beziehung zwischen dem Preis pro
-Person und verschiedenen Attributen der Unterkunft sowie des Hosts:
+\subsubsection{Zürich}\label{zuxfcrich}
 
 \begin{itemize}
 \item
-  \textbf{Positive Einflüsse:} Ein höherer Gesamtpreis, mehr private
-  Zimmer und längere maximale Aufenthaltsdauern korrelieren mit höheren
-  Preisen pro Person. Dies weist darauf hin, dass exklusive und flexible
-  Unterkünfte höher bepreist werden.
+  \textbf{Positive Korrelationen:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{\texttt{price\_in\_usd} (0.4542):} Höherer Gesamtpreis →
+    höherer Preis pro Person.
+  \item
+    \textbf{\texttt{calculated\_host\_listings\_count\_private\_rooms}
+    (0.2536):} Mehr private Zimmer → höherer Preis pro Person.
+  \item
+    \textbf{\texttt{maximum\_maximum\_nights} (0.1956) \&
+    \texttt{maximum\_nights\_avg\_ntm} (0.1956):} Längere maximale
+    Aufenthaltsdauer → höherer Preis pro Person.
+  \item
+    \textbf{\texttt{availability\_365} (0.1922):} Ganzjährige
+    Verfügbarkeit → höherer Preis pro Person.
+  \end{itemize}
 \item
-  \textbf{Negative Einflüsse:} Eine höhere Anzahl von Listings und mehr
-  verfügbare Plätze/Betten korrelieren mit niedrigeren Preisen pro
-  Person. Dies deutet darauf hin, dass Hosts mit vielen Unterkünften
-  oder größeren Kapazitäten ihre Preise wettbewerbsfähiger gestalten
-  müssen, um die Nachfrage aufrechtzuerhalten.
+  \textbf{Negative Korrelationen:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{\texttt{host\_listings\_count} (-0.1772),
+    \texttt{calculated\_host\_listings\_count} (-0.1909),
+    \texttt{host\_total\_listings\_count} (-0.2006),
+    \texttt{calculated\_host\_listings\_count\_entire\_homes}
+    (-0.2063):} Mehr Listings → niedrigerer Preis pro Person.
+  \item
+    \textbf{\texttt{accommodates} (-0.2531):} Mehr Plätze/Betten →
+    niedrigerer Preis pro Person.
+  \end{itemize}
 \end{itemize}
 
-\subsection{\texorpdfstring{\textbf{Korrelationsanalyse für
-Vaud}}{Korrelationsanalyse für Vaud}}\label{korrelationsanalyse-fuxfcr-vaud}
-
-\begin{verbatim}
-                                                                                 Variable
-price_in_usd                                                                 price_in_usd
-calculated_host_listings_count_private_rooms calculated_host_listings_count_private_rooms
-availability_90                                                           availability_90
-availability_365                                                         availability_365
-availability_30                                                           availability_30
-last_review                                                                   last_review
-reviews_per_month                                                       reviews_per_month
-longitude                                                                       longitude
-beds                                                                                 beds
-accommodates                                                                 accommodates
-                                             Correlation
-price_in_usd                                  0.23693392
-calculated_host_listings_count_private_rooms  0.16544766
-availability_90                               0.11326407
-availability_365                              0.09965564
-availability_30                               0.08908862
-last_review                                  -0.08200293
-reviews_per_month                            -0.10425461
-longitude                                    -0.13489130
-beds                                         -0.20903491
-accommodates                                 -0.31302499
-\end{verbatim}
-
-Die Korrelationen von \texttt{price\_per\_person} mit verschiedenen
-Variablen in der Stadt Vaud geben Einblicke in die Faktoren, die den
-Preis pro Person beeinflussen. Hier sind die wichtigsten
-Schlussfolgerungen:
-
-\subsubsection{Positive Korrelationen}\label{positive-korrelationen-1}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{\texttt{price\_in\_usd} (0.2369)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Ein höherer Gesamtpreis
-    (\texttt{price\_in\_usd}) führt tendenziell zu einem höheren Preis
-    pro Person. Dies ist zu erwarten, da teurere Unterkünfte auch pro
-    Person mehr kosten.
-  \end{itemize}
-\item
-  \textbf{\texttt{calculated\_host\_listings\_count\_private\_rooms}
-  (0.1654)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr private Zimmer im Angebot des Hosts
-    stehen im Zusammenhang mit einem höheren Preis pro Person. Dies
-    könnte darauf hinweisen, dass Hosts mit mehr privaten Zimmern
-    tendenziell höhere Preise verlangen.
-  \end{itemize}
-\item
-  \textbf{\texttt{availability\_90} (0.1133)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Höhere Verfügbarkeit über die nächsten 90
-    Tage steht im Zusammenhang mit einem höheren Preis pro Person. Dies
-    könnte darauf hindeuten, dass Unterkünfte, die kurzfristig verfügbar
-    sind, tendenziell höher bepreist sind.
-  \end{itemize}
-\item
-  \textbf{\texttt{availability\_365} (0.0997)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Höhere Verfügbarkeit über das ganze Jahr
-    steht im Zusammenhang mit einem höheren Preis pro Person. Dies
-    könnte darauf hindeuten, dass Unterkünfte, die ganzjährig verfügbar
-    sind, tendenziell höhere Preise verlangen.
-  \end{itemize}
-\item
-  \textbf{\texttt{availability\_30} (0.0891)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Höhere Verfügbarkeit über die nächsten 30
-    Tage steht im Zusammenhang mit einem höheren Preis pro Person. Dies
-    deutet darauf hin, dass kurzfristige Verfügbarkeiten möglicherweise
-    höher bepreist werden.
-  \end{itemize}
-\end{enumerate}
-
-\subsubsection{Negative Korrelationen}\label{negative-korrelationen-1}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{\texttt{last\_review} (-0.0820)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Länger zurückliegende letzte Bewertung
-    steht im Zusammenhang mit einem niedrigeren Preis pro Person. Dies
-    könnte darauf hindeuten, dass aktuellere Bewertungen höhere Preise
-    unterstützen.
-  \end{itemize}
-\item
-  \textbf{\texttt{reviews\_per\_month} (-0.1043)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr Bewertungen pro Monat stehen im
-    Zusammenhang mit einem niedrigeren Preis pro Person. Dies könnte
-    darauf hindeuten, dass häufiger bewertete Unterkünfte tendenziell
-    günstiger sind.
-  \end{itemize}
-\item
-  \textbf{\texttt{longitude} (-0.1349)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Östlichere Längengrade stehen im
-    Zusammenhang mit einem niedrigeren Preis pro Person. Dies könnte auf
-    eine geografische Preisstruktur hinweisen.
-  \end{itemize}
-\item
-  \textbf{\texttt{beds} (-0.2090)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr Betten stehen im Zusammenhang mit
-    einem niedrigeren Preis pro Person. Dies deutet darauf hin, dass
-    größere Unterkünfte tendenziell weniger pro Person kosten,
-    möglicherweise aufgrund von Skaleneffekten.
-  \end{itemize}
-\item
-  \textbf{\texttt{accommodates} (-0.3130)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr verfügbare Plätze/Betten stehen im
-    Zusammenhang mit einem niedrigeren Preis pro Person. Dies deutet
-    darauf hin, dass Unterkünfte mit größerer Kapazität tendenziell
-    niedrigere Preise pro Person haben.
-  \end{itemize}
-\end{enumerate}
-
-\subsection{Gesamtfazit}\label{gesamtfazit-1}
-
-In Vaud zeigt sich eine Beziehung zwischen dem Preis pro Person und
-verschiedenen Attributen der Unterkunft sowie des Hosts:
+\subsubsection{Vaud}\label{vaud}
 
 \begin{itemize}
 \item
-  \textbf{Positive Einflüsse:} Ein höherer Gesamtpreis, mehr private
-  Zimmer und höhere Verfügbarkeiten über verschiedene Zeiträume
-  korrelieren mit höheren Preisen pro Person. Dies weist darauf hin,
-  dass exklusive und kurzfristig verfügbare Unterkünfte höher bepreist
-  werden.
+  \textbf{Positive Korrelationen:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{\texttt{price\_in\_usd} (0.2369):} Höherer Gesamtpreis →
+    höherer Preis pro Person.
+  \item
+    \textbf{\texttt{calculated\_host\_listings\_count\_private\_rooms}
+    (0.1654):} Mehr private Zimmer → höherer Preis pro Person.
+  \item
+    \textbf{\texttt{availability\_90} (0.1133),
+    \texttt{availability\_365} (0.0997), \texttt{availability\_30}
+    (0.0891):} Höhere Verfügbarkeit → höherer Preis pro Person.
+  \end{itemize}
 \item
-  \textbf{Negative Einflüsse:} Länger zurückliegende Bewertungen, mehr
-  Bewertungen pro Monat, östlichere Längengrade, mehr Betten und mehr
-  verfügbare Plätze/Betten korrelieren mit niedrigeren Preisen pro
-  Person. Dies deutet darauf hin, dass größere Unterkünfte und häufiger
-  bewertete Unterkünfte tendenziell niedrigere Preise pro Person haben.
+  \textbf{Negative Korrelationen:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{\texttt{last\_review} (-0.0820):} Länger zurückliegende
+    letzte Bewertung → niedrigerer Preis pro Person.
+  \item
+    \textbf{\texttt{reviews\_per\_month} (-0.1043):} Mehr Bewertungen
+    pro Monat → niedrigerer Preis pro Person.
+  \item
+    \textbf{\texttt{longitude} (-0.1349):} Östlichere Längengrade →
+    niedrigerer Preis pro Person.
+  \item
+    \textbf{\texttt{beds} (-0.2090) \& \texttt{accommodates} (-0.3130):}
+    Mehr Betten/Plätze → niedrigerer Preis pro Person.
+  \end{itemize}
 \end{itemize}
 
-\subsection{\texorpdfstring{\textbf{Korrelationsanalyse für
-Geneva}}{Korrelationsanalyse für Geneva}}\label{korrelationsanalyse-fuxfcr-geneva}
-
-\begin{verbatim}
-                                                                                 Variable
-price_in_usd                                                                 price_in_usd
-calculated_host_listings_count_private_rooms calculated_host_listings_count_private_rooms
-availability_30                                                           availability_30
-availability_60                                                           availability_60
-availability_90                                                           availability_90
-maximum_minimum_nights                                             maximum_minimum_nights
-number_of_reviews_l30d                                             number_of_reviews_l30d
-minimum_maximum_nights                                             minimum_maximum_nights
-reviews_per_month                                                       reviews_per_month
-accommodates                                                                 accommodates
-                                             Correlation
-price_in_usd                                  0.39023328
-calculated_host_listings_count_private_rooms  0.26617718
-availability_30                               0.22458686
-availability_60                               0.21839815
-availability_90                               0.19910964
-maximum_minimum_nights                       -0.09071858
-number_of_reviews_l30d                       -0.09567412
-minimum_maximum_nights                       -0.09659685
-reviews_per_month                            -0.09755197
-accommodates                                 -0.21850008
-\end{verbatim}
-
-Die Korrelationen von \texttt{price\_per\_person} mit verschiedenen
-Variablen in der Stadt Geneva geben Einblicke in die Faktoren, die den
-Preis pro Person beeinflussen. Hier sind die wichtigsten
-Schlussfolgerungen:
-
-\subsubsection{Positive Korrelationen}\label{positive-korrelationen-2}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{\texttt{price\_in\_usd} (0.3902)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Ein höherer Gesamtpreis
-    (\texttt{price\_in\_usd}) führt tendenziell zu einem höheren Preis
-    pro Person. Dies ist zu erwarten, da teurere Unterkünfte auch pro
-    Person mehr kosten.
-  \end{itemize}
-\item
-  \textbf{\texttt{calculated\_host\_listings\_count\_private\_rooms}
-  (0.2662)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr private Zimmer im Angebot des Hosts
-    stehen im Zusammenhang mit einem höheren Preis pro Person. Dies
-    könnte darauf hinweisen, dass Hosts mit mehr privaten Zimmern
-    tendenziell höhere Preise verlangen.
-  \end{itemize}
-\item
-  \textbf{\texttt{availability\_30} (0.2246)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Höhere Verfügbarkeit über die nächsten 30
-    Tage steht im Zusammenhang mit einem höheren Preis pro Person. Dies
-    deutet darauf hin, dass kurzfristige Verfügbarkeiten möglicherweise
-    höher bepreist werden.
-  \end{itemize}
-\item
-  \textbf{\texttt{availability\_60} (0.2184)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Höhere Verfügbarkeit über die nächsten 60
-    Tage steht im Zusammenhang mit einem höheren Preis pro Person. Dies
-    könnte darauf hindeuten, dass Unterkünfte, die kurzfristig verfügbar
-    sind, tendenziell höher bepreist sind.
-  \end{itemize}
-\item
-  \textbf{\texttt{availability\_90} (0.1991)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Höhere Verfügbarkeit über die nächsten 90
-    Tage steht im Zusammenhang mit einem höheren Preis pro Person. Dies
-    deutet darauf hin, dass kurzfristige Verfügbarkeiten möglicherweise
-    höher bepreist werden.
-  \end{itemize}
-\end{enumerate}
-
-\subsubsection{Negative Korrelationen}\label{negative-korrelationen-2}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{\texttt{maximum\_minimum\_nights} (-0.0907)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Höhere minimale Aufenthaltsdauer steht im
-    Zusammenhang mit einem niedrigeren Preis pro Person. Dies könnte
-    darauf hindeuten, dass Unterkünfte, die längere Mindestaufenthalte
-    erfordern, tendenziell niedrigere Preise pro Person haben.
-  \end{itemize}
-\item
-  \textbf{\texttt{number\_of\_reviews\_l30d} (-0.0957)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr Bewertungen in den letzten 30 Tagen
-    stehen im Zusammenhang mit einem niedrigeren Preis pro Person. Dies
-    könnte darauf hindeuten, dass häufiger bewertete Unterkünfte
-    tendenziell günstiger sind.
-  \end{itemize}
-\item
-  \textbf{\texttt{minimum\_maximum\_nights} (-0.0966)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Höhere minimale maximale Aufenthaltsdauer
-    steht im Zusammenhang mit einem niedrigeren Preis pro Person. Dies
-    könnte darauf hindeuten, dass Unterkünfte mit längeren maximalen
-    Mindestaufenthalten tendenziell niedrigere Preise pro Person haben.
-  \end{itemize}
-\item
-  \textbf{\texttt{reviews\_per\_month} (-0.0976)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr Bewertungen pro Monat stehen im
-    Zusammenhang mit einem niedrigeren Preis pro Person. Dies deutet
-    darauf hin, dass häufiger bewertete Unterkünfte tendenziell
-    günstiger sind.
-  \end{itemize}
-\item
-  \textbf{\texttt{accommodates} (-0.2185)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{Schlussfolgerung:} Mehr verfügbare Plätze/Betten stehen im
-    Zusammenhang mit einem niedrigeren Preis pro Person. Dies deutet
-    darauf hin, dass größere Unterkünfte tendenziell weniger pro Person
-    kosten, möglicherweise aufgrund von Skaleneffekten.
-  \end{itemize}
-\end{enumerate}
-
-\subsection{Gesamtfazit}\label{gesamtfazit-2}
-
-In Geneva zeigt sich eine Beziehung zwischen dem Preis pro Person und
-verschiedenen Attributen der Unterkunft sowie des Hosts:
+\subsubsection{Geneva}\label{geneva}
 
 \begin{itemize}
 \item
-  \textbf{Positive Einflüsse:} Ein höherer Gesamtpreis, mehr private
-  Zimmer und höhere Verfügbarkeiten über verschiedene Zeiträume
-  korrelieren mit höheren Preisen pro Person. Dies weist darauf hin,
-  dass exklusive und kurzfristig verfügbare Unterkünfte höher bepreist
-  werden.
+  \textbf{Positive Korrelationen:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{\texttt{price\_in\_usd} (0.3902):} Höherer Gesamtpreis →
+    höherer Preis pro Person.
+  \item
+    \textbf{\texttt{calculated\_host\_listings\_count\_private\_rooms}
+    (0.2662):} Mehr private Zimmer → höherer Preis pro Person.
+  \item
+    \textbf{\texttt{availability\_30} (0.2246),
+    \texttt{availability\_60} (0.2184), \texttt{availability\_90}
+    (0.1991):} Höhere Verfügbarkeit → höherer Preis pro Person.
+  \end{itemize}
 \item
-  \textbf{Negative Einflüsse:} Höhere minimale Aufenthaltsdauern, mehr
-  Bewertungen in den letzten 30 Tagen, höhere minimale maximale
-  Aufenthaltsdauern, mehr Bewertungen pro Monat und mehr verfügbare
-  Plätze/Betten korrelieren mit niedrigeren Preisen pro Person. Dies
-  deutet darauf hin, dass größere Unterkünfte und häufiger bewertete
-  Unterkünfte tendenziell niedrigere Preise pro Person haben.
+  \textbf{Negative Korrelationen:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{\texttt{maximum\_minimum\_nights} (-0.0907):} Höhere
+    minimale Aufenthaltsdauer → niedrigerer Preis pro Person.
+  \item
+    \textbf{\texttt{number\_of\_reviews\_l30d} (-0.0957):} Mehr
+    Bewertungen in den letzten 30 Tagen → niedrigerer Preis pro Person.
+  \item
+    \textbf{\texttt{minimum\_maximum\_nights} (-0.0966):} Höhere
+    minimale maximale Aufenthaltsdauer → niedrigerer Preis pro Person.
+  \item
+    \textbf{\texttt{reviews\_per\_month} (-0.0976):} Mehr Bewertungen
+    pro Monat → niedrigerer Preis pro Person.
+  \item
+    \textbf{\texttt{accommodates} (-0.2185):} Mehr Plätze/Betten →
+    niedrigerer Preis pro Person.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Gesamtschlussfolgerungen}\label{gesamtschlussfolgerungen}
+
+Die Analyse der Korrelationen von \texttt{price\_per\_person} mit
+verschiedenen Variablen in den Städten Zürich, Vaud und Geneva liefert
+wertvolle Einblicke in die Faktoren, die den Preis pro Person
+beeinflussen. Hier sind die ausführlicheren Schlussfolgerungen:
+
+\begin{itemize}
+\item
+  \textbf{Höherer Gesamtpreis (\texttt{price\_in\_usd})}: In allen drei
+  Städten zeigt sich eine positive Korrelation zwischen dem Gesamtpreis
+  und dem Preis pro Person. Dies bedeutet, dass teurere Unterkünfte auch
+  pro Person mehr kosten. Dies ist intuitiv, da eine höhere Grundmiete
+  oft höhere Pro-Kopf-Kosten nach sich zieht.
+\item
+  \textbf{Mehr private Zimmer
+  (\texttt{calculated\_host\_listings\_count\_private\_rooms})}:
+  Ebenfalls in allen drei Städten korreliert die Anzahl der privaten
+  Zimmer im Angebot des Hosts positiv mit dem Preis pro Person. Dies
+  könnte darauf hinweisen, dass Hosts, die mehr private Zimmer anbieten,
+  tendenziell höhere Preise verlangen, möglicherweise aufgrund der
+  höheren Privatsphäre und Exklusivität.
+\item
+  \textbf{Kurzfristige und langfristige Verfügbarkeit}: In Geneva und
+  Vaud zeigt die Verfügbarkeit der Unterkunft über verschiedene
+  Zeiträume (30, 60, 90 Tage und das ganze Jahr) eine positive
+  Korrelation mit dem Preis pro Person. Dies deutet darauf hin, dass
+  Unterkünfte, die sowohl kurzfristig als auch langfristig verfügbar
+  sind, tendenziell höher bepreist werden. Es könnte sein, dass diese
+  Unterkünfte eine höhere Nachfrage bedienen oder flexiblere
+  Buchungsoptionen bieten, die höher bewertet werden.
+\item
+  \textbf{Häufigkeit der Bewertungen (\texttt{reviews\_per\_month},
+  \texttt{number\_of\_reviews\_l30d})}: In Vaud und Geneva gibt es eine
+  negative Korrelation zwischen der Anzahl der Bewertungen pro Monat und
+  dem Preis pro Person. Dies könnte darauf hindeuten, dass Unterkünfte,
+  die häufiger bewertet werden, tendenziell günstiger sind. Diese
+  Unterkünfte könnten eine breitere Zielgruppe ansprechen,
+  einschließlich preisbewusster Reisender, was zu häufigeren Buchungen
+  und somit zu mehr Bewertungen führt.
+\item
+  \textbf{Zeit seit der letzten Bewertung (\texttt{last\_review})}: In
+  Vaud zeigt sich eine leichte negative Korrelation zwischen der Zeit
+  seit der letzten Bewertung und dem Preis pro Person. Dies könnte
+  darauf hinweisen, dass aktuellere Bewertungen mit höheren Preisen pro
+  Person verbunden sind, möglicherweise weil aktuelle Bewertungen das
+  Vertrauen und die Attraktivität der Unterkunft erhöhen.
+\item
+  \textbf{Anzahl der Listings (\texttt{host\_listings\_count},
+  \texttt{calculated\_host\_listings\_count},
+  \texttt{host\_total\_listings\_count},
+  \texttt{calculated\_host\_listings\_count\_entire\_homes})}: In Zürich
+  zeigen mehrere Variablen, die die Anzahl der Listings des Hosts
+  messen, eine negative Korrelation mit dem Preis pro Person. Dies
+  deutet darauf hin, dass Hosts mit vielen Listings ihre Preise
+  wettbewerbsfähiger gestalten müssen, um die Nachfrage zu halten.
+  Größere Host-Operationen könnten Skaleneffekte nutzen, um niedrigere
+  Preise anzubieten.
+\item
+  \textbf{Anzahl der Betten und verfügbare Plätze (\texttt{beds},
+  \texttt{accommodates})}: In allen drei Städten zeigen sich negative
+  Korrelationen zwischen der Anzahl der Betten bzw. der verfügbaren
+  Plätze und dem Preis pro Person. Dies weist darauf hin, dass größere
+  Unterkünfte tendenziell niedrigere Pro-Kopf-Kosten haben. Dies könnte
+  auf Skaleneffekte oder die Notwendigkeit, größere Gruppen anzuziehen,
+  zurückzuführen sein.
+\item
+  \textbf{Geografische Koordinaten (\texttt{longitude},
+  \texttt{latitude})}: In Vaud zeigt der Längengrad eine signifikante
+  negative Korrelation mit dem Preis pro Person, was auf eine
+  geografische Preisstruktur hindeuten könnte. Dies könnte bedeuten,
+  dass östlichere Lagen tendenziell günstiger sind. In Zürich und Geneva
+  sind die geografischen Koordinaten nicht signifikant.
 \end{itemize}
 
 \subsection{\texorpdfstring{\textbf{Lineare
 Regression}}{Lineare Regression}}\label{lineare-regression-1}
 
-\subsubsection{1. Bewertung der
+\subsubsection{Bewertung der
 Airbnb-Unterkünfte}\label{bewertung-der-airbnb-unterkuxfcnfte}
 
 \textbf{Hypothesen:}
@@ -3986,7 +3730,7 @@ Airbnb-Unterkünfte}\label{bewertung-der-airbnb-unterkuxfcnfte}
   Kommunikationsbewertung ist grenzwertig signifikant negativ.
 \end{itemize}
 
-\subsubsection{2. Gastgeber der
+\subsubsection{Gastgeber der
 Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}
 
 \textbf{Hypothesen:}
@@ -4055,7 +3799,7 @@ Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}
   signifikanten Einfluss auf den Preis pro Person.
 \end{itemize}
 
-\subsubsection{3. Lage des Airbnb}\label{lage-des-airbnb}
+\subsubsection{Lage des Airbnb}\label{lage-des-airbnb}
 
 \textbf{Hypothesen:}
 
@@ -4133,103 +3877,89 @@ Airbnb-Unterkunft}\label{gastgeber-der-airbnb-unterkunft}
 
 \subsection{\texorpdfstring{\textbf{Visualisierung}}{Visualisierung}}\label{visualisierung-1}
 
+Die folgenden Plots zeigen die Korrelationen des Preis pro Person
+(\texttt{price\_per\_person}) in den verschiedenen Städten. Anhand
+dieser Diagramme lässt sich leicht erkennen, dass einige Korrelationen
+viel stärker positiv oder negativ ausfallen. Diese starken Korrelationen
+sollten genauer untersucht werden, um ihre Ursachen und Auswirkungen
+besser zu verstehen.
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-15-1.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-15-2.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-15-3.pdf}
+
+\subsubsection{Lineare Regression für
+Zürich}\label{lineare-regression-fuxfcr-zuxfcrich}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-16-1.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-16-2.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-16-3.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-16-4.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-16-5.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-16-6.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-16-7.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-16-8.pdf}
+
+\subsubsection{Lineare Regression für
+Vaud}\label{lineare-regression-fuxfcr-vaud}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-17-1.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-17-2.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-17-3.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-17-4.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-17-5.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-17-6.pdf}
+
+\subsubsection{Lineare Regression für
+Geneva}\label{lineare-regression-fuxfcr-geneva}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-18-1.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-18-2.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-18-3.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-18-4.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-18-5.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-18-6.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-18-7.pdf}
+
+\includegraphics{main_files/figure-pdf/unnamed-chunk-18-8.pdf}
+
+\subsubsection{Schlussfolgerung}\label{schlussfolgerung}
+
+Die verschiedenen Grafiken und deren lineare Regressionen liefern
+interessante Einblicke in die Beziehung zwischen den untersuchten
+Variablen und dem Preis pro Person. Allerdings zeigen die Ergebnisse,
+dass viele der unabhängigen Variablen nur einen geringen Einfluss auf
+den Preis pro Person haben.
+
+Zusammenfassend lässt sich sagen, dass die meisten untersuchten
+Variablen keinen starken Einfluss auf den Preis pro Person haben. Dies
+könnte darauf hindeuten, dass andere, nicht berücksichtigte Faktoren
+eine größere Rolle spielen oder dass die Märkte in diesen Städten
+relativ homogen sind. Weitere Untersuchungen könnten sich auf
+zusätzliche Variablen oder nicht-lineare Modelle konzentrieren, um
+potenzielle Einflussfaktoren besser zu identifizieren.
+
 \subsection{Predictive Analysis}\label{predictive-analysis-1}
-
-Die bereinigten Datensets der verschiedenen Orten sind alle gleich
-aufgebaut. Da wir den Preis der einzelnen Airbnb Apparment anschauen
-möchten ist dies unser wichtigster Wert:
-
-\begin{verbatim}
-Error: <text>:2:293: unerwartetes Symbol
-2: per_person, x = 1)) +    geom_boxplot(fill = "blue", color = "black", alpha = 0.7, width = 0.2) +   labs(title = "Verteilung der Preise in USD", y = "Preis (USD)") +   theme_minimal() +   scal
-                                                                                                                                                                                                                                                                                                        ^
-\end{verbatim}
-
-Nun ist stellt sich die Frage welche anderen Eigenschaften die grösste
-Auswirkung auf den Preis haben. Dazu gilt es herauszufinden wie die
-Korrelationen zwischen dem Preis pro USD und den anderen Attributen
-sind.
-
-Die Korrelationen der verschiedenen Variablen mit dem Preis
-(\textbf{\texttt{price\_per\_person}}) im Datensatz können wichtige
-Einsichten bieten, welche Faktoren den Preis beeinflussen.
-
-\begin{itemize}
-\item
-  \textbf{Starke positive Korrelation:}
-
-  \begin{itemize}
-  \item
-    \textbf{price\_in\_usd (0.45):} Der Gesamtpreis in USD zeigt eine
-    starke positive Korrelation mit dem Preis pro Person. Dies ist
-    intuitiv sinnvoll, da teurere Appartements auch höhere Preise pro
-    Person haben.
-  \item
-    \textbf{availability\_365 (0.19), availability\_60 (0.16),
-    availability\_90 (0.16), availability\_30 (0.16):} Die
-    Verfügbarkeitsmetriken zeigen alle eine positive Korrelation, was
-    darauf hindeutet, dass Appartements mit höheren Preisen pro Person
-    tendenziell länger verfügbar sind.
-  \end{itemize}
-\item
-  \textbf{Starke negative Korrelation:}
-
-  \begin{itemize}
-  \item
-    \textbf{accommodates (-0.25):} Die Anzahl der Personen, die eine
-    Unterkunft aufnehmen kann, zeigt eine deutliche negative
-    Korrelation. Größere Unterkünfte haben tendenziell niedrigere Preise
-    pro Person.
-  \item
-    \textbf{host\_total\_listings\_count (-0.20):} Gastgeber mit mehr
-    Angeboten haben tendenziell niedrigere Preise pro Person, was auf
-    Effizienz oder eine andere Preispolitik hinweisen könnte.
-  \item
-    \textbf{host\_listings\_count (-0.18):} Ähnlich wie bei der
-    Gesamtanzahl der Listings, zeigt auch die Anzahl der Listings pro
-    Gastgeber eine negative Korrelation.
-  \end{itemize}
-\item
-  \textbf{Moderate Korrelation:}
-
-  \begin{itemize}
-  \item
-    \textbf{review\_scores\_location (0.11):} Der
-    Standortbewertungs-Score zeigt eine moderate positive Korrelation.
-    Bessere Lagen können höhere Preise pro Person rechtfertigen.
-  \item
-    \textbf{host\_id (0.11), host\_since (0.10):} Diese zeigen leichte
-    positive Korrelationen, was darauf hindeutet, dass erfahrenere oder
-    etablierte Gastgeber höhere Preise verlangen könnten.
-  \end{itemize}
-\item
-  \textbf{Geringe oder keine Korrelation:}
-
-  \begin{itemize}
-  \item
-    \textbf{latitude (-0.04), longitude (0.04):} Geografische
-    Koordinaten zeigen eine sehr geringe Korrelation, was darauf
-    hinweist, dass die genaue Lage (abgesehen von den Stadtteilen) nicht
-    stark mit dem Preis pro Person zusammenhängt.
-  \item
-    \textbf{review\_scores\_cleanliness (0.07), review\_scores\_accuracy
-    (0.02), review\_scores\_communication (0.02):} Bewertungen in diesen
-    Kategorien zeigen nur sehr geringe positive Korrelationen.
-  \end{itemize}
-\item
-  \textbf{Überraschend negative Korrelationen:}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{number\_of\_reviews\_l30d (-0.13):} Eine höhere Anzahl von
-    Bewertungen in den letzten 30 Tagen korreliert negativ mit dem Preis
-    pro Person, was darauf hindeuten könnte, dass viel frequentierte
-    Unterkünfte eventuell günstigere Preise anbieten.
-  \end{itemize}
-\end{itemize}
-
-\section{}\label{section}
 
 \begin{verbatim}
 Error: <text>:1:15: unerwartetes Symbol
@@ -4270,6 +4000,101 @@ Bewertungen selbst wesentliche Faktoren bei der Preisgestaltung sind.
 
 \section{7. Schlussfolgerung (Beantwortung der
 Frage)}\label{schlussfolgerung-beantwortung-der-frage}
+
+In diesem Kapitel fassen wir die wichtigsten Ergebnisse unserer Analyse
+zusammen und beantworten die eingangs gestellte Forschungsfrage:
+``Welche Eigenschaften einer Airbnb-Unterkunft ziehen Gäste an und
+ermöglichen es, einen höheren Preis pro Apartment zu erzielen?''
+
+\subsection{Bewertung der
+Airbnb-Unterkünfte}\label{bewertung-der-airbnb-unterkuxfcnfte-1}
+
+Unsere Analyse zeigte, dass die Sauberkeitsbewertung
+(review\_scores\_cleanliness) einen signifikanten positiven Einfluss auf
+den Preis pro Person in allen drei untersuchten Städten (Zürich, Vaud
+und Genf) hat. Dies deutet darauf hin, dass Gäste bereit sind, mehr für
+Unterkünfte zu zahlen, die als besonders sauber bewertet wurden. Die
+Gesamtbewertung (review\_scores\_rating) und die Kommunikationsbewertung
+(review\_scores\_communication) hatten hingegen keinen einheitlich
+signifikanten Einfluss auf den Preis.
+
+\subsection{Gastgeber der
+Airbnb-Unterkünfte}\label{gastgeber-der-airbnb-unterkuxfcnfte}
+
+Die Untersuchung der Gastgebermerkmale ergab, dass in Zürich die Anzahl
+der Listings eines Hosts (host\_listings\_count) einen signifikant
+negativen Einfluss auf den Preis pro Person hat. Dies könnte darauf
+hindeuten, dass Gastgeber mit vielen Angeboten möglicherweise niedrigere
+Preise anbieten, um die Auslastung zu maximieren. Der Status als
+Superhost (host\_is\_superhost) und die Verifizierung des Hosts
+(host\_identity\_verified) hatten hingegen keinen konsistenten
+signifikanten Einfluss auf den Preis.
+
+\subsection{Lage der
+Airbnb-Unterkünfte}\label{lage-der-airbnb-unterkuxfcnfte}
+
+Die geografische Analyse zeigte, dass in Vaud der Längengrad (longitude)
+einen signifikant negativen Einfluss auf den Preis pro Person hat. Dies
+könnte auf spezifische regionale Preisunterschiede hinweisen. In Zürich
+und Genf hatten die geografischen Koordinaten jedoch keinen
+signifikanten Einfluss auf den Preis.
+
+\subsection{Predictive Analysis}\label{predictive-analysis-2}
+
+NOCH ERLEDIGEN
+
+Unsere prädiktive Analyse zeigte, dass die Verfügbarkeit der Unterkunft
+über 365 Tage (availability\_365), die Anzahl der Bewertungen
+(number\_of\_reviews) und die Sauberkeitsbewertung
+(review\_scores\_cleanliness) wesentliche Prädiktoren für den Preis pro
+Person sind. Das entwickelte Vorhersagemodell zeigte jedoch eine
+begrenzte Vorhersagegenauigkeit, was auf die Komplexität und die vielen
+Einflussfaktoren des Preises hinweist.
+
+NOCH ERLEDIGEN
+
+\subsection{Empfehlungen für
+Gastgeber}\label{empfehlungen-fuxfcr-gastgeber}
+
+Auf Basis unserer Ergebnisse können folgende Empfehlungen für Gastgeber
+abgeleitet werden, um den Preis pro Person ihrer Unterkünfte zu
+maximieren:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Sauberkeit verbessern}: Da die Sauberkeitsbewertung einen
+  signifikanten Einfluss auf den Preis hat, sollten Gastgeber
+  sicherstellen, dass ihre Unterkünfte stets sauber und gepflegt sind,
+  um positive Bewertungen in diesem Bereich zu erhalten.
+\item
+  \textbf{Anzahl der Listings optimieren}: Gastgeber mit vielen Listings
+  sollten ihre Preisstrategie überprüfen und möglicherweise höhere
+  Preise für besonders exklusive oder gut bewertete Unterkünfte
+  festlegen.
+\item
+  \textbf{Geografische Preisstrategien anwenden}: Insbesondere in
+  Regionen wie Vaud sollten Gastgeber die lokale Preisstruktur
+  berücksichtigen und ihre Preise entsprechend anpassen.
+\end{enumerate}
+
+\subsection{Beantwortung der
+Forschungsfrage}\label{beantwortung-der-forschungsfrage}
+
+Zusammenfassend lässt sich sagen, dass die Sauberkeitsbewertung einer
+Unterkunft, die Verfügbarkeit der Unterkunft und die Anzahl der Listings
+eines Hosts die wichtigsten Faktoren sind, die den Preis pro Person
+einer Airbnb-Unterkunft beeinflussen. Gastgeber sollten daher auf diese
+Merkmale achten, um ihre Einnahmen zu maximieren.
+
+\subsection{Weiterführende Forschung}\label{weiterfuxfchrende-forschung}
+
+Für zukünftige Untersuchungen wäre es sinnvoll, zusätzliche Daten über
+längere Zeiträume zu sammeln, um den Einfluss saisonaler Ereignisse und
+Trends besser zu verstehen. Zudem könnten nicht-lineare Modelle oder
+maschinelle Lernverfahren eingesetzt werden, um die Komplexität der
+Einflussfaktoren besser abzubilden und genauere Vorhersagen zu
+ermöglichen.
 
 \section*{8. Referenzen}\label{referenzen}
 \addcontentsline{toc}{section}{8. Referenzen}
