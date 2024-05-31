@@ -893,19 +893,23 @@ print(plot_geneva)
 ```
 
 ### Lineare Regression für Zürich, Vaud und Geneva
+Die Y Achse ist jeweils der Preis pro Person
 
 ```{r}
-# Funktion zur Erstellung eines Streudiagramms mit Regressionslinie für mehrere Variablen
-plot_multiple_regressions <- function(data, x_vars, y_var, title) {
+library(ggplot2)
+library(gridExtra)
+
+# Funktion zur Erstellung eines Streudiagramms mit Regressionslinie für mehrere Variablen mit einem Titel
+plot_multiple_regressions_single_title <- function(data, x_vars, y_var, main_title) {
   plots <- lapply(x_vars, function(x_var) {
     ggplot(data, aes_string(x = x_var, y = y_var)) +
       geom_point(alpha = 0.5) +
       geom_smooth(method = "lm", color = "blue") +
       theme_minimal() +
-      labs(title = title, x = x_var, y = y_var)
+      labs(x = x_var, y = "")
   })
   
-  gridExtra::grid.arrange(grobs = plots, ncol = 1)
+  grid.arrange(grobs = plots, ncol = 1, top = main_title)
 }
 
 # Variablen für Bewertungen, Gastgeber und Lage
@@ -914,31 +918,31 @@ host_vars <- c("host_is_superhost", "host_identity_verified", "host_listings_cou
 location_vars <- c("longitude", "latitude")
 
 # Plot für Bewertungen in Zürich
-plot_multiple_regressions(df_zuerich_cleaned, rating_vars, "price_per_person", "Zürich - Bewertungen")
+plot_multiple_regressions_single_title(df_zuerich_cleaned, rating_vars, "price_per_person", "Zürich - Bewertungen")
 
 # Plot für Gastgeber in Zürich
-plot_multiple_regressions(df_zuerich_cleaned, host_vars, "price_per_person", "Zürich - Gastgeber")
+plot_multiple_regressions_single_title(df_zuerich_cleaned, host_vars, "price_per_person", "Zürich - Gastgeber")
 
 # Plot für Lage in Zürich
-plot_multiple_regressions(df_zuerich_cleaned, location_vars, "price_per_person", "Zürich - Lage")
+plot_multiple_regressions_single_title(df_zuerich_cleaned, location_vars, "price_per_person", "Zürich - Lage")
 
 # Plot für Bewertungen in Vaud
-plot_multiple_regressions(df_vaud_cleaned, rating_vars, "price_per_person", "Vaud - Bewertungen")
+plot_multiple_regressions_single_title(df_vaud_cleaned, rating_vars, "price_per_person", "Vaud - Bewertungen")
 
 # Plot für Gastgeber in Vaud
-plot_multiple_regressions(df_vaud_cleaned, host_vars, "price_per_person", "Vaud - Gastgeber")
+plot_multiple_regressions_single_title(df_vaud_cleaned, host_vars, "price_per_person", "Vaud - Gastgeber")
 
 # Plot für Lage in Vaud
-plot_multiple_regressions(df_vaud_cleaned, location_vars, "price_per_person", "Vaud - Lage")
+plot_multiple_regressions_single_title(df_vaud_cleaned, location_vars, "price_per_person", "Vaud - Lage")
 
 # Plot für Bewertungen in Geneva
-plot_multiple_regressions(df_geneva_cleaned, rating_vars, "price_per_person", "Geneva - Bewertungen")
+plot_multiple_regressions_single_title(df_geneva_cleaned, rating_vars, "price_per_person", "Geneva - Bewertungen")
 
 # Plot für Gastgeber in Geneva
-plot_multiple_regressions(df_geneva_cleaned, host_vars, "price_per_person", "Geneva - Gastgeber")
+plot_multiple_regressions_single_title(df_geneva_cleaned, host_vars, "price_per_person", "Geneva - Gastgeber")
 
 # Plot für Lage in Geneva
-plot_multiple_regressions(df_geneva_cleaned, location_vars, "price_per_person", "Geneva - Lage")
+plot_multiple_regressions_single_title(df_geneva_cleaned, location_vars, "price_per_person", "Geneva - Lage")
 
 ```
 
