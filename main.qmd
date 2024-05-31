@@ -378,13 +378,9 @@ Um die Forschungsfragen zu beantworten und die Hypothesen zu testen, wurden vers
 
 ### **Deskriptive Statistik**
 
-Die deskriptive Statistik liefert grundlegende Informationen über die Struktur und Verteilung der Daten. Ziel ist es, einen Überblick über die Daten zu bekommen und mögliche Anomalien oder interessante Muster zu erkennen.
+Die deskriptive Statistik liefert grundlegende Informationen über die Struktur und Verteilung der Daten. Ziel ist es, einen Überblick über die Daten zu bekommen und mögliche Anomalien oder interessante Muster zu erkennen. Wir möchten damit ein grundlegendes Verständnis über die Datenstruktur und die Verteilung der Variablen erlangen. Dafür untersuchen wir die Attribute Preis pro Person und Bewertung.
 
--   **Ziel:** Ein grundlegendes Verständnis der Datenstruktur und Verteilung der Variablen zu erlangen.
-
--   **Massnahmen:** Die verschiedenen Statistiken und die verschiedenen Attribute aufzeigen. Berechnung von Mittelwerten, Medianen und Standardabweichungen. Einfache Visualisierung der für die Fragen wichtigsten Attribute.
-
-Kurze Übersicht über die Datensets Zürich, Vaud und Geneva
+Kurze Übersicht über die Datensets Zürich, Vaud und Geneva:
 
 ```{r descriptive zurich, results = FALSE}
 # Deskriptive Statistik für numerische Variablen
@@ -478,11 +474,7 @@ ggplot(df_zuerich_cleaned, aes(y = review_scores_rating)) +
 
 ### **Korrelationsanalyse**
 
-Die Korrelationsanalyse untersucht die Stärke und Richtung der Beziehung zwischen verschiedenen numerischen Variablen. Pearson-Korrelationskoeffizienten wurden berechnet, um zu quantifizieren, wie stark zwei Variablen miteinander variieren.
-
--   **Ziel:** Identifikation von Zusammenhängen zwischen den Variablen, insbesondere zwischen den Bewertungen, Host-Informationen, geografischen Daten und dem Preis pro Person.
-
--   **Massnahmen:** Korrelationskoeffizienten berechnen und die Top 5 der positiven und negativen Korrelationen angeben.
+Die Korrelationsanalyse untersucht die Stärke und Richtung der Beziehung zwischen verschiedenen numerischen Variablen. Pearson-Korrelationskoeffizienten wurden berechnet, um zu quantifizieren, wie stark zwei Variablen miteinander variieren. Die Idee ist, Zusammenhänge zwischen Variablen zu finden, insbesondere zwischen den Bewertungen, Host-Informationen, geografischen Daten und dem Preis pro Person. Dafür berechnen wir den Korrelationskoeffizienten und gehen auf die Top 5 der positiven und negativen Korrelationen ein.
 
 ```{r correlation, warning=FALSE}
 calculate_correlations <- function(data) {
@@ -534,11 +526,7 @@ print(calculate_correlations(df_geneva_cleaned))
 
 ### **Lineare Regression**
 
-Die lineare Regression wurde verwendet, um die Beziehung zwischen einer abhängigen Variable (Preis pro Person) und einer oder mehreren unabhängigen Variablen zu modellieren. Dies hilft, die Auswirkungen der unabhängigen Variablen auf die abhängige Variable zu quantifizieren und Vorhersagen zu treffen.
-
--   **Ziel:** Untersuchung des Einflusses einzelner Variablen (z.B. Bewertungen, Host-Attribute, Entfernung zum Stadtzentrum) auf den Preis pro Person.
-
--   **Massnahmen:** Aufbau mehrerer linearer Regressionsmodelle, um den Einfluss spezifischer unabhängiger Variablen auf die abhängige Variable (Preis pro Person) zu analysieren.
+Die lineare Regression wurde verwendet, um die Beziehung zwischen einer abhängigen Variable (Preis pro Person) und einer oder mehreren unabhängigen Variablen zu modellieren. Dies hilft, die Auswirkungen der unabhängigen Variablen auf die abhängige Variable zu quantifizieren und Vorhersagen zu treffen. Dafür untersuchen wir den Einfluss einzelner Variablen (z.B. Bewertungen, Host-Attribute, Entfernung zum Stadtzentrum) auf den Preis pro Person, um unsere Hypothesen zu überprüfen. Weiterhin erstellen wir mehrere lineare Regressionsmodelle, um den Einfluss spezifischer unabhängiger Variablen auf die abhängige Variable (Preis pro Person) zu analysieren.
 
 ```{r, results='hide'}
 # Funktion zur Durchführung der linearen Regression
@@ -585,11 +573,7 @@ for (city in names(city_data_list)){
 
 ### **Visualisierung**
 
-Verschiedene Arten von Plots wurden verwendet, um die Ergebnisse der deskriptiven Statistik, der Korrelationsanalyse und der Regressionsmodelle zu visualisieren.
-
--   **Ziel:** Verständliche Darstellung der Ergebnisse und Identifikation von Mustern in den Daten.
-
--   **Massnahmen:** Erstellung von Scatterplots, Boxplots und Aufzeigen der Regressionen zur Visualisierung der Beziehungen zwischen den Variablen.
+Verschiedene Arten von Plots wurden verwendet, um die Ergebnisse der deskriptiven Statistik, der Korrelationsanalyse und der Regressionsmodelle zu visualisieren. Das Ziel der Visualisierung ist es, eine verständliche Darstellung der Ergebnisse zu bieten und Muster in den Daten zu identifizieren.
 
 ```{r}
 # Funktion zur Berechnung der Korrelationen
