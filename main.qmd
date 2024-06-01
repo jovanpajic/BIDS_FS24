@@ -91,7 +91,6 @@ Trotz dieser kleinen Unregelmässigkeiten ist die Datenqualität insgesamt hoch,
 library(readr)
 library(dplyr)
 library(ggplot2)
-library(patr)
 library(tidyr)
 library(tidyverse)
 library(broom)
@@ -845,7 +844,7 @@ plot_correlations <- function(cor_df, title, num_top_bottom = 10) {
     geom_bar(stat = "identity", fill = "steelblue") +
     coord_flip() +
     theme_minimal() +
-    labs(title = title, subtitle = "Die 20 Variablen mit dem höchsten Wert", x = "Variable", y = "Korrelation")
+    labs(title = title, subtitle = "Die 20 Variablen mit dem höchsten Wert", x = "", y = "Korrelation")
 }
 
 
@@ -861,6 +860,7 @@ print(plot_geneva)
 ```
 
 ### Lineare Regression für Zürich, Vaud und Geneva
+
 Die Y Achse ist jeweils der Preis pro Person
 
 ```{r}
