@@ -60,9 +60,9 @@ Weitere wichtige Eigenschaften sind Ereignisse (z.B. Zürich: Streetparade, Zür
 
 **Prädiktive Analyse:** Wir möchten den Trend des Preises pro Person der Unterkunft aufzeigen und untersuchen, ob wir mithilfe der Bewertung und den wichtigsten Eigenschaften einer Unterkunft eine Prognose über den Preis machen können.
 
-**Präskriptive Analyse:** Wir möchten zeigen, welche Eigenschaften wie verbessert werden müssen, um die Preise pro Person der Unterkunft signifikant erhöhen zu können, um einen höheren Preis erzielen zu können.
+**Präskriptive Analyse:** In diesem Dokument wird keine präskriptive Analyse umgesetzt.
 
-#Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
+# Datenquelle (mit Angaben zu Quelle, Qualität und Bereinigungsschritten der Daten)
 
 Die Daten für diese Analyse stammen von der Inside Airbnb Organisation [@inside-airbnb-2023], die sich dafür einsetzt, ihre Gemeinden vor den negativen Auswirkungen von Kurzzeitvermietungen zu schützen. Diese Organisation sammelt und veröffentlicht regelmässig aktualisierte Datensätze, die aus öffentlich verfügbaren Informationen auf der Airbnb-Website stammen. Diese Datensätze würden wir als Vertrauenswürdig einstufen.
 
@@ -980,11 +980,7 @@ Die geografische Analyse zeigte, dass in Vaud der Längengrad (longitude) einen 
 
 ## Predictive Analysis
 
-Die prädiktive Analyse hat gezeigt, dass die entwickelten Modelle für Zürich und Vaud recht genaue Vorhersagen des Preises pro Person einer Unterkunft liefern. Die wichtigsten Prädiktoren in diesen Regionen sind der Preis in USD, die Anzahl der privaten Zimmer und die Kapazität der Unterkunft. Diese Faktoren spielen eine entscheidende Rolle bei der Preisgestaltung.
-
-Das Modell für Genf hingegen weist eine geringere Genauigkeit auf, was auf grössere Abweichungen zwischen den vorhergesagten und tatsächlichen Preisen hinweist. Dies deutet darauf hin, dass zusätzliche oder andere relevante Variablen identifiziert und in das Modell integriert werden müssen, um die Vorhersagegenauigkeit zu verbessern.
-
-Zusammenfassend lässt sich sagen, dass die Modelle für Zürich und Vaud vielversprechend sind, während das Modell für Genf noch Verbesserungspotenzial hat. Zukünftige Analysen sollten sich darauf konzentrieren, die prädiktiven Variablen für Genf weiter zu untersuchen und zu optimieren.
+Die Analyse zeigt, dass wir den Preis pro Person einer Unterkunft erfolgreich prognostizieren können, wobei die besten Prädiktoren der Preis in USD, die Anzahl der privaten Zimmer und die Kapazität der Unterkunft sind. Für Zürich und Vaud liefern die Modelle relativ genaue Vorhersagen (R² von 0.796 und 0.718), während das Modell für Genf eine geringere Genauigkeit aufweist (R² von 0.532) und Verbesserungspotenzial hat.
 
 ## Empfehlungen für Gastgeber
 
